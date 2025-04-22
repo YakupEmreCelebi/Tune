@@ -18,6 +18,7 @@ public class TuneFrame extends Scene {
 
     public TuneFrame() {
         super(new StackPane() , 800,600);
+        this.getStylesheets().add(getClass().getResource("navBar.css").toExternalForm());
         navigateBar = new NavigateBar();
 
         Image backgroundImage = new Image(getClass().getResourceAsStream("/com/example/demo/Tune_Background.png"));

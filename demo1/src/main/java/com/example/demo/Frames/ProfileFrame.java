@@ -20,6 +20,7 @@ public class ProfileFrame extends Scene {
 
     public ProfileFrame() {
         super(new StackPane(), 800 , 600);
+        this.getStylesheets().add(getClass().getResource("navBar.css").toExternalForm());
 
         navigateBar = new NavigateBar();
         scrollerNodes = new ArrayList<>();
