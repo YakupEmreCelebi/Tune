@@ -70,13 +70,14 @@ public class SettingsFrame extends Scene {
         aboutVBox.setPrefWidth(450);
         aboutVBox.setPadding(new Insets(10,0,15,20));
 
+        navigateBar = new NavigateBar();
+
 
         accountVBox.getChildren().addAll(accountLabel, emailButton, passwordButton);
         aboutVBox.getChildren().addAll(aboutLabel, aboutUsButton, aboutTuneButton);
 
         container.getChildren().addAll(settingsLabel, accountVBox, aboutVBox);
 
-        navigateBar = new NavigateBar();
         HBox layout = (HBox) getRoot();
         layout.getChildren().addAll(navigateBar, container);
     }

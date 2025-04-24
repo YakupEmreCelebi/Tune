@@ -9,14 +9,14 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
-public class PopUpUpdate extends Scene implements PopUp {
+public class PopUpUpdate extends PopUp{
 
     Label label;
     TextField textField;
     Button updateButton;
 
     public PopUpUpdate(String title) {
-        super(new VBox(), 350,150);
+        super();
 
         label = new Label(title);
         textField = new TextField();

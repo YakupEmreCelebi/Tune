@@ -1,8 +1,9 @@
 package com.example.demo.Controller;
 
+//a
+//b
 import com.example.demo.Frames.*;
 import com.example.demo.PopUpFrames.PopUpUpdate;
-import com.example.demo.SpecialNodes.NavigateBar;
 import com.example.demo.Stage.PopUpStage;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;

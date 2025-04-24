@@ -1,6 +1,7 @@
 package com.example.demo;
 
 import com.example.demo.Controller.Controller;
+import com.example.demo.SpecialNodes.NavigateBar;
 import javafx.application.Application;
 import javafx.stage.Stage;
 
@@ -10,6 +11,7 @@ public class Start extends Application {
         Controller controller = new Controller(stage);
         controller.initScenes();
         controller.showWelcomeFrame();
+
     }
 
     public static void main(String[] args) {

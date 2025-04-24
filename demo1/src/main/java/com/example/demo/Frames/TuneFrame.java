@@ -19,7 +19,6 @@ public class TuneFrame extends Scene {
     public TuneFrame() {
         super(new StackPane() , 800,600);
         this.getStylesheets().add(getClass().getResource("navBar.css").toExternalForm());
-        navigateBar = new NavigateBar();
 
         Image backgroundImage = new Image(getClass().getResourceAsStream("/com/example/demo/Tune_Background.png"));
         backgroundImageView = new ImageView(backgroundImage);
@@ -36,6 +35,8 @@ public class TuneFrame extends Scene {
         Pane pane = new Pane();
         pane.getChildren().addAll(a, b, c);
 
+        navigateBar = new NavigateBar();
+
         StackPane layout = (StackPane) getRoot();
 
 
@@ -49,7 +50,6 @@ public class TuneFrame extends Scene {
     public NavigateBar getNavigateBar() {
         return navigateBar;
     }
-
 
     public class tuneButton extends Button {
 
