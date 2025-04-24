@@ -1,6 +1,8 @@
-package com.example.demo.Model;
+package com.example.demo.Model.API;
 
+import org.apache.hc.core5.http.ParseException;
 import se.michaelthelin.spotify.SpotifyApi;
+import se.michaelthelin.spotify.SpotifyHttpManager;
 import se.michaelthelin.spotify.exceptions.SpotifyWebApiException;
 import se.michaelthelin.spotify.model_objects.credentials.AuthorizationCodeCredentials;
 import se.michaelthelin.spotify.requests.authorization.authorization_code.AuthorizationCodeRequest;
@@ -8,33 +10,26 @@ import se.michaelthelin.spotify.requests.authorization.authorization_code.Author
 
 import java.io.IOException;
 import java.net.URI;
-import org.apache.hc.core5.http.ParseException;
 import java.util.concurrent.CancellationException;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.CompletionException;
 
-public class API {
+public class ApiTest {
     private static final String clientId = "6ce50f7b030d41b2ae7860ef9f3910fa";
-    private static final String clientSecret = "18c08ce201e74c75ba3a6cba157e3000";
-    private static final URI redirectUri = URI.create("https://drallin.com/");
-    private static final String code = "";
+    private static final String clientSecret = "07b795002e534cc79136087888e498db";
+    private static final URI redirectUri = SpotifyHttpManager.makeUri("https://drallin.com/");
+    private static final String code = "AQDT9Nveg9IBh8G91Levnm5J9RixjGnFK2QUe9yBr2LYrLj9tk_U0iyhLY_-nFkr1N2v-h3HQXRohkmHk2jhKYh8rPbATnHs4VCl4tAcSKHCV6hjVK6cDSNMXL6MVVfcZHnpt9NQcXKLWc0vuThSA_NKWj_6HrX2";
 
-    private static SpotifyApi spotifyApi = new SpotifyApi.Builder()
-                .setClientId("6ce50f7b030d41b2ae7860ef9f3910fa")
-                .setClientSecret("18c08ce201e74c75ba3a6cba157e3000")
-                .setRedirectUri(URI.create("https://drallin.com/"))
-                .build();
-
-
+    private static final SpotifyApi spotifyApi = new SpotifyApi.Builder()
+            .setClientId(clientId)
+            .setClientSecret(clientSecret)
+            .setRedirectUri(redirectUri)
+            .build();
     private static final AuthorizationCodeUriRequest authorizationCodeUriRequest = spotifyApi.authorizationCodeUri()
 //          .state("x4xkmn9pu3j6ukrs8n")
 //          .scope("user-read-birthdate,user-read-email")
 //          .show_dialog(true)
             .build();
-
-    private static final AuthorizationCodeRequest authorizationCodeRequest = spotifyApi.authorizationCode(code)
-            .build();
-
 
     public static void authorizationCodeUri_Sync() {
         final URI uri = authorizationCodeUriRequest.execute();
@@ -58,6 +53,9 @@ public class API {
             System.out.println("Async operation cancelled.");
         }
     }
+
+    private static final AuthorizationCodeRequest authorizationCodeRequest = spotifyApi.authorizationCode(code)
+            .build();
 
     public static void authorizationCode_Sync() {
         try {
@@ -100,5 +98,4 @@ public class API {
         authorizationCode_Sync();
         authorizationCode_Async();
     }
-
 }

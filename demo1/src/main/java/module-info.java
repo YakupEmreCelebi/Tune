@@ -14,4 +14,6 @@ module com.example.demo {
     opens com.example.demo.SpecialNodes to javafx.fxml;
     exports com.example.demo.Frames;
     opens com.example.demo.Frames to javafx.fxml;
+    exports com.example.demo.Model;
+    opens com.example.demo.Model to javafx.fxml;
 }
