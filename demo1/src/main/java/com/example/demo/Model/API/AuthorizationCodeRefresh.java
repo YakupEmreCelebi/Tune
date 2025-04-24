@@ -12,15 +12,8 @@ import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.CompletionException;
 
 public class AuthorizationCodeRefresh {
-    private static final String clientId = "6ce50f7b030d41b2ae7860ef9f3910fa";
-    private static final String clientSecret = "07b795002e534cc79136087888e498db";
-    private static final String refreshToken = "AQDPp4dWMhpRxsDOeVJ6X3dEALK8VYpWcAFazi8WtE2P4jTpDjnFmjPTFLoAppkJeDRMXROw02MXuJ4S_5ORs0x9oXgxL9o-Qf4D7rnDfcquGTe2dS01KWW7MWE_1dAqodY";
+    private static final SpotifyApi spotifyApi = ApiTest.spotifyApi;
 
-    private static final SpotifyApi spotifyApi = new SpotifyApi.Builder()
-            .setClientId(clientId)
-            .setClientSecret(clientSecret)
-            .setRefreshToken(refreshToken)
-            .build();
     private static final AuthorizationCodeRefreshRequest authorizationCodeRefreshRequest = spotifyApi.authorizationCodeRefresh()
             .build();
 

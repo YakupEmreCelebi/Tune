@@ -5,21 +5,23 @@ import se.michaelthelin.spotify.SpotifyHttpManager;
 import se.michaelthelin.spotify.requests.authorization.authorization_code.AuthorizationCodeUriRequest;
 
 import java.net.URI;
+import java.security.NoSuchAlgorithmException;
 import java.util.concurrent.CancellationException;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.CompletionException;
 
-public class AuthorizationCodeUri {
+public class AuthorizationCodePKCEUri {
     private static final String clientId = ApiTest.clientId;
-    private static final String clientSecret = ApiTest.clientSecret;
     private static final URI redirectUri = ApiTest.redirectUri;
+    private static final String codeChallenge = "WVfwUFu-JPSgVisGv2HFOmCDHmhiWaKjPhpAH_kKBlw";
+
+
     private static final SpotifyApi spotifyApi = new SpotifyApi.Builder()
             .setClientId(clientId)
-            .setClientSecret(clientSecret)
             .setRedirectUri(redirectUri)
             .build();
 
-    private static final AuthorizationCodeUriRequest authorizationCodeUriRequest = spotifyApi.authorizationCodeUri()
+    private static final AuthorizationCodeUriRequest authorizationCodeUriRequest = spotifyApi.authorizationCodePKCEUri(codeChallenge)
 //          .state("x4xkmn9pu3j6ukrs8n")
 //          .scope("user-read-birthdate,user-read-email")
 //          .show_dialog(true)
@@ -49,7 +51,7 @@ public class AuthorizationCodeUri {
         }
     }
 
-    public static void main(String[] args) {
+    public static void main (String[]args){
         authorizationCodeUri_Sync();
         authorizationCodeUri_Async();
     }

@@ -4,7 +4,7 @@ import se.michaelthelin.spotify.SpotifyApi;
 import se.michaelthelin.spotify.SpotifyHttpManager;
 import se.michaelthelin.spotify.exceptions.SpotifyWebApiException;
 import se.michaelthelin.spotify.model_objects.credentials.AuthorizationCodeCredentials;
-import se.michaelthelin.spotify.requests.authorization.authorization_code.AuthorizationCodeRequest;
+import se.michaelthelin.spotify.requests.authorization.authorization_code.pkce.AuthorizationCodePKCERequest;
 import org.apache.hc.core5.http.ParseException;
 
 import java.io.IOException;
@@ -13,30 +13,30 @@ import java.util.concurrent.CancellationException;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.CompletionException;
 
-public class AuthorizationCode {
+public class AuthorizationCodePKCE {
     private static final String clientId = ApiTest.clientId;
-    private static final String clientSecret = ApiTest.clientSecret;
     private static final URI redirectUri = ApiTest.redirectUri;
-    private static final String code = "AQBeVpUqrKRWvDZAPRns35heaZ3nfG_AcOIA-qyMWk9ah8XOxz6ji82g1L3RTkxJh37nUmjwF_atafBlfarkb2RGZ98nCGAff6XfZXUUhUCeHfn3Hi13KK6Isqjr9EXJzanOSn7SuU_5nFz5ODPOhA2z6N5kDHJGPCLoJkOmjEsvdxllVpojiGN8Ync2qfPaKKH-_Q";
+    private static final String code = "AQBJhzPpyR83lslGn-UcofZUiwfTilXMX_zzCHwRDODCe99DeeSu7dOyk0tUoiVbqh5MpsvNGpYu2HWqefBJsCkiJB93bp-TQUaGI1ShZ-b4ZCVhsDbH8Bfte36MBjBPlDwA-zmB966DNsG4jhG842ZDxs5-VksEgyuBHuv87A9JzKQvoNQSwke0t9DYcnbT7pD0snMR2tEUWPQq_sPmQQYXMLohfltD9AZXLVnrCgYM6Jd63fa3cPu5Re5GD15hcApgjuYL9g";
+    private static final String codeVerifier = "99DHNvqD75eK8KRyn7p9y0PK1zmP4cUTRV8L0C5fEJ8";
 
     private static final SpotifyApi spotifyApi = new SpotifyApi.Builder()
             .setClientId(clientId)
-            .setClientSecret(clientSecret)
             .setRedirectUri(redirectUri)
             .build();
-    private static final AuthorizationCodeRequest authorizationCodeRequest = spotifyApi.authorizationCode(code)
+    private static final AuthorizationCodePKCERequest authorizationCodePKCERequest = spotifyApi.authorizationCodePKCE(code, codeVerifier)
             .build();
 
     public static void authorizationCode_Sync() {
         try {
-            final AuthorizationCodeCredentials authorizationCodeCredentials = authorizationCodeRequest.execute();
+            final AuthorizationCodeCredentials authorizationCodeCredentials = authorizationCodePKCERequest.execute();
 
             // Set access and refresh token for further "spotifyApi" object usage
             spotifyApi.setAccessToken(authorizationCodeCredentials.getAccessToken());
             spotifyApi.setRefreshToken(authorizationCodeCredentials.getRefreshToken());
 
-            System.out.println("Access Token: " + authorizationCodeCredentials.getAccessToken());
-            System.out.println("Refresh Token: " + authorizationCodeCredentials.getRefreshToken());
+            System.out.println("access token: " + authorizationCodeCredentials.getAccessToken());
+
+            System.out.println("refresh token: " + authorizationCodeCredentials.getRefreshToken());
 
             System.out.println("Expires in: " + authorizationCodeCredentials.getExpiresIn());
         } catch (IOException | SpotifyWebApiException | ParseException e) {
@@ -46,7 +46,7 @@ public class AuthorizationCode {
 
     public static void authorizationCode_Async() {
         try {
-            final CompletableFuture<AuthorizationCodeCredentials> authorizationCodeCredentialsFuture = authorizationCodeRequest.executeAsync();
+            final CompletableFuture<AuthorizationCodeCredentials> authorizationCodeCredentialsFuture = authorizationCodePKCERequest.executeAsync();
 
             // Thread free to do other tasks...
 
@@ -56,7 +56,6 @@ public class AuthorizationCode {
             // Set access and refresh token for further "spotifyApi" object usage
             spotifyApi.setAccessToken(authorizationCodeCredentials.getAccessToken());
             spotifyApi.setRefreshToken(authorizationCodeCredentials.getRefreshToken());
-
 
             System.out.println("Expires in: " + authorizationCodeCredentials.getExpiresIn());
         } catch (CompletionException e) {
