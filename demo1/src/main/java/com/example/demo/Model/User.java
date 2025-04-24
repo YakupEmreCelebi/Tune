@@ -3,23 +3,22 @@ package com.example.demo.Model;
 import java.util.ArrayList;
 
 public class User {
-    private int id;
+    private String email;
     private String username;
     private String password;
     private ArrayList<User> friends;
     private ArrayList<Song> favouriteSongs;
 
 
-    public User(String username, String password,int id,ArrayList<User> friends, ArrayList<Song> favouriteSongs) {
+    public User(String username, String password,ArrayList<User> friends, ArrayList<Song> favouriteSongs, String email) {
         this.username = username;
         this.password = password;
-        this.id = id;
         this.friends = friends;
         this.favouriteSongs = favouriteSongs;
+        this.email = email;
     }
 
     //Getters
-    public int getId() {return id;}
     public String getUsername() {return username;}
     public String getPassword() {return password;}
 
