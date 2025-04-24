@@ -15,13 +15,13 @@ public class PopUpUpdate extends PopUp{
     TextField textField;
     Button updateButton;
 
-    public PopUpUpdate(String title) {
+    public PopUpUpdate(String title, String textAreaPrompt, String buttonText) {
         super();
 
         label = new Label(title);
         textField = new TextField();
-        textField.setPromptText(title);
-        updateButton = new Button("UPDATE");
+        textField.setPromptText(textAreaPrompt);
+        updateButton = new Button(buttonText);
 
         VBox layout = (VBox) getRoot();
 

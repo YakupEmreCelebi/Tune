@@ -67,8 +67,8 @@ public class Controller {
         settingsFrame.getNavigateBar().getTuneButton().setOnAction(new goToTuneFrame());
         settingsFrame.getNavigateBar().getSettingsButton().setOnAction(new goToSettingsFrame());
 
-        settingsFrame.getEmailButton().setOnAction(e -> showPopUpUpdate("Email"));
-        settingsFrame.getPasswordButton().setOnAction(e -> showPopUpUpdate("Password"));
+        settingsFrame.getEmailButton().setOnAction(e -> showPopUpUpdate("Email", "Email", "Email"));
+        settingsFrame.getPasswordButton().setOnAction(e -> showPopUpUpdate("Password", "Password", "Password"));
 
 
     }
@@ -114,8 +114,8 @@ public class Controller {
         mainStage.show();
     }
 
-    public void showPopUpUpdate(String title){
-        PopUpUpdate popUpUpdate = new PopUpUpdate(title);
+    public void showPopUpUpdate(String title, String textAreaPrompt, String buttonText){
+        PopUpUpdate popUpUpdate = new PopUpUpdate(title, textAreaPrompt, buttonText);
         popUpStage.setScene(popUpUpdate);
         popUpStage.setTitle(title);
         popUpStage.show();
