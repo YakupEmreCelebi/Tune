@@ -1,6 +1,6 @@
-package com.example.demo.Frames;
+package com.example.demo.View.Frames;
 
-import com.example.demo.SpecialNodes.NavigateBar;
+import com.example.demo.View.SpecialNodes.NavigateBar;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.layout.VBox;

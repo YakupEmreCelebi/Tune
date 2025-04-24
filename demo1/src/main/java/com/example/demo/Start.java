@@ -1,7 +1,6 @@
 package com.example.demo;
 
 import com.example.demo.Controller.Controller;
-import com.example.demo.SpecialNodes.NavigateBar;
 import javafx.application.Application;
 import javafx.stage.Stage;
 

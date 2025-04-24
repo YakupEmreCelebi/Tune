@@ -1,7 +1,6 @@
-package com.example.demo.Frames;
+package com.example.demo.View.Frames;
 
-import com.example.demo.SpecialNodes.NavigateBar;
-import javafx.event.ActionEvent;
+import com.example.demo.View.SpecialNodes.NavigateBar;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;

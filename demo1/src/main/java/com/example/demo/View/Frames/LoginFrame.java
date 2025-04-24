@@ -1,6 +1,6 @@
-package com.example.demo.Frames;
+package com.example.demo.View.Frames;
 
-import com.example.demo.SpecialNodes.GeneralButton;
+import com.example.demo.View.SpecialNodes.GeneralButton;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;

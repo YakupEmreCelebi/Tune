@@ -1,4 +1,4 @@
-package com.example.demo.PopUpFrames;
+package com.example.demo.View.PopUpFrames;
 
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;

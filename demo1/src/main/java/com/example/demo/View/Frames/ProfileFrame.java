@@ -1,15 +1,13 @@
-package com.example.demo.Frames;
+package com.example.demo.View.Frames;
 
-import com.example.demo.SpecialNodes.NavigateBar;
-import com.example.demo.SpecialNodes.NodeScroller;
+import com.example.demo.View.SpecialNodes.NavigateBar;
+import com.example.demo.View.SpecialNodes.NodeScroller;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.layout.StackPane;
-import javafx.scene.layout.VBox;
 
-import java.awt.*;
 import java.util.ArrayList;
 
 public class ProfileFrame extends Scene {

@@ -1,6 +1,6 @@
-package com.example.demo.Frames;
+package com.example.demo.View.Frames;
 
-import com.example.demo.SpecialNodes.NavigateBar;
+import com.example.demo.View.SpecialNodes.NavigateBar;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -9,7 +9,6 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.shape.Circle;
-import javafx.scene.text.Font;
 
 public class TuneFrame extends Scene {
 

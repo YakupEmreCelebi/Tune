@@ -1,4 +1,4 @@
-package com.example.demo.SpecialNodes;
+package com.example.demo.View.SpecialNodes;
 
 import javafx.scene.Node;
 import javafx.scene.control.ScrollPane;

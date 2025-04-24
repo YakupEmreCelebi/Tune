@@ -1,4 +1,4 @@
-package com.example.demo.Stage;
+package com.example.demo.View.Stage;
 
 import javafx.stage.Stage;
 

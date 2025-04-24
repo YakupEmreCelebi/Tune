@@ -1,4 +1,4 @@
-package com.example.demo.SpecialNodes;
+package com.example.demo.View.SpecialNodes;
 
 import javafx.animation.*;
 import javafx.event.EventHandler;

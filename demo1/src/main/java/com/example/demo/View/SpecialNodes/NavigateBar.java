@@ -1,4 +1,4 @@
-package com.example.demo.SpecialNodes;
+package com.example.demo.View.SpecialNodes;
 
 import javafx.animation.FadeTransition;
 import javafx.animation.ScaleTransition;
@@ -11,13 +11,10 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.util.Duration;
-
-import javax.swing.text.Position;
 
 public class NavigateBar extends BorderPane {
 

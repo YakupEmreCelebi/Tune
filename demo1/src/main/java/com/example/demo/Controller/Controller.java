@@ -2,9 +2,9 @@ package com.example.demo.Controller;
 
 //a
 //b
-import com.example.demo.Frames.*;
-import com.example.demo.PopUpFrames.PopUpUpdate;
-import com.example.demo.Stage.PopUpStage;
+import com.example.demo.View.Frames.*;
+import com.example.demo.View.PopUpFrames.PopUpUpdate;
+import com.example.demo.View.Stage.PopUpStage;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.stage.Stage;
