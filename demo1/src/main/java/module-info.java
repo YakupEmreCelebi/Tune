@@ -2,6 +2,7 @@ module com.example.demo {
     requires javafx.controls;
     requires javafx.fxml;
     requires java.desktop;
+    requires se.michaelthelin.spotify;
 
 
     opens com.example.demo to javafx.fxml;
