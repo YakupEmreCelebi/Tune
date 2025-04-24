@@ -24,8 +24,8 @@ public class Song {
         this.genre = genre;
         this.mood = mood;
         this.imageView = imageView;
-
     }
+
 
     // Getters
     public Image getImage() {

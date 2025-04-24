@@ -1,12 +1,13 @@
 package com.example.demo;
+import com.example.demo.Model.Song;
+import com.example.demo.Model.TuneUser;
 
-import org.example.User;
 
 import java.util.ArrayList;
 
 public class Database {
 
-    public ArrayList<User> getAllFriendsFromDatabase(String username) {
+    public ArrayList<TuneUser> getAllFriendsFromDatabase(String username) {
 
         return new ArrayList<>();
     }
@@ -31,8 +32,8 @@ public class Database {
 
     }
 
-    public User getUserFromDatabase(String username) {
-        return new User();
+    public TuneUser getUserFromDatabase(String username) {
+        return new TuneUser();
     }
 
     public ArrayList<Song> getFavoritesFromDatabase(String username) {
