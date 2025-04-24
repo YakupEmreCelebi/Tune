@@ -11,7 +11,6 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
-import javafx.scene.text.Font;
 
 public class SettingsFrame extends Scene {
 
@@ -90,7 +89,7 @@ public class SettingsFrame extends Scene {
         Image infoImage = new Image(getClass().getResourceAsStream("/com/example/demo/info_ico.png"));
         infoImageView = new ImageView(infoImage);
         infoImageView.setPreserveRatio(true);
-        infoImageView.setFitWidth(18);
+        infoImageView.setFitWidth(20);
 
         Image pencilImage2 = new Image(getClass().getResourceAsStream("/com/example/demo/pencil_ico.png"));
         pencilImageView2 = new ImageView(pencilImage2);
@@ -100,7 +99,7 @@ public class SettingsFrame extends Scene {
         Image infoImage2 = new Image(getClass().getResourceAsStream("/com/example/demo/info_ico.png"));
         infoImageView2 = new ImageView(infoImage2);
         infoImageView2.setPreserveRatio(true);
-        infoImageView2.setFitWidth(18);
+        infoImageView2.setFitWidth(20);
 
 
     }
