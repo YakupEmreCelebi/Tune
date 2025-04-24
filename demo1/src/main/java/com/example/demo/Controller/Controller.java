@@ -19,6 +19,7 @@ public class Controller {
     private HomeFrame homeFrame;
     private ProfileFrame profileFrame;
     private TuneFrame tuneFrame;
+    private SettingsFrame settingsFrame;
 
     public Controller(Stage stage) {
         this.stage = stage;
@@ -31,6 +32,7 @@ public class Controller {
         homeFrame = new HomeFrame();
         profileFrame = new ProfileFrame();
         tuneFrame = new TuneFrame();
+        settingsFrame = new SettingsFrame();
 
         // Adding actions to the Buttons
         welcomeFrame.getLoginButton().setOnAction(new goToLoginFrame());
@@ -43,14 +45,22 @@ public class Controller {
         homeFrame.getNavigateBar().getProfileButton().setOnAction(new goToProfileFrame());
         homeFrame.getNavigateBar().getHomeButton().setOnAction(new goToHomeFrame());
         homeFrame.getNavigateBar().getTuneButton().setOnAction(new goToTuneFrame());
+        homeFrame.getNavigateBar().getSettingsButton().setOnAction(new goToSettingsFrame());
 
         profileFrame.getNavigateBar().getProfileButton().setOnAction(new goToProfileFrame());
         profileFrame.getNavigateBar().getHomeButton().setOnAction(new goToHomeFrame());
         profileFrame.getNavigateBar().getTuneButton().setOnAction(new goToTuneFrame());
+        profileFrame.getNavigateBar().getSettingsButton().setOnAction(new goToSettingsFrame());
 
         tuneFrame.getNavigateBar().getProfileButton().setOnAction(new goToProfileFrame());
         tuneFrame.getNavigateBar().getHomeButton().setOnAction(new goToHomeFrame());
         tuneFrame.getNavigateBar().getTuneButton().setOnAction(new goToTuneFrame());
+        tuneFrame.getNavigateBar().getSettingsButton().setOnAction(new goToSettingsFrame());
+
+        settingsFrame.getNavigateBar().getProfileButton().setOnAction(new goToProfileFrame());
+        settingsFrame.getNavigateBar().getHomeButton().setOnAction(new goToHomeFrame());
+        settingsFrame.getNavigateBar().getTuneButton().setOnAction(new goToTuneFrame());
+        settingsFrame.getNavigateBar().getSettingsButton().setOnAction(new goToSettingsFrame());
 
     }
 
@@ -77,6 +87,11 @@ public class Controller {
     public void showHomeFrame() {
         stage.setScene(homeFrame);
         stage.setTitle("HOME");
+        stage.show();
+    }
+    public void showSettingsFrame() {
+        stage.setScene(settingsFrame);
+        stage.setTitle("SETTINGS");
         stage.show();
     }
     public void showTuneFrame() {
@@ -133,6 +148,14 @@ public class Controller {
         @Override
         public void handle(ActionEvent actionEvent) {
             showTuneFrame();
+        }
+    }
+
+    private class goToSettingsFrame implements EventHandler<ActionEvent> {
+
+        @Override
+        public void handle(ActionEvent actionEvent) {
+            showSettingsFrame();
         }
     }
 
