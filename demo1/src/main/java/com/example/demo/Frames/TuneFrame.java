@@ -39,7 +39,7 @@ public class TuneFrame extends Scene {
         StackPane layout = (StackPane) getRoot();
 
 
-        layout.getChildren().addAll(backgroundImageView, navigateBar, pane);
+        layout.getChildren().addAll(backgroundImageView, pane, navigateBar);
         StackPane.setAlignment(navigateBar, Pos.TOP_LEFT);
         StackPane.setAlignment(backgroundImageView, Pos.TOP_RIGHT);
         StackPane.setAlignment(pane, Pos.CENTER);
