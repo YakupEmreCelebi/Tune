@@ -1,6 +1,7 @@
 package com.example.demo.Frames;
 
 import com.example.demo.SpecialNodes.NavigateBar;
+import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
@@ -137,5 +138,14 @@ public class SettingsFrame extends Scene {
                 }
             });
         }
+    }
+
+
+    public SettingsButton getEmailButton() {
+        return emailButton;
+    }
+
+    public SettingsButton getPasswordButton() {
+        return passwordButton;
     }
 }

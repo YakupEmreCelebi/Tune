@@ -3,16 +3,16 @@ package com.example.demo.Controller;
 //a
 //b
 import com.example.demo.Frames.*;
+import com.example.demo.PopUpFrames.PopUpUpdate;
+import com.example.demo.Stage.PopUpStage;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
-import javafx.scene.control.Button;
-import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 
 public class Controller {
 
     // Stage and Frames
-    private Stage stage;
+    private Stage mainStage;
     private WelcomeFrame welcomeFrame;
     private LoginFrame loginFrame;
     private SignUpFrame signUpFrame;
@@ -21,8 +21,10 @@ public class Controller {
     private TuneFrame tuneFrame;
     private SettingsFrame settingsFrame;
 
+    private PopUpStage popUpStage;
+
     public Controller(Stage stage) {
-        this.stage = stage;
+        this.mainStage = stage;
     }
 
     public void initScenes() {
@@ -33,6 +35,8 @@ public class Controller {
         profileFrame = new ProfileFrame();
         tuneFrame = new TuneFrame();
         settingsFrame = new SettingsFrame();
+
+        popUpStage = new PopUpStage();
 
         // Adding actions to the Buttons
         welcomeFrame.getLoginButton().setOnAction(new goToLoginFrame());
@@ -62,47 +66,59 @@ public class Controller {
         settingsFrame.getNavigateBar().getTuneButton().setOnAction(new goToTuneFrame());
         settingsFrame.getNavigateBar().getSettingsButton().setOnAction(new goToSettingsFrame());
 
+        settingsFrame.getEmailButton().setOnAction(e -> showPopUpUpdate("Email"));
+        settingsFrame.getPasswordButton().setOnAction(e -> showPopUpUpdate("Password"));
+
+
     }
 
 
 
     // Action event methods
     public void showWelcomeFrame() {
-        stage.setScene(welcomeFrame);
-        stage.setTitle("TUNE");
-        stage.show();
+        mainStage.setScene(welcomeFrame);
+        mainStage.setTitle("TUNE");
+        mainStage.show();
     }
 
     public void showLoginFrame() {
-        stage.setScene(loginFrame);
-        stage.setTitle("LOGIN");
-        stage.show();
+        mainStage.setScene(loginFrame);
+        mainStage.setTitle("LOGIN");
+        mainStage.show();
     }
 
     public void showSignupFrame() {
-        stage.setScene(signUpFrame);
-        stage.setTitle("SIGNUP");
-        stage.show();
+        mainStage.setScene(signUpFrame);
+        mainStage.setTitle("SIGNUP");
+        mainStage.show();
     }
     public void showHomeFrame() {
-        stage.setScene(homeFrame);
-        stage.setTitle("HOME");
-        stage.show();
+        mainStage.setScene(homeFrame);
+        mainStage.setTitle("HOME");
+        mainStage.show();
     }
     public void showSettingsFrame() {
-        stage.setScene(settingsFrame);
-        stage.setTitle("SETTINGS");
-        stage.show();
+        mainStage.setScene(settingsFrame);
+        mainStage.setTitle("SETTINGS");
+        mainStage.show();
     }
     public void showTuneFrame() {
-        stage.setScene(tuneFrame);
-        stage.setTitle("TUNE");
-        stage.show();
+        mainStage.setScene(tuneFrame);
+        mainStage.setTitle("TUNE");
+        mainStage.show();
     }
     public void showProfileFrame() {
-        stage.setScene(profileFrame);
-        stage.setTitle("PROFILE");
-        stage.show();
+        mainStage.setScene(profileFrame);
+        mainStage.setTitle("PROFILE");
+        mainStage.show();
+    }
+
+    public void showPopUpUpdate(String title){
+        PopUpUpdate popUpUpdate = new PopUpUpdate(title);
+        popUpStage.setScene(popUpUpdate);
+        popUpStage.setTitle(title);
+        popUpStage.show();
+
     }
 
     // Inner Classes for Events
