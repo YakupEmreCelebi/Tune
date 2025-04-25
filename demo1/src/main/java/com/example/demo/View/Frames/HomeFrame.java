@@ -27,6 +27,14 @@ public class HomeFrame extends Scene {
         layout.getChildren().addAll(navigateBar, label);
     }
 
+    private static double getScreenWidth() {
+        return javafx.stage.Screen.getPrimary().getVisualBounds().getWidth();
+    }
+
+    private static double getScreenHeight() {
+        return javafx.stage.Screen.getPrimary().getVisualBounds().getHeight();
+    }
+
     public NavigateBar getNavigateBar() {
         return navigateBar;
     }

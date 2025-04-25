@@ -21,15 +21,15 @@ public class WelcomeFrame extends Scene {
 
 
     public WelcomeFrame() {
-        super(new StackPane(), 800, 600);
+        super(new StackPane(), getScreenWidth(), getScreenHeight());
         this.getStylesheets().add(getClass().getResource("welcomeFrameStyle.css").toExternalForm());
 
 
         // Labels
         Label tuneLabel = new Label("TUNE");
-        tuneLabel.setFont(Font.font("Arial", FontWeight.BOLD, 30));
+        tuneLabel.setFont(Font.font("Arial", FontWeight.BOLD, 50));
         Label descriptionLabel = new Label("Start listening and\n discovering music");
-        descriptionLabel.setFont(Font.font("Arial", FontWeight.NORMAL, 20));
+        descriptionLabel.setFont(Font.font("Arial", FontWeight.NORMAL, 35));
 
         //Buttons
         loginButton = new GeneralButton("Login");
@@ -43,13 +43,13 @@ public class WelcomeFrame extends Scene {
 
 
         backgroundImageView = new ImageView(backgroundImage);
-        backgroundImageView.setFitWidth(800);
-        backgroundImageView.setFitHeight(600);
+        backgroundImageView.setFitWidth(getScreenWidth());
+        backgroundImageView.setFitHeight(getScreenHeight());
         backgroundImageView.setPreserveRatio(false);
 
         BorderPane pane = new BorderPane();
-        VBox vbox = new VBox(20);
-        HBox hbox = new HBox(20);
+        VBox vbox = new VBox(40);
+        HBox hbox = new HBox(40);
         hbox.getChildren().addAll(loginButton, signUpButton);
         vbox.getChildren().addAll(tuneLabel, descriptionLabel, hbox);
 
@@ -58,6 +58,14 @@ public class WelcomeFrame extends Scene {
 
         StackPane layout = (StackPane) getRoot();
         layout.getChildren().addAll(backgroundImageView, vbox);
+    }
+
+    private static double getScreenWidth() {
+        return javafx.stage.Screen.getPrimary().getVisualBounds().getWidth();
+    }
+
+    private static double getScreenHeight() {
+        return javafx.stage.Screen.getPrimary().getVisualBounds().getHeight();
     }
 
     // getters for Buttons
