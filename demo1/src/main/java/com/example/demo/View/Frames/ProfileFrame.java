@@ -17,7 +17,7 @@ public class ProfileFrame extends Scene {
     private NodeScroller scroller;
 
     public ProfileFrame() {
-        super(new StackPane(), 800 , 600);
+        super(new StackPane(), getScreenWidth() , getScreenHeight());
         this.getStylesheets().add(getClass().getResource("navBar.css").toExternalForm());
 
         scrollerNodes = new ArrayList<>();

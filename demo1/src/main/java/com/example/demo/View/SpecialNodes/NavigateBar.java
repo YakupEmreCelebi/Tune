@@ -33,12 +33,12 @@ public class NavigateBar extends BorderPane {
 
     public NavigateBar() {
 
-        topContents = new VBox(10);
+        topContents = new VBox(20);
 
         // Set Navigate Bar VBox (Color, size)
         this.setStyle("-fx-border-style: hidden solid hidden hidden; -fx-border-width: 1.5; -fx-border-color: black;");
-        this.setMaxWidth(200);
-        this.setPrefHeight(1000);
+        this.setMaxWidth(getScreenWidth() / 5.5);
+        this.setPrefHeight(getScreenHeight());
 
         createImages(); // Images
         createButtons(); // Buttons
@@ -63,22 +63,22 @@ public class NavigateBar extends BorderPane {
         Image homeImage = new Image(getClass().getResourceAsStream("/com/example/demo/home_ico.png"));
         homeImageView = new ImageView(homeImage);
         homeImageView.setPreserveRatio(true);
-        homeImageView.setFitWidth(25);
+        homeImageView.setFitWidth(45);
 
         Image profileImage = new Image(getClass().getResourceAsStream("/com/example/demo/profile_ico.png"));
         profileImageView = new ImageView(profileImage);
         profileImageView.setPreserveRatio(true);
-        profileImageView.setFitWidth(25);
+        profileImageView.setFitWidth(45);
 
         Image tuneImage = new Image(getClass().getResourceAsStream("/com/example/demo/tune_ico.png"));
         tuneImageView = new ImageView(tuneImage);
         tuneImageView.setPreserveRatio(true);
-        tuneImageView.setFitWidth(25);
+        tuneImageView.setFitWidth(45);
 
         Image settingsImage = new Image(getClass().getResourceAsStream("/com/example/demo/settings_ico.png"));
         settingsImageView = new ImageView(settingsImage);
         settingsImageView.setPreserveRatio(true);
-        settingsImageView.setFitWidth(25);
+        settingsImageView.setFitWidth(45);
     }
 
     private void createButtons() {
@@ -91,8 +91,8 @@ public class NavigateBar extends BorderPane {
 
     private void createLabel() {
         label = new Label("Tune");
-        label.setPadding(new Insets(10));
-        label.setFont(Font.font("Arial", FontWeight.BOLD, 20));
+        label.setPadding(new Insets(20));
+        label.setFont(Font.font("Arial", FontWeight.BOLD, 35));
         label.setMaxWidth(Double.MAX_VALUE);
         label.setAlignment(Pos.CENTER);
     }
@@ -100,7 +100,7 @@ public class NavigateBar extends BorderPane {
     private void createUsersTune() {
         usersTune = new BorderPane();
         usersTune.setPrefSize(50,65);
-        VBox buttonNLabel = new VBox(10);
+        VBox buttonNLabel = new VBox(20);
 
         Image plusImg = new Image(getClass().getResourceAsStream("/com/example/demo/plus_ico.png"));
         ImageView plusImgView = new ImageView(plusImg);
@@ -132,7 +132,7 @@ public class NavigateBar extends BorderPane {
 
         Label usersTuneLabel = new Label("Your Tune");
 
-        usersTuneLabel.setFont(Font.font("Arial", FontWeight.BOLD, 16));
+        usersTuneLabel.setFont(Font.font("Arial", FontWeight.BOLD, 22));
         usersTuneLabel.setAlignment(Pos.CENTER);
 
         buttonNLabel.getChildren().addAll(addTune,usersTuneLabel);
@@ -176,8 +176,8 @@ public class NavigateBar extends BorderPane {
 
     class NavBarButton extends Button {
 
-        private final int BUTTON_WIDTH = 200;
-        private final int BUTTON_HEIGHT = 40;
+        private final double BUTTON_WIDTH = getScreenWidth() / 5.5 - 5;
+        private final double BUTTON_HEIGHT = 45;
 
         private FadeTransition fadeUp;
         private FadeTransition fadeDown;
@@ -185,7 +185,7 @@ public class NavigateBar extends BorderPane {
         public NavBarButton(String name, ImageView imgView) {
             super(name, imgView);
             this.setGraphicTextGap(10);
-            this.setFont(Font.font("Arial", FontWeight.SEMI_BOLD, 16));
+            this.setFont(Font.font("Arial", FontWeight.SEMI_BOLD, 22));
             this.setAlignment(Pos.BASELINE_LEFT);
             this.setPrefWidth(BUTTON_WIDTH);
             this.setPrefHeight(BUTTON_HEIGHT);
