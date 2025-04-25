@@ -65,4 +65,8 @@ public class Song {
     public int getDuration() {
         return duration;
     }
+
+    public int getCurrentPosition() {
+        return currentPosition;
+    }
 }

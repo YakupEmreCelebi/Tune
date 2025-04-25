@@ -6,6 +6,7 @@ public class TuneUser {
     private int id;
     private String username;
     private String password;
+    private String mail;
     private ArrayList<TuneUser> friends;
     private ArrayList<Song> favouriteSongs;
     private boolean checkTuneExistence;
@@ -16,7 +17,7 @@ public class TuneUser {
     private int numbOfTunedSongsWithFriends;
 
 
-    public TuneUser(String username, String password, int id, ArrayList<TuneUser> friends, ArrayList<Song> favouriteSongs) {
+    public TuneUser(String username, String password, String mail ,int id, ArrayList<TuneUser> friends, ArrayList<Song> favouriteSongs) {
         this.username = username;
         this.password = password;
         this.friends = friends;
@@ -24,23 +25,23 @@ public class TuneUser {
     }
 
 
-    public void addSongToFavorites(String username, String songName) {
+    public void addSongToFavorites(String songName) {
 
     }
 
-    public void removeSongFromFavorites(String username, String songName) {
+    public void removeSongFromFavorites(String songName) {
 
     }
 
-    public void removeFriend(String username, String friendUsername) {
+    public void removeFriend(String friendUsername) {
 
     }
 
-    public void addFriend(String username, String friendUsername) {
+    public void addFriend(String friendUsername) {
 
     }
 
-    public void updateMail(String newUsername) {
+    public void updateMail(String newMail) {
 
     }
 
@@ -50,6 +51,10 @@ public class TuneUser {
 
     public void updateUsername(String newUsername) {
 
+    }
+
+    public void updateProfileImg(int selectedProfileImg) {
+        profileImg = selectedProfileImg;
     }
 
     public void setUserTune(boolean checkTuneExistence, Song tuneSong, String tuneNote) {
@@ -62,9 +67,7 @@ public class TuneUser {
         tunedSongs.add(tunedSong);
     }
 
-    public void updateProfileImg(int selectedProfileImg) {
-        profileImg = selectedProfileImg;
-    }
+
 
     public void updateNumbOfTunedSongsWithFriends(int numbOfTunedSongsWithFriends) {
         this.numbOfTunedSongsWithFriends = numbOfTunedSongsWithFriends;

@@ -1,9 +1,9 @@
-package com.example.demo.Model;
-//
-//
-import java.util.ArrayList;
-//
-public class Database {
+//package com.example.demo.Model;
+////
+////
+//import java.util.ArrayList;
+////
+//public class Database {
 //
 //    public boolean checkUserExistInDatabase(String username, String password) {
 //        return false;
@@ -12,7 +12,6 @@ public class Database {
 //    public boolean checkIfUserUnique(String username, String email) {
 //        return false;
 //    }
-//
 //
 //    public void addUserToDatabase(String username, String email, String password) {
 //
@@ -26,10 +25,10 @@ public class Database {
 //
 //    }
 //
+//
 //    public void updateProfileImgInDatabase(String username, int profileImg) {
 //
 //    }
-//
 //
 //    public void removeFriendFromDatabase(String username, String friendUsername) {
 //
@@ -63,6 +62,10 @@ public class Database {
 //
 //    }
 //
+//    public void updateNumbOfTunedSongsWithFriendsInDatabase(String username, int number) {
+//
+//    }
+//
 //
 //    // For a specific user
 //    public Song suggestInstantTuneFromDatabase(String username) {
@@ -76,4 +79,4 @@ public class Database {
 //    public Song suggestDetailedTuneFromDatabase(ArrayList<String> answers) {
 //        return new Song();
 //    }
-}
+//}

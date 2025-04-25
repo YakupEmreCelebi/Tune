@@ -188,15 +188,15 @@ public class Controller {
 //        currentSong = aSong;
 //    }
 //
-//    private void playCurrentSong(int startPosition) {
+//    private void playCurrentSong(int startPosition) { *********
 //
 //    }
 //
-//    private void pauseCurrentSong(int startPosition) {
+//    private void pauseCurrentSong(int startPosition) { ********
 //
 //    }
 //
-//    private void playFriendTuneSong(TuneUser aFriend) {
+//    private void playFriendTuneSong(TuneUser aFriend) { ********
 //
 //    }
 //
