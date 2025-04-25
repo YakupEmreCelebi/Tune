@@ -89,6 +89,14 @@ public class LoginFrame extends Scene {
 
     }
 
+    private static double getScreenWidth() {
+        return javafx.stage.Screen.getPrimary().getVisualBounds().getWidth();
+    }
+
+    private static double getScreenHeight() {
+        return javafx.stage.Screen.getPrimary().getVisualBounds().getHeight();
+    }
+
     // Getters for Buttons
     public Button getLoginButton() {
         return loginButton;

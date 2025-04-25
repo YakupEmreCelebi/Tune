@@ -57,6 +57,14 @@ public class ProfileFrame extends Scene {
         StackPane.setAlignment(navigateBar, Pos.TOP_LEFT);
     }
 
+    private static double getScreenWidth() {
+        return javafx.stage.Screen.getPrimary().getVisualBounds().getWidth();
+    }
+
+    private static double getScreenHeight() {
+        return javafx.stage.Screen.getPrimary().getVisualBounds().getHeight();
+    }
+
     public NavigateBar getNavigateBar() {
         return navigateBar;
     }

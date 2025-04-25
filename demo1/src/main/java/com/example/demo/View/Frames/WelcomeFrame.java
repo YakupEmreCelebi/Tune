@@ -21,7 +21,7 @@ public class WelcomeFrame extends Scene {
 
 
     public WelcomeFrame() {
-        super(new StackPane(), 800, 600);
+        super(new StackPane(), getScreenWidth(), getScreenHeight());
         this.getStylesheets().add(getClass().getResource("welcomeFrameStyle.css").toExternalForm());
 
 
@@ -43,8 +43,8 @@ public class WelcomeFrame extends Scene {
 
 
         backgroundImageView = new ImageView(backgroundImage);
-        backgroundImageView.setFitWidth(800);
-        backgroundImageView.setFitHeight(600);
+        backgroundImageView.setFitWidth(getScreenWidth());
+        backgroundImageView.setFitHeight(getScreenHeight());
         backgroundImageView.setPreserveRatio(false);
 
         BorderPane pane = new BorderPane();
@@ -58,6 +58,14 @@ public class WelcomeFrame extends Scene {
 
         StackPane layout = (StackPane) getRoot();
         layout.getChildren().addAll(backgroundImageView, vbox);
+    }
+
+    private static double getScreenWidth() {
+        return javafx.stage.Screen.getPrimary().getVisualBounds().getWidth();
+    }
+
+    private static double getScreenHeight() {
+        return javafx.stage.Screen.getPrimary().getVisualBounds().getHeight();
     }
 
     // getters for Buttons

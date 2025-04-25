@@ -221,5 +221,13 @@ public class NavigateBar extends BorderPane {
 
     }
 
+    private static double getScreenWidth() {
+        return javafx.stage.Screen.getPrimary().getVisualBounds().getWidth();
+    }
+
+    private static double getScreenHeight() {
+        return javafx.stage.Screen.getPrimary().getVisualBounds().getHeight();
+    }
+
 }
 
