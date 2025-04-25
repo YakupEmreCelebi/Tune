@@ -83,7 +83,7 @@ public class SignUpFrame extends Scene {
         VBox allElementsVBox = new VBox(35);
 
         allElementsVBox.setMaxWidth(getScreenWidth()/2);
-        allElementsVBox.setMaxHeight(500);
+        allElementsVBox.setMaxHeight(530);
 
         allElementsVBox.setStyle("-fx-border-color: #9f9b9b; -fx-border-width: 2px; -fx-border-radius: 8px;");
 

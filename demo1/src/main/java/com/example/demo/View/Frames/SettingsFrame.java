@@ -31,7 +31,7 @@ public class SettingsFrame extends Scene {
     Label settingsLabel;
 
     public SettingsFrame() {
-        super(new HBox(30), 800, 600);
+        super(new HBox(60), getScreenWidth(), getScreenHeight());
 
         this.getStylesheets().add(getClass().getResource("navBar.css").toExternalForm());
 
@@ -48,26 +48,26 @@ public class SettingsFrame extends Scene {
         accountLabel = new Label("Account");
         settingsLabel = new Label("Settings");
 
-        settingsLabel.setStyle("-fx-font-weight: bold; -fx-font-size: 22px; -fx-font-family: Arial");
-        aboutLabel.setStyle("-fx-font-weight: bold; -fx-font-size: 15px; -fx-font-family: Arial");
-        accountLabel.setStyle("-fx-font-weight: bold; -fx-font-size: 15px; -fx-font-family: Arial");
+        settingsLabel.setStyle("-fx-font-weight: bold; -fx-font-size: 35px; -fx-font-family: Arial");
+        aboutLabel.setStyle("-fx-font-weight: bold; -fx-font-size: 25px; -fx-font-family: Arial");
+        accountLabel.setStyle("-fx-font-weight: bold; -fx-font-size: 25px; -fx-font-family: Arial");
 
         // VBoxes
         container = new VBox();
-        container.setSpacing(40);
-        container.setPadding(new Insets(40,0,0,0));
+        container.setSpacing(60);
+        container.setPadding(new Insets(80,0,0,0));
 
         accountVBox = new VBox();
-        accountVBox.setSpacing(10);
+        accountVBox.setSpacing(20);
         accountVBox.setStyle("-fx-border-color: #b3b1b1; -fx-border-width: 1px; -fx-border-radius: 5");
-        accountVBox.setPrefWidth(450);
-        accountVBox.setPadding(new Insets(10,0, 15, 20));
+        accountVBox.setPrefWidth(getScreenWidth() - getScreenWidth() / 5.5 - 120);
+        accountVBox.setPadding(new Insets(20,0, 25, 35));
 
         aboutVBox = new VBox();
-        aboutVBox.setSpacing(10);
+        aboutVBox.setSpacing(20);
         aboutVBox.setStyle("-fx-border-color: #b3b1b1; -fx-border-width: 1px; -fx-border-radius: 5");
-        aboutVBox.setPrefWidth(450);
-        aboutVBox.setPadding(new Insets(10,0,15,20));
+        aboutVBox.setPrefWidth(getScreenWidth() - getScreenWidth() / 5.5 - 120);
+        aboutVBox.setPadding(new Insets(20,0, 25, 35));
 
         navigateBar = new NavigateBar();
 
@@ -85,22 +85,22 @@ public class SettingsFrame extends Scene {
         Image pencilImage = new Image(getClass().getResourceAsStream("/com/example/demo/pencil_ico.png"));
         pencilImageView = new ImageView(pencilImage);
         pencilImageView.setPreserveRatio(true);
-        pencilImageView.setFitWidth(18);
+        pencilImageView.setFitWidth(32);
 
         Image infoImage = new Image(getClass().getResourceAsStream("/com/example/demo/info_ico.png"));
         infoImageView = new ImageView(infoImage);
         infoImageView.setPreserveRatio(true);
-        infoImageView.setFitWidth(20);
+        infoImageView.setFitWidth(35);
 
         Image pencilImage2 = new Image(getClass().getResourceAsStream("/com/example/demo/pencil_ico.png"));
         pencilImageView2 = new ImageView(pencilImage2);
         pencilImageView2.setPreserveRatio(true);
-        pencilImageView2.setFitWidth(18);
+        pencilImageView2.setFitWidth(32);
 
         Image infoImage2 = new Image(getClass().getResourceAsStream("/com/example/demo/info_ico.png"));
         infoImageView2 = new ImageView(infoImage2);
         infoImageView2.setPreserveRatio(true);
-        infoImageView2.setFitWidth(20);
+        infoImageView2.setFitWidth(35);
 
 
     }
@@ -115,10 +115,10 @@ public class SettingsFrame extends Scene {
 
         public SettingsButton(String name, ImageView imageView) {
             super(name, imageView);
-            setStyle("-fx-font-weight: bold; -fx-alignment: CENTER_LEFT;");
+            setStyle("-fx-font-weight: bold; -fx-alignment: CENTER_LEFT; -fx-font-size: 17");
             setGraphicTextGap(10);
             addHoverEffect(this);
-            setPrefWidth(150);
+            setPrefWidth(230);
         }
 
         private void addHoverEffect(Button button) {
@@ -126,7 +126,7 @@ public class SettingsFrame extends Scene {
                 @Override
                 public void handle(MouseEvent event) {
 
-                    button.setStyle("-fx-background-color: #dadada; -fx-font-weight: bold; -fx-alignment: CENTER_LEFT;");
+                    button.setStyle("-fx-background-color: #dadada; -fx-font-weight: bold; -fx-alignment: CENTER_LEFT; -fx-font-size: 17");
                 }
             });
 
@@ -134,7 +134,7 @@ public class SettingsFrame extends Scene {
                 @Override
                 public void handle(MouseEvent event) {
 
-                    button. setStyle("-fx-font-weight: bold; -fx-alignment: CENTER_LEFT;");
+                    button. setStyle("-fx-font-weight: bold; -fx-alignment: CENTER_LEFT; -fx-font-size: 17");
                 }
             });
         }
