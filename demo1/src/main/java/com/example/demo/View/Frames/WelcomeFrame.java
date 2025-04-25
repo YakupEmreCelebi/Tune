@@ -27,9 +27,9 @@ public class WelcomeFrame extends Scene {
 
         // Labels
         Label tuneLabel = new Label("TUNE");
-        tuneLabel.setFont(Font.font("Arial", FontWeight.BOLD, 30));
+        tuneLabel.setFont(Font.font("Arial", FontWeight.BOLD, 50));
         Label descriptionLabel = new Label("Start listening and\n discovering music");
-        descriptionLabel.setFont(Font.font("Arial", FontWeight.NORMAL, 20));
+        descriptionLabel.setFont(Font.font("Arial", FontWeight.NORMAL, 35));
 
         //Buttons
         loginButton = new GeneralButton("Login");
@@ -48,8 +48,8 @@ public class WelcomeFrame extends Scene {
         backgroundImageView.setPreserveRatio(false);
 
         BorderPane pane = new BorderPane();
-        VBox vbox = new VBox(20);
-        HBox hbox = new HBox(20);
+        VBox vbox = new VBox(40);
+        HBox hbox = new HBox(40);
         hbox.getChildren().addAll(loginButton, signUpButton);
         vbox.getChildren().addAll(tuneLabel, descriptionLabel, hbox);
 

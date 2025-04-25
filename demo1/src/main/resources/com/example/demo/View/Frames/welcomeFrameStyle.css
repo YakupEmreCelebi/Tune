@@ -1,7 +1,7 @@
     .button{
-        -fx-font-size: 14;
-        -fx-pref-width: 110;
-        -fx-pref-height: 30;
+        -fx-font-size: 20;
+        -fx-pref-width: 150;
+        -fx-pref-height: 35;
         -fx-border-radius: 50px;
         -fx-border-width: 10px;
         -fx-background-color: black;

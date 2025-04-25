@@ -29,7 +29,7 @@ public class SignUpFrame extends Scene {
     private ImageView backgroundImageView;
 
     public SignUpFrame() {
-        super(new StackPane(), 800, 600);
+        super(new StackPane(), getScreenWidth(), getScreenHeight());
         this.getStylesheets().add(getClass().getResource("welcomeFrameStyle.css").toExternalForm());
 
         // Label for the text
@@ -39,9 +39,9 @@ public class SignUpFrame extends Scene {
         passwordLabel = new Label("Password");
         emailLabel = new Label("Email");
 
-        usernameLabel.setFont(Font.font("Arial", FontWeight.SEMI_BOLD, 17));
-        passwordLabel.setFont(Font.font("Arial", FontWeight.SEMI_BOLD, 17));
-        emailLabel.setFont(Font.font("Arial", FontWeight.SEMI_BOLD, 17));
+        usernameLabel.setFont(Font.font("Arial", FontWeight.SEMI_BOLD, 35));
+        passwordLabel.setFont(Font.font("Arial", FontWeight.SEMI_BOLD, 35));
+        emailLabel.setFont(Font.font("Arial", FontWeight.SEMI_BOLD, 35));
 
         // Buttons
         signupButton = new GeneralButton("Sign Up");
@@ -59,9 +59,12 @@ public class SignUpFrame extends Scene {
         passwordField.setStyle("-fx-background-color: transparent; -fx-border-color: #8e8989; -fx-border-width: 1px; -fx-border-radius: 5px;");
         emailTextField.setStyle("-fx-background-color: transparent; -fx-border-color: #8e8989; -fx-border-width: 1px; -fx-border-radius: 5px;");
 
-        usernameTextField.setMaxWidth(360);
-        passwordField.setMaxWidth(360);
-        emailTextField.setMaxWidth(360);
+        usernameTextField.setMaxWidth(getScreenWidth()/2 - 70);
+        passwordField.setMaxWidth(getScreenWidth()/2 - 70);
+        emailTextField.setMaxWidth(getScreenWidth()/2 - 70);
+        usernameTextField.setPrefHeight(38);
+        passwordField.setPrefHeight(38);
+        emailTextField.setPrefHeight(38);
 
         // Image for background
         Image backgroundImage = new Image(getClass().getResourceAsStream("/com/example/demo/TuneBackground.png"));
@@ -74,13 +77,13 @@ public class SignUpFrame extends Scene {
         StackPane layout = (StackPane) getRoot();
 
         // VBox
-        VBox usernameVBox = new VBox(10);
-        VBox passwordVBox = new VBox(10);
-        VBox emailVBox = new VBox(10);
-        VBox allElementsVBox = new VBox(20);
+        VBox usernameVBox = new VBox(20);
+        VBox passwordVBox = new VBox(20);
+        VBox emailVBox = new VBox(20);
+        VBox allElementsVBox = new VBox(35);
 
-        allElementsVBox.setMaxWidth(400);
-        allElementsVBox.setMaxHeight(300);
+        allElementsVBox.setMaxWidth(getScreenWidth()/2);
+        allElementsVBox.setMaxHeight(500);
 
         allElementsVBox.setStyle("-fx-border-color: #9f9b9b; -fx-border-width: 2px; -fx-border-radius: 8px;");
 
@@ -94,9 +97,9 @@ public class SignUpFrame extends Scene {
         emailVBox.setAlignment(Pos.CENTER_LEFT);
         allElementsVBox.setAlignment(Pos.CENTER);
 
-        usernameVBox.setPadding(new Insets(0,0,0,20));
-        passwordVBox.setPadding(new Insets(0,0,0,20));
-        emailVBox.setPadding(new Insets(0,0,0,20));
+        usernameVBox.setPadding(new Insets(0,0,0,35));
+        passwordVBox.setPadding(new Insets(0,0,0,35));
+        emailVBox.setPadding(new Insets(0,0,0,35));
 
         layout.getChildren().addAll(backgroundImageView, allElementsVBox);
 
