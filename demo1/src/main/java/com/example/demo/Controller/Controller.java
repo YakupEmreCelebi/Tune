@@ -1,7 +1,7 @@
 package com.example.demo.Controller;
 
 
-//import com.example.demo.Model.Database;
+import com.example.demo.Model.Database;
 import com.example.demo.Model.Song;
 import com.example.demo.Model.TuneUser;
 import com.example.demo.View.Frames.*;
@@ -10,6 +10,8 @@ import com.example.demo.View.Stage.PopUpStage;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.stage.Stage;
+
+import java.util.ArrayList;
 
 public class Controller {
 
@@ -194,7 +196,7 @@ public class Controller {
 //
 //    }
 //
-//    private void playTuneSong(TuneUser aFriend) {
+//    private void playFriendTuneSong(TuneUser aFriend) {
 //
 //    }
 //
@@ -203,10 +205,20 @@ public class Controller {
 //    }
 //
 //    private Song suggestInstantTune() {
-//        return theDatabase.suggestInstantTuneFromDatabase(currentUser.getUsername);
+//        return theDatabase.suggestInstantTuneFromDatabase(currentUser.getUsername());
 //    }
-
-
+//
+//    private void playTunedSong() {
+//
+//    }
+//
+//    private Song suggestTuneWithFriend() {
+//        return theDatabase.suggestTuneWithFriendFromDatabase(currentUser.getUsername());
+//    }
+//
+//    private Song suggestDetailedSong(ArrayList<String> answers) {
+//        return theDatabase.suggestDetailedTuneFromDatabase(answers);
+//    }
 
 
 }

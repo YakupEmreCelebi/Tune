@@ -1,9 +1,9 @@
-//package com.example.demo.Model;
+package com.example.demo.Model;
 //
 //
-//import java.util.ArrayList;
+import java.util.ArrayList;
 //
-//public class Database {
+public class Database {
 //
 //    public boolean checkUserExistInDatabase(String username, String password) {
 //        return false;
@@ -69,7 +69,11 @@
 //        return new Song();
 //    }
 //
+//    public Song suggestTuneWithFriendFromDatabase(String username) {
+//        return new Song();
+//    }
 //
-//
-//
-//}
+//    public Song suggestDetailedTuneFromDatabase(ArrayList<String> answers) {
+//        return new Song();
+//    }
+}
