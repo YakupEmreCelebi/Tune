@@ -6,6 +6,8 @@ import se.michaelthelin.spotify.exceptions.SpotifyWebApiException;
 import se.michaelthelin.spotify.requests.data.player.PauseUsersPlaybackRequest;
 import org.apache.hc.core5.http.ParseException;
 import se.michaelthelin.spotify.requests.data.player.StartResumeUsersPlaybackRequest;
+import se.michaelthelin.spotify.model_objects.specification.Track;
+import se.michaelthelin.spotify.requests.data.tracks.GetTrackRequest;
 
 
 import java.io.IOException;
@@ -20,10 +22,12 @@ public class ApiTest {
     protected static final String clientSecret = "89f49024768b4c5b837c2be769be09e8";
     protected static final URI redirectUri = SpotifyHttpManager.makeUri("https://drallin.com/");
 
-    protected static final String accessTokenAuth = "BQA1iBAAJV4kuhfXzuTfXEhiFicSyr-nO6WPZfb5eGf-_hHe7SJWEr6_piJYDPqPV0J2P1qjZqKzQFFTcj38sZeu8kfHDgPuYMwCXfPfHHdCaC7CP6TMbG-zyRQ2ZOks3vYre6dIiJS5Tzxn7L5CC4uy_4GbwKiTLZ-CKMWo_SBCgYA2k4QL9LA_qkB5efHo2guL4IWpBaG2NmHZk1pHc96Lriy01u_hCCdyncCWsr5COsnXfQ";
+    protected static final String accessTokenAuth = "BQA3qdN0CwgPILf1cmfsuogp42uZP6d-jIuQCUVHZ0I_RpX_Jv-C9Q6cIakni2420pMfvrMGqSsGi1xqPOzLNXtpDNq6cHQhxBMu3gx2AbsP8Mzi9BtYTa7vUtFNLQtGTB4DgpqUKOfiz2rV0p0YMBLsfGdfxs5NNF2Vc3rZgnL0F-KcWna4pu1JGzLNHFSdrZ3jz4SlQhs2PN92EYG1tOZ_qa3ZeDZCfTGJ_rjWv73Uqw5ZiA";
     protected static final String refreshTokenAuth = "AQCqgsOMEZWtLTJLcmNgkyRUv_jt07QHKW4Y0XqAHjqr0xqEdDf1wUjC6bCG969KKksECbY1ZfOnZ4JMRQwGoDbe8sahDgvfLcnsUhOZTEbxSbDrHqcC007sfng9w5SUsrs";
-    protected static final String accessTokenPKCE = "BQDPYgKxOAWsKI6vQQHacahaoioJOmoDhhDWWMRQgUMfqLn1aAIlNImJiWmWJzVHkELgwwIkzitjeutGuNG8np6tobYxZpnlke2kmIVrGXXngkFyODPi8kWaCoIqUzvsScwvU230QH2tNlNue-SWORrhcLEIadXcDh98byKZb-hZO-WUnQPo1512CNF1CDnCK8aRsAHzDpC6URkTLpA7fVG7ib1f-JoUxHmt-m2vjyLXOeYVKA";
-    protected static final String refreshTokenPKCE = "AQC9evD_ES98_7UmO7Rf_bpS9nSM5HdaI-qQ5_MKv022N-5ISyhJCfqqrAnyfDlfyxeU7HjScQUnsRbvJRV0nLPdhqK6JQ0Sw6xJ5i83n9gy4n4eKDbwC2Q8JmF3pNeow0U";
+    //protected static final String accessTokenPKCE = "BQDIcueIAgtZg7TGGVcm0k5kmuRJd4sInbFHJ1vm4mmmzzFTEX9_t0D_Gpt_2SHNCY46utG2FDB13GT8UqEyKnbM_7NmlAca2LMMCHtc_RUs8woFYgmyXVFzRrVB_HeuNP7CZLoliC61LCERaQ2V6z1mAm1jzrYzrqgXAHBxssnEfdtCdHf3v2fe42sWNkc8TWiPP7fshWJ1Pf4hA_WMIWyjhR9u3_66VLK_O5o7MtG8ju3aAQ";
+    //protected static final String refreshTokenPKCE = "AQC9evD_ES98_7UmO7Rf_bpS9nSM5HdaI-qQ5_MKv022N-5ISyhJCfqqrAnyfDlfyxeU7HjScQUnsRbvJRV0nLPdhqK6JQ0Sw6xJ5i83n9gy4n4eKDbwC2Q8JmF3pNeow0U";
+
+    private static final String id = "01iyCAUm8EvOFqVWYJ3dVX";
 
     protected static final SpotifyApi spotifyApi = new SpotifyApi.Builder()
             .setClientId(clientId)
@@ -100,11 +104,42 @@ public class ApiTest {
         }
     }
 
+    //********************************
+    private static final GetTrackRequest getTrackRequest = spotifyApi.getTrack(id)
+//          .market(CountryCode.SE)
+            .build();
+
+    public static void getTrack_Sync() {
+        try {
+            final Track track = getTrackRequest.execute();
+
+
+            System.out.println("Name: " + track.getName());
+        } catch (IOException | SpotifyWebApiException | ParseException e) {
+            System.out.println("Error: " + e.getMessage());
+        }
+    }
+
+    public static void getTrack_Async() {
+        try {
+            final CompletableFuture<Track> trackFuture = getTrackRequest.executeAsync();
+
+            // Thread free to do other tasks...
+
+            // Example Only. Never block in production code.
+            final Track track = trackFuture.join();
+
+            System.out.println("Name: " + track.getName());
+        } catch (CompletionException e) {
+            System.out.println("Error: " + e.getCause().getMessage());
+        } catch (CancellationException e) {
+            System.out.println("Async operation cancelled.");
+        }
+    }
+
+
     public static void main(String[] args) throws IOException {
-        startResumeUsersPlayback_Sync();
-
         pauseUsersPlayback_Sync();
-
     }
 
 }

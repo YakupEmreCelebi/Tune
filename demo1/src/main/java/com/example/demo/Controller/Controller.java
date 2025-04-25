@@ -1,7 +1,9 @@
 package com.example.demo.Controller;
 
-//a
-//b
+
+//import com.example.demo.Model.Database;
+import com.example.demo.Model.Song;
+import com.example.demo.Model.TuneUser;
 import com.example.demo.View.Frames.*;
 import com.example.demo.View.PopUpFrames.PopUpUpdate;
 import com.example.demo.View.Stage.PopUpStage;
@@ -10,6 +12,10 @@ import javafx.event.EventHandler;
 import javafx.stage.Stage;
 
 public class Controller {
+
+//    private TuneUser currentUser;
+//    private Song currentSong;
+//    private Database theDatabase;
 
     // Stage and Frames
     private Stage mainStage;
@@ -175,5 +181,32 @@ public class Controller {
             showSettingsFrame();
         }
     }
+
+//    private void setCurrentSong(Song aSong) {
+//        currentSong = aSong;
+//    }
+//
+//    private void playCurrentSong(int startPosition) {
+//
+//    }
+//
+//    private void pauseCurrentSong(int startPosition) {
+//
+//    }
+//
+//    private void playTuneSong(TuneUser aFriend) {
+//
+//    }
+//
+//    private Song searchSong(String songName) {
+//        return new Song();
+//    }
+//
+//    private Song suggestInstantTune() {
+//        return theDatabase.suggestInstantTuneFromDatabase(currentUser.getUsername);
+//    }
+
+
+
 
 }

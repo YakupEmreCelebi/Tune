@@ -13,6 +13,8 @@ public class Song {
     private String genre;
     private String mood;
     private ImageView imageView;
+    private int duration;
+    private int currentPosition;
     private Image image;
 
 
@@ -58,5 +60,9 @@ public class Song {
 
     public String getName() {
         return name;
+    }
+
+    public int getDuration() {
+        return duration;
     }
 }

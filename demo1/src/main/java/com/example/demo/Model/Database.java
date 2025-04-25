@@ -5,10 +5,31 @@
 //
 //public class Database {
 //
-//    public ArrayList<TuneUser> getAllFriendsFromDatabase(String username) {
-//
-//        return new ArrayList<>();
+//    public boolean checkUserExistInDatabase(String username, String password) {
+//        return false;
 //    }
+//
+//    public boolean checkIfUserUnique(String username, String email) {
+//        return false;
+//    }
+//
+//
+//    public void addUserToDatabase(String username, String email, String password) {
+//
+//    }
+//
+//    public void setUserTuneInDatabase(String username, boolean checkTuneExistence, Song tuneSong, String tuneNote) {
+//
+//    }
+//
+//    public void setTunedSongsInDatabase(String username, ArrayList<Song> TunedSongs) {
+//
+//    }
+//
+//    public void updateProfileImgInDatabase(String username, int profileImg) {
+//
+//    }
+//
 //
 //    public void removeFriendFromDatabase(String username, String friendUsername) {
 //
@@ -18,8 +39,8 @@
 //
 //    }
 //
-//    public void addUserToDatabase(String username, String email, String password) {
-//
+//    public Song searchSongInDatabase(String songName) {
+//        return new Song();
 //    }
 //
 //    public void removeUserFromDatabase(String username) {
@@ -34,22 +55,19 @@
 //        return new TuneUser();
 //    }
 //
-//    public ArrayList<Song> getFavoritesFromDatabase(String username) {
-//        return new ArrayList<>();
-//    }
-//
-//    public void addSongToFavorites(String username, String songName) {
+//    public void addSongToFavoritesInDatabase(String username, String songName) {
 //
 //    }
 //
-//    public void removeSongFromFavorites(String username, String songName) {
+//    public void removeSongFromFavoritesFromDatabase(String username, String songName) {
 //
 //    }
 //
-//    public void controlUserInDatabase(String username, String password) {
 //
+//    // For a specific user
+//    public Song suggestInstantTuneFromDatabase(String username) {
+//        return new Song();
 //    }
-//
 //
 //
 //
