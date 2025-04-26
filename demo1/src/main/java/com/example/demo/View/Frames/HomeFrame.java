@@ -1,20 +1,28 @@
 package com.example.demo.View.Frames;
 
+import com.example.demo.Model.TuneUser;
 import com.example.demo.View.SpecialNodes.NavigateBar;
+import com.example.demo.View.SpecialNodes.NodeScroller;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
+import javafx.scene.Node;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import javafx.scene.shape.Circle;
+
+import java.util.ArrayList;
 
 public class HomeFrame extends Scene {
 
     private NavigateBar navigateBar;
     private VBox container;
     private TextField searchBar;
+    private NodeScroller friendsScroller;
 
     public HomeFrame() {
         super(new HBox(40), getScreenWidth(), getScreenHeight());
@@ -32,7 +40,10 @@ public class HomeFrame extends Scene {
         searchBar.setMaxWidth(350);
         searchBar.setPrefHeight(40);
 
-        container.getChildren().add(searchBar);
+        ArrayList<Button> friendsButtons = new ArrayList<Button>();
+
+
+        container.getChildren().addAll(searchBar);
 
         HBox layout = (HBox) getRoot();
         layout.setOnMousePressed(new ChangeFocus());
@@ -54,6 +65,19 @@ public class HomeFrame extends Scene {
         return navigateBar;
     }
 
+    private class FriendsButton extends Button {
+
+        public FriendsButton(String text) {
+            super(text);
+            this.setShape(new Circle(1000));
+            this.setMinSize(80, 80);
+            this.setMaxSize(80, 80);
+            this.setPrefSize(80, 80);
+            this.setStyle("-fx-background-color: transparent; -fx-border-color: black; -fx-border-width: 2;" +
+                    " -fx-font-size: 19; -fx-font-family: Arial; -fx-font-weight: bold");
+        }
+    }
+
     private class ChangeFocus implements EventHandler<MouseEvent> {
 
         @Override
@@ -65,5 +89,6 @@ public class HomeFrame extends Scene {
             }
         }
     }
+
 }
 

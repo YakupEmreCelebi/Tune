@@ -28,21 +28,21 @@ public class ProfileFrame extends Scene {
         Button c = new Button("C");
         Button d = new Button("D");
 
-        a.setPrefWidth(200);
-        b.setPrefWidth(200);
-        c.setPrefWidth(200);
-        d.setPrefWidth(200);
-        a.setPrefHeight(130);
-        b.setPrefHeight(130);
-        c.setPrefHeight(130);
-        d.setPrefHeight(130);
-
-        scrollerNodes.add(a);
-        scrollerNodes.add(b);
-        scrollerNodes.add(c);
-        scrollerNodes.add(d);
-
-        scroller = new NodeScroller(scrollerNodes);
+//        a.setPrefWidth(200);
+//        b.setPrefWidth(200);
+//        c.setPrefWidth(200);
+//        d.setPrefWidth(200);
+//        a.setPrefHeight(130);
+//        b.setPrefHeight(130);
+//        c.setPrefHeight(130);
+//        d.setPrefHeight(130);
+//
+//        scrollerNodes.add(a);
+//        scrollerNodes.add(b);
+//        scrollerNodes.add(c);
+//        scrollerNodes.add(d);
+//
+//        scroller = new NodeScroller(scrollerNodes);
 
 
 
@@ -51,9 +51,9 @@ public class ProfileFrame extends Scene {
         navigateBar = new NavigateBar();
 
 
-        layout.getChildren().addAll(navigateBar, scroller);
+        layout.getChildren().addAll(navigateBar);
 
-        StackPane.setAlignment(scroller, Pos.TOP_RIGHT);
+
         StackPane.setAlignment(navigateBar, Pos.TOP_LEFT);
     }
 

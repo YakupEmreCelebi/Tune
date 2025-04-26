@@ -1,6 +1,7 @@
 package com.example.demo.View.SpecialNodes;
 
 import javafx.scene.Node;
+import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.HBox;
 
@@ -8,7 +9,7 @@ import java.util.ArrayList;
 
 public class NodeScroller extends ScrollPane {
 
-    public NodeScroller(ArrayList<Node> nodes) {
+    public NodeScroller(ArrayList<Button> nodes) {
 
         this.setPrefWidth(500);
         this.setPrefHeight(130);

@@ -6,6 +6,7 @@ import com.example.demo.Model.Database;
 import com.example.demo.Model.Song;
 import com.example.demo.Model.TuneUser;
 import com.example.demo.View.Frames.*;
+import com.example.demo.View.PopUpFrames.PopUpShowFriendTune;
 import com.example.demo.View.PopUpFrames.PopUpUpdate;
 import com.example.demo.View.Stage.PopUpStage;
 import javafx.event.ActionEvent;
@@ -44,6 +45,7 @@ public class Controller {
 
     public void initScenes() {
 
+
         welcomeFrame = new WelcomeFrame();
         loginFrame = new LoginFrame();
         signUpFrame = new SignUpFrame();
@@ -66,6 +68,7 @@ public class Controller {
         homeFrame.getNavigateBar().getHomeButton().setOnAction(new goToHomeFrame());
         homeFrame.getNavigateBar().getTuneButton().setOnAction(new goToTuneFrame());
         homeFrame.getNavigateBar().getSettingsButton().setOnAction(new goToSettingsFrame());
+
 
         profileFrame.getNavigateBar().getProfileButton().setOnAction(new goToProfileFrame());
         profileFrame.getNavigateBar().getHomeButton().setOnAction(new goToHomeFrame());
@@ -137,6 +140,13 @@ public class Controller {
 
     }
 
+    public void showPopUpShowFriendTune(TuneUser tuneUser){
+        PopUpShowFriendTune popUpShowFriendTune = new PopUpShowFriendTune(tuneUser);
+        popUpStage.setScene(popUpShowFriendTune);
+        popUpStage.show();
+
+    }
+
     // Inner Classes for Events
 
     private class goToWelcomeFrame implements EventHandler<ActionEvent> {
@@ -163,7 +173,7 @@ public class Controller {
     private class goToHomeFrame implements EventHandler<ActionEvent> {
         @Override
         public void handle(ActionEvent event) {
-            api.startGS();
+            api.startResumePlayback();
             showHomeFrame();
         }
     }
