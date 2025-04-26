@@ -2,40 +2,49 @@ package com.example.demo.Model;
 
 import javafx.scene.image.Image;
 
+import javax.swing.text.Element;
 import javax.swing.text.html.ImageView;
 
 public class Song {
 
+    private int trackID;
     private String name;
     private String artist;
     private String language;
     private int year;
     private String genre;
     private String mood;
-    private ImageView imageView;
     private int duration;
     private int currentPosition;
     private Image image;
 
 
-    public Song(String name, String artist, String language, int year, String genre, String mood, ImageView imageView) {
+
+
+    public Song(int trackID, String name, String artist, String language, int year, String genre, String mood, String imageUrl, int duration) {
+        this.trackID = trackID;
         this.name = name;
         this.artist = artist;
         this.language = language;
         this.year = year;
         this.genre = genre;
         this.mood = mood;
-        this.imageView = imageView;
+        this.image = new Image(imageUrl);
+        this.duration = duration;
+        this.currentPosition = 0;
     }
 
+    public void setCurrentPosition(int currentPosition) {
+        this.currentPosition = currentPosition;
+    }
 
     // Getters
-    public Image getImage() {
-        return image;
+    public int getTrackID() {
+        return trackID;
     }
 
-    public ImageView getImageView() {
-        return imageView;
+    public Image getImage() {
+        return image;
     }
 
     public int getYear() {

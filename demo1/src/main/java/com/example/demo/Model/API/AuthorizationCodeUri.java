@@ -1,7 +1,6 @@
 package com.example.demo.Model.API;
 
 import se.michaelthelin.spotify.SpotifyApi;
-import se.michaelthelin.spotify.SpotifyHttpManager;
 import se.michaelthelin.spotify.requests.authorization.authorization_code.AuthorizationCodeUriRequest;
 
 import java.net.URI;
@@ -10,9 +9,9 @@ import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.CompletionException;
 
 public class AuthorizationCodeUri {
-    private static final String clientId = ApiTest.clientId;
-    private static final String clientSecret = ApiTest.clientSecret;
-    private static final URI redirectUri = ApiTest.redirectUri;
+    private static final String clientId = Api.clientId;
+    private static final String clientSecret = Api.clientSecret;
+    private static final URI redirectUri = Api.redirectUri;
     private static final SpotifyApi spotifyApi = new SpotifyApi.Builder()
             .setClientId(clientId)
             .setClientSecret(clientSecret)

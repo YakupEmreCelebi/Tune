@@ -1,18 +1,17 @@
-package com.example.demo.Model.API;
+package com.example.demo.Model.API.PKCE;
 
+import com.example.demo.Model.API.Api;
 import se.michaelthelin.spotify.SpotifyApi;
-import se.michaelthelin.spotify.SpotifyHttpManager;
 import se.michaelthelin.spotify.requests.authorization.authorization_code.AuthorizationCodeUriRequest;
 
 import java.net.URI;
-import java.security.NoSuchAlgorithmException;
 import java.util.concurrent.CancellationException;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.CompletionException;
 
 public class AuthorizationCodePKCEUri {
-    private static final String clientId = ApiTest.clientId;
-    private static final URI redirectUri = ApiTest.redirectUri;
+    private static final String clientId = Api.clientId;
+    private static final URI redirectUri = Api.redirectUri;
     private static final String codeChallenge = "WVfwUFu-JPSgVisGv2HFOmCDHmhiWaKjPhpAH_kKBlw";
 
 

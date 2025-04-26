@@ -12,7 +12,7 @@ import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.CompletionException;
 
 public class AuthorizationCodeRefresh {
-    private static final SpotifyApi spotifyApi = ApiTest.spotifyApi;
+    private static final SpotifyApi spotifyApi = Api.spotifyApi;
 
     private static final AuthorizationCodeRefreshRequest authorizationCodeRefreshRequest = spotifyApi.authorizationCodeRefresh()
             .build();

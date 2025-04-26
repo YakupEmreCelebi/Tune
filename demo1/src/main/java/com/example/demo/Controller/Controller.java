@@ -1,6 +1,7 @@
 package com.example.demo.Controller;
 
 
+import com.example.demo.Model.API.Api;
 import com.example.demo.Model.Database;
 import com.example.demo.Model.Song;
 import com.example.demo.Model.TuneUser;
@@ -15,9 +16,15 @@ import java.util.ArrayList;
 
 public class Controller {
 
+    private static final Api api = new Api();
+//    private static final Database theDatabase = new Database();
+
 //    private TuneUser currentUser;
-//    private Song currentSong;
-//    private Database theDatabase;
+    private Song currentSong;
+
+    private ArrayList<Song> currentSongList;
+    private boolean checkSongPlaying;
+
 
     // Stage and Frames
     private Stage mainStage;
@@ -156,6 +163,7 @@ public class Controller {
     private class goToHomeFrame implements EventHandler<ActionEvent> {
         @Override
         public void handle(ActionEvent event) {
+            api.startGS();
             showHomeFrame();
         }
     }
@@ -164,6 +172,7 @@ public class Controller {
 
         @Override
         public void handle(ActionEvent actionEvent) {
+            api.pausePlayback();
             showProfileFrame();
         }
     }
@@ -184,21 +193,24 @@ public class Controller {
         }
     }
 
-//    private void setCurrentSong(Song aSong) {
+//    private void playNewSong(Song aSong, ArrayList<Song> aSongList) {
 //        currentSong = aSong;
+//        currentSongList = aSongList;
+//        api.startResumePlayback(aSong, aSongList);
 //    }
 //
-//    private void playCurrentSong(int startPosition) { *********
-//
+//    private void playCurrentSong(int startPosition) {
+//        api.startResumePlayback();
 //    }
 //
-//    private void pauseCurrentSong(int startPosition) { ********
-//
+//    private void pauseCurrentSong() {
+//        api.pausePlayback();
 //    }
 //
-//    private void playFriendTuneSong(TuneUser aFriend) { ********
-//
+//    private void playFriendTuneSong(TuneUser aFriend) {
+//        api.startTrackFromRandomPos(aFriend.getTuneSong());
 //    }
+//
 //
 //    private Song searchSong(String songName) {
 //        return new Song();
@@ -208,9 +220,6 @@ public class Controller {
 //        return theDatabase.suggestInstantTuneFromDatabase(currentUser.getUsername());
 //    }
 //
-//    private void playTunedSong() {
-//
-//    }
 //
 //    private Song suggestTuneWithFriend() {
 //        return theDatabase.suggestTuneWithFriendFromDatabase(currentUser.getUsername());
@@ -218,6 +227,10 @@ public class Controller {
 //
 //    private Song suggestDetailedSong(ArrayList<String> answers) {
 //        return theDatabase.suggestDetailedTuneFromDatabase(answers);
+//    }
+//
+//    private void playTunedSong(Song tunedSong) {
+//        api.startTrackFromRandomPos(tunedSong);
 //    }
 
 

@@ -1,4 +1,4 @@
-package com.example.demo.Model.API;
+package com.example.demo.Model.API.PKCE;
 
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;

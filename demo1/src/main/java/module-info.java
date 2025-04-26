@@ -4,6 +4,7 @@ module com.example.demo {
     requires java.desktop;
     requires se.michaelthelin.spotify;
     requires org.apache.httpcomponents.core5.httpcore5;
+    requires com.google.gson;
 
 
     opens com.example.demo to javafx.fxml;

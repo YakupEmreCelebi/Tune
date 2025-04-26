@@ -78,6 +78,11 @@ public class TuneUser {
     //Getters
     public String getUsername() {return username;}
     public String getPassword() {return password;}
+    public String getTuneNote() {return tuneNote;}
+
+    public Song getTuneSong() {
+        return tuneSong;
+    }
 
     public ArrayList<TuneUser> getFriends() {return friends;}
     public ArrayList<Song> getFavouriteSongs (){return favouriteSongs;}
