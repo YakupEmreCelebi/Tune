@@ -1,8 +1,10 @@
 package com.example.demo.View.Frames;
 
 import com.example.demo.View.SpecialNodes.NavigateBar;
+import javafx.animation.ScaleTransition;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
+import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -11,6 +13,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import javafx.util.Duration;
 
 public class SettingsFrame extends Scene {
 
@@ -18,14 +21,17 @@ public class SettingsFrame extends Scene {
     VBox container;
     VBox accountVBox;
     VBox aboutVBox;
+    HBox removeButtonHBox;
     SettingsButton emailButton;
     SettingsButton passwordButton;
     SettingsButton aboutUsButton;
     SettingsButton aboutTuneButton;
+    Button removeButton;
     ImageView pencilImageView;
     ImageView pencilImageView2;
     ImageView infoImageView;
     ImageView infoImageView2;
+    ImageView deleteImageView;
     Label accountLabel;
     Label aboutLabel;
     Label settingsLabel;
@@ -42,6 +48,9 @@ public class SettingsFrame extends Scene {
         passwordButton = new SettingsButton("Password", pencilImageView2);
         aboutUsButton = new SettingsButton("About Us", infoImageView);
         aboutTuneButton = new SettingsButton("About Tune", infoImageView2);
+        removeButton = new Button("Remove Account", deleteImageView);
+        removeButton.setStyle("-fx-border-radius: 10;-fx-border-width: 2.5; -fx-background-radius: 10 ;-fx-font-size: 18; -fx-background-color: #e8e8e8; -fx-border-color: black");
+        addHoverEffect(removeButton);
 
         // Labels
         aboutLabel = new Label("About");
@@ -69,14 +78,20 @@ public class SettingsFrame extends Scene {
         aboutVBox.setPrefWidth(getScreenWidth() - getScreenWidth() / 5.5 - 120);
         aboutVBox.setPadding(new Insets(20,0, 25, 35));
 
+        //HBox for RemoveButton
+        removeButtonHBox = new HBox();
+        removeButtonHBox.setAlignment(Pos.CENTER);
+
+        //Navigate Bar
         navigateBar = new NavigateBar();
 
-
+        // Add elements to VBoxes & HBox
+        removeButtonHBox.getChildren().addAll(removeButton);
         accountVBox.getChildren().addAll(accountLabel, emailButton, passwordButton);
         aboutVBox.getChildren().addAll(aboutLabel, aboutUsButton, aboutTuneButton);
+        container.getChildren().addAll(settingsLabel, accountVBox, aboutVBox, removeButtonHBox);
 
-        container.getChildren().addAll(settingsLabel, accountVBox, aboutVBox);
-
+        // Layout
         HBox layout = (HBox) getRoot();
         layout.getChildren().addAll(navigateBar, container);
     }
@@ -102,11 +117,20 @@ public class SettingsFrame extends Scene {
         infoImageView2.setPreserveRatio(true);
         infoImageView2.setFitWidth(35);
 
+        Image deleteImage = new Image(getClass().getResourceAsStream("/com/example/demo/delete_ico.png"));
+        deleteImageView = new ImageView(deleteImage);
+        deleteImageView.setPreserveRatio(true);
+        deleteImageView.setFitWidth(35);
+
 
     }
 
     public NavigateBar getNavigateBar() {
         return navigateBar;
+    }
+
+    public Button getRemoveButton() {
+        return removeButton;
     }
 
     // Inner class for Buttons
@@ -138,6 +162,32 @@ public class SettingsFrame extends Scene {
                 }
             });
         }
+    }
+
+    private void addHoverEffect(Button button){
+        ScaleTransition scaleUp = new ScaleTransition(Duration.seconds(0.1), button);
+        scaleUp.setToX(1.03);
+        scaleUp.setToY(1.03);
+
+        ScaleTransition scaleDown = new ScaleTransition(Duration.seconds(0.1), button);
+        scaleDown.setToX(1.0);
+        scaleDown.setToY(1.0);
+
+        button.setOnMouseEntered(new EventHandler<MouseEvent>() {
+
+            @Override
+            public void handle(MouseEvent mouseEvent) {
+                scaleUp.play();
+            }
+        });
+
+        button.setOnMouseExited(new EventHandler<MouseEvent>() {
+
+            @Override
+            public void handle(MouseEvent mouseEvent) {
+                scaleDown.play();
+            }
+        });
     }
 
     private static double getScreenWidth() {

@@ -6,7 +6,9 @@ import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
+import javafx.scene.layout.VBox;
 
 import java.util.ArrayList;
 
@@ -15,12 +17,21 @@ public class ProfileFrame extends Scene {
     private NavigateBar navigateBar;
     private ArrayList<Node> scrollerNodes;
     private NodeScroller scroller;
+    private Button editProfileButton;
+    private VBox containerVBox;
 
     public ProfileFrame() {
-        super(new StackPane(), getScreenWidth() , getScreenHeight());
+        super(new HBox(40), getScreenWidth() , getScreenHeight());
         this.getStylesheets().add(getClass().getResource("navBar.css").toExternalForm());
 
         scrollerNodes = new ArrayList<>();
+
+        editProfileButton = new Button("Edit Profile");
+        editProfileButton.setStyle("-fx-font-size: 18; -fx-background-color: black; -fx-text-fill: white");
+        containerVBox = new VBox();
+        containerVBox.setAlignment(Pos.CENTER);
+        containerVBox.setSpacing(10);
+        containerVBox.getChildren().add(editProfileButton);
 
 
         Button a = new Button("A");
@@ -46,12 +57,12 @@ public class ProfileFrame extends Scene {
 
 
 
-        StackPane layout = (StackPane) getRoot();
+        HBox layout = (HBox) getRoot();
 
         navigateBar = new NavigateBar();
 
 
-        layout.getChildren().addAll(navigateBar);
+        layout.getChildren().addAll(navigateBar, containerVBox);
 
 
         StackPane.setAlignment(navigateBar, Pos.TOP_LEFT);
@@ -71,5 +82,9 @@ public class ProfileFrame extends Scene {
 
     public NodeScroller getScroller() {
         return scroller;
+    }
+
+    public Button getEditProfileButton() {
+        return editProfileButton;
     }
 }

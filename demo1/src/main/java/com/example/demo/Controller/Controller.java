@@ -6,9 +6,7 @@ import com.example.demo.Model.Database;
 import com.example.demo.Model.Song;
 import com.example.demo.Model.TuneUser;
 import com.example.demo.View.Frames.*;
-import com.example.demo.View.PopUpFrames.PopUpAddTune;
-import com.example.demo.View.PopUpFrames.PopUpShowFriendTune;
-import com.example.demo.View.PopUpFrames.PopUpUpdate;
+import com.example.demo.View.PopUpFrames.*;
 import com.example.demo.View.Stage.PopUpStage;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -89,6 +87,7 @@ public class Controller {
         profileFrame.getNavigateBar().getTuneButton().setOnAction(new goToTuneFrame());
         profileFrame.getNavigateBar().getSettingsButton().setOnAction(new goToSettingsFrame());
         profileFrame.getNavigateBar().getAddTuneButton().setOnAction(new goToPopUpAddTune());
+        profileFrame.getEditProfileButton().setOnAction(new goToPopProfileImageSelection());
 
         tuneFrame.getNavigateBar().getProfileButton().setOnAction(new goToProfileFrame());
         tuneFrame.getNavigateBar().getHomeButton().setOnAction(new loginFrameController());
@@ -104,6 +103,7 @@ public class Controller {
 
         settingsFrame.getEmailButton().setOnAction(new goToPopUpUpdate("Email" , "Email", "Email"));
         settingsFrame.getPasswordButton().setOnAction(new goToPopUpUpdate("Password" , "Password", "Password"));
+        settingsFrame.getRemoveButton().setOnAction(new goToPopUpRemoveAccount());
 
 
 
@@ -216,6 +216,20 @@ public class Controller {
 
     }
 
+    public void showPopUpRemoveAccount(){
+        PopUpRemoveAccount popUpRemoveAccount = new PopUpRemoveAccount();
+        popUpStage.setScene(popUpRemoveAccount);
+        popUpStage.show();
+
+    }
+
+    public void showPopUpProfileImageSelection(){
+        PopUpProfileImageSelection popUpProfileImageSelection = new PopUpProfileImageSelection();
+        popUpStage.setScene(popUpProfileImageSelection);
+        popUpStage.show();
+
+    }
+
     public void showPopUpAddTune(){
         PopUpAddTune popUpAddTune = new PopUpAddTune();
         popUpStage.setScene(popUpAddTune);
@@ -315,6 +329,22 @@ public class Controller {
         @Override
         public void handle(ActionEvent actionEvent) {
             showPopUpAddTune();
+        }
+    }
+
+    private class goToPopProfileImageSelection implements EventHandler<ActionEvent> {
+
+        @Override
+        public void handle(ActionEvent actionEvent) {
+            showPopUpProfileImageSelection();
+        }
+    }
+
+    private class goToPopUpRemoveAccount implements EventHandler<ActionEvent> {
+
+        @Override
+        public void handle(ActionEvent actionEvent) {
+            showPopUpRemoveAccount();
         }
     }
 
