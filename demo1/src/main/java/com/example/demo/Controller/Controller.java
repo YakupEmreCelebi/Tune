@@ -6,6 +6,7 @@ import com.example.demo.Model.Database;
 import com.example.demo.Model.Song;
 import com.example.demo.Model.TuneUser;
 import com.example.demo.View.Frames.*;
+import com.example.demo.View.PopUpFrames.PopUpAddTune;
 import com.example.demo.View.PopUpFrames.PopUpShowFriendTune;
 import com.example.demo.View.PopUpFrames.PopUpUpdate;
 import com.example.demo.View.Stage.PopUpStage;
@@ -49,7 +50,10 @@ public class Controller {
 
     public Controller(Stage stage) {
         this.mainStage = stage;
+
+        // For testing
         currentUser = new TuneUser("", "", "", 0, null, null);
+        currentSong = new Song(1,"Yanıbaşımdan", "Duman", "TR", 2010, "Rock", "happy", "https://imgur.com/Vbcu0c9.jpg", 4);
     }
 
     public void initScenes() {
@@ -58,7 +62,7 @@ public class Controller {
         welcomeFrame = new WelcomeFrame();
         loginFrame = new LoginFrame();
         signUpFrame = new SignUpFrame();
-        homeFrame = new HomeFrame();
+        homeFrame = new HomeFrame(currentSong);
         profileFrame = new ProfileFrame();
         tuneFrame = new TuneFrame();
         settingsFrame = new SettingsFrame();
@@ -77,22 +81,26 @@ public class Controller {
         homeFrame.getNavigateBar().getHomeButton().setOnAction(new loginFrameController());
         homeFrame.getNavigateBar().getTuneButton().setOnAction(new goToTuneFrame());
         homeFrame.getNavigateBar().getSettingsButton().setOnAction(new goToSettingsFrame());
+        homeFrame.getNavigateBar().getAddTuneButton().setOnAction(new goToPopUpAddTune());
 
 
         profileFrame.getNavigateBar().getProfileButton().setOnAction(new goToProfileFrame());
         profileFrame.getNavigateBar().getHomeButton().setOnAction(new loginFrameController());
         profileFrame.getNavigateBar().getTuneButton().setOnAction(new goToTuneFrame());
         profileFrame.getNavigateBar().getSettingsButton().setOnAction(new goToSettingsFrame());
+        profileFrame.getNavigateBar().getAddTuneButton().setOnAction(new goToPopUpAddTune());
 
         tuneFrame.getNavigateBar().getProfileButton().setOnAction(new goToProfileFrame());
         tuneFrame.getNavigateBar().getHomeButton().setOnAction(new loginFrameController());
         tuneFrame.getNavigateBar().getTuneButton().setOnAction(new goToTuneFrame());
         tuneFrame.getNavigateBar().getSettingsButton().setOnAction(new goToSettingsFrame());
+        tuneFrame.getNavigateBar().getAddTuneButton().setOnAction(new goToPopUpAddTune());
 
         settingsFrame.getNavigateBar().getProfileButton().setOnAction(new goToProfileFrame());
         settingsFrame.getNavigateBar().getHomeButton().setOnAction(new loginFrameController());
         settingsFrame.getNavigateBar().getTuneButton().setOnAction(new goToTuneFrame());
         settingsFrame.getNavigateBar().getSettingsButton().setOnAction(new goToSettingsFrame());
+        settingsFrame.getNavigateBar().getAddTuneButton().setOnAction(new goToPopUpAddTune());
 
         settingsFrame.getEmailButton().setOnAction(new goToPopUpUpdate("Email" , "Email", "Email"));
         settingsFrame.getPasswordButton().setOnAction(new goToPopUpUpdate("Password" , "Password", "Password"));
@@ -208,6 +216,12 @@ public class Controller {
 
     }
 
+    public void showPopUpAddTune(){
+        PopUpAddTune popUpAddTune = new PopUpAddTune();
+        popUpStage.setScene(popUpAddTune);
+        popUpStage.show();
+    }
+
     // Inner Classes for Events
 
     private class goToWelcomeFrame implements EventHandler<ActionEvent> {
@@ -293,6 +307,14 @@ public class Controller {
         @Override
         public void handle(ActionEvent actionEvent) {
             closePopUpStage();
+        }
+    }
+
+    private class goToPopUpAddTune implements EventHandler<ActionEvent> {
+
+        @Override
+        public void handle(ActionEvent actionEvent) {
+            showPopUpAddTune();
         }
     }
 

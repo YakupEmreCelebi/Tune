@@ -78,4 +78,5 @@ public class Song {
     public int getCurrentPosition() {
         return currentPosition;
     }
+
 }

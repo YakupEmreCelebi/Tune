@@ -5,7 +5,7 @@ import javafx.scene.layout.VBox;
 
 public class PopUp extends Scene {
 
-    public PopUp() {
-        super(new VBox(10), 350,180);
+    public PopUp(int width, int height) {
+        super(new VBox(10), width,height);
     }
 }

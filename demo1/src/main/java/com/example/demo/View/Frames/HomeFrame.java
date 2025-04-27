@@ -1,8 +1,10 @@
 package com.example.demo.View.Frames;
 
+import com.example.demo.Model.Song;
 import com.example.demo.Model.TuneUser;
 import com.example.demo.View.SpecialNodes.NavigateBar;
 import com.example.demo.View.SpecialNodes.NodeScroller;
+import com.example.demo.View.SpecialNodes.SongVBox;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -10,11 +12,14 @@ import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.shape.Circle;
 
+import javax.swing.text.Element;
+import javax.swing.text.html.ImageView;
 import java.util.ArrayList;
 
 public class HomeFrame extends Scene {
@@ -24,11 +29,12 @@ public class HomeFrame extends Scene {
     private TextField searchBar;
     private NodeScroller friendsScroller;
 
-    public HomeFrame() {
+    public HomeFrame(Song song) {
         super(new HBox(40), getScreenWidth(), getScreenHeight());
 
+
         this.getStylesheets().add(getClass().getResource("navBar.css").toExternalForm());
-        container = new VBox();
+        container = new VBox(20);
         container.setPadding(new Insets(100,0,0,0));
         container.setAlignment(Pos.TOP_CENTER);
         container.setStyle("-fx-border-color: black");
@@ -43,7 +49,7 @@ public class HomeFrame extends Scene {
         ArrayList<Button> friendsButtons = new ArrayList<Button>();
 
 
-        container.getChildren().addAll(searchBar);
+        container.getChildren().addAll(searchBar, new SongVBox(song.getImage(), song.getArtist(), song.getGenre()));
 
         HBox layout = (HBox) getRoot();
         layout.setOnMousePressed(new ChangeFocus());

@@ -173,6 +173,9 @@ public class NavigateBar extends BorderPane {
         return settingsButton;
     }
 
+    public Button getAddTuneButton() {
+        return addTune;
+    }
 
     class NavBarButton extends Button {
 

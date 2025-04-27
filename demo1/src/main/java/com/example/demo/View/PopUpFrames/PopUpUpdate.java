@@ -16,7 +16,7 @@ public class PopUpUpdate extends PopUp{
     Button updateButton;
 
     public PopUpUpdate(String title, String textAreaPrompt, String buttonText) {
-        super();
+        super(350, 180);
 
         // Label
         label = new Label(title);

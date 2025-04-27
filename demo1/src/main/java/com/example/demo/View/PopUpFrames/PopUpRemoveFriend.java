@@ -15,7 +15,7 @@ public class PopUpRemoveFriend extends PopUp{
     HBox buttonHBox;
 
     public PopUpRemoveFriend() {
-        super();
+        super(350, 180);
         label = new Label("Are you sure you want to remove your friend?");
         yesButton = new Button("Yes");
         noButton = new Button("No");

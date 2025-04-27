@@ -25,7 +25,7 @@ public class PopUpShowFriendTune extends PopUp{
     ImageView imageView;
 
     public PopUpShowFriendTune(TuneUser user) {
-        super();
+        super(350, 180);
 
         buttonHBox = new HBox();
         songVBox = new VBox();
