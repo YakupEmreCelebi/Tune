@@ -24,6 +24,7 @@ public class LoginFrame extends Scene {
     private Label loginLabel;
     private Label usernameLabel;
     private Label passwordLabel;
+    private Label warningLabel;
     private ImageView backgroundImageView;
 
     public LoginFrame() {
@@ -35,9 +36,12 @@ public class LoginFrame extends Scene {
         loginLabel = new Label("Log In");
         usernameLabel = new Label("Username");
         passwordLabel = new Label("Password");
+        warningLabel = new Label("Incorrect Username or Password");
 
         usernameLabel.setFont(Font.font("Arial", FontWeight.SEMI_BOLD, 35));
         passwordLabel.setFont(Font.font("Arial", FontWeight.SEMI_BOLD, 35));
+        warningLabel.setStyle("-fx-text-fill: red; -fx-font-size: 15 ");
+        warningLabel.setVisible(false);
 
         // Buttons
         loginButton = new GeneralButton("Login");
@@ -78,11 +82,12 @@ public class LoginFrame extends Scene {
 
         usernameVBox.getChildren().addAll(usernameLabel, usernameTextField);
         passwordVBox.getChildren().addAll(passwordLabel, passwordField);
-        allElementsVBox.getChildren().addAll(usernameVBox, passwordVBox, loginButton);
+        allElementsVBox.getChildren().addAll(usernameVBox, passwordVBox, warningLabel, loginButton);
 
         usernameVBox.setAlignment(Pos.CENTER_LEFT);
         passwordVBox.setAlignment(Pos.CENTER_LEFT);
         allElementsVBox.setAlignment(Pos.CENTER);
+        warningLabel.setAlignment(Pos.CENTER);
 
         usernameVBox.setPadding(new Insets(0,0,0,35));
         passwordVBox.setPadding(new Insets(0,0,0,35));
@@ -102,5 +107,9 @@ public class LoginFrame extends Scene {
     // Getters for Buttons
     public Button getLoginButton() {
         return loginButton;
+    }
+
+    public Label getWarningLabel() {
+        return warningLabel;
     }
 }

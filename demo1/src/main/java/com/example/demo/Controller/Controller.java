@@ -13,6 +13,7 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.stage.Stage;
 
+import javax.swing.*;
 import java.util.ArrayList;
 
 public class Controller {
@@ -68,28 +69,28 @@ public class Controller {
         welcomeFrame.getLoginButton().setOnAction(new goToLoginFrame());
         welcomeFrame.getSignUpButton().setOnAction(new goToSignupFrame());
 
-        loginFrame.getLoginButton().setOnAction(new goToHomeFrame());
+        loginFrame.getLoginButton().setOnAction(new loginFrameController());
 
-        signUpFrame.getSignupButton().setOnAction(new goToLoginFrame());
+        signUpFrame.getSignupButton().setOnAction(new signUpFrameController());
 
         homeFrame.getNavigateBar().getProfileButton().setOnAction(new goToProfileFrame());
-        homeFrame.getNavigateBar().getHomeButton().setOnAction(new goToHomeFrame());
+        homeFrame.getNavigateBar().getHomeButton().setOnAction(new loginFrameController());
         homeFrame.getNavigateBar().getTuneButton().setOnAction(new goToTuneFrame());
         homeFrame.getNavigateBar().getSettingsButton().setOnAction(new goToSettingsFrame());
 
 
         profileFrame.getNavigateBar().getProfileButton().setOnAction(new goToProfileFrame());
-        profileFrame.getNavigateBar().getHomeButton().setOnAction(new goToHomeFrame());
+        profileFrame.getNavigateBar().getHomeButton().setOnAction(new loginFrameController());
         profileFrame.getNavigateBar().getTuneButton().setOnAction(new goToTuneFrame());
         profileFrame.getNavigateBar().getSettingsButton().setOnAction(new goToSettingsFrame());
 
         tuneFrame.getNavigateBar().getProfileButton().setOnAction(new goToProfileFrame());
-        tuneFrame.getNavigateBar().getHomeButton().setOnAction(new goToHomeFrame());
+        tuneFrame.getNavigateBar().getHomeButton().setOnAction(new loginFrameController());
         tuneFrame.getNavigateBar().getTuneButton().setOnAction(new goToTuneFrame());
         tuneFrame.getNavigateBar().getSettingsButton().setOnAction(new goToSettingsFrame());
 
         settingsFrame.getNavigateBar().getProfileButton().setOnAction(new goToProfileFrame());
-        settingsFrame.getNavigateBar().getHomeButton().setOnAction(new goToHomeFrame());
+        settingsFrame.getNavigateBar().getHomeButton().setOnAction(new loginFrameController());
         settingsFrame.getNavigateBar().getTuneButton().setOnAction(new goToTuneFrame());
         settingsFrame.getNavigateBar().getSettingsButton().setOnAction(new goToSettingsFrame());
 
@@ -111,22 +112,55 @@ public class Controller {
     }
 
     public void showLoginFrame() {
+        mainStage.setScene(loginFrame);
+        mainStage.setTitle("LOGIN");
+        mainStage.show();
+    }
 
+    public void signUpFrameOperations(){
 
         if(database.checkIfUserUnique(signUpFrame.getUsernameTextFieldText(), signUpFrame.getEmailTextFieldText()))
         {
             database.addUserToDatabase(signUpFrame.getUsernameTextFieldText(), signUpFrame.getEmailTextFieldText(), signUpFrame.getPasswordTextFieldText());
             TuneUser newUser  = new TuneUser(signUpFrame.getUsernameTextFieldText(), signUpFrame.getPasswordTextFieldText() , signUpFrame.getEmailTextFieldText(),1, new ArrayList<>(), new ArrayList<>() );
             currentUser = newUser;
-            mainStage.setScene(loginFrame);
-            mainStage.setTitle("LOGIN");
-            mainStage.show();
+            showLoginFrame();
         }
         else
         {
             System.out.println("User is already logged in");
-        }
+            signUpFrame.getWarningLabel().setVisible(true);
 
+            // Timer (disappear after 2 sec)
+            Timer timer = new Timer(2000, e -> {
+                signUpFrame.getWarningLabel().setVisible(false);
+            });
+            timer.setRepeats(false);
+            timer.start();
+        }
+    }
+
+    public  void loginFrameOperations(){
+        showHomeFrame();
+        if(!database.checkUserExistInDatabase(signUpFrame.getUsernameTextFieldText(), signUpFrame.getPasswordTextFieldText()))
+        {
+            showHomeFrame();
+
+        }
+        else
+        {
+            System.out.println("Incorrect username or password");
+            loginFrame.getWarningLabel().setVisible(true);
+
+            // Timer (disappear after 2 sec)
+            Timer timer = new Timer(2000, e -> {
+                loginFrame.getWarningLabel().setVisible(false);
+            });
+            timer.setRepeats(false);
+            timer.start();
+
+
+        }
     }
 
     public void showSignupFrame() {
@@ -190,6 +224,13 @@ public class Controller {
         }
     }
 
+    private class signUpFrameController implements EventHandler<ActionEvent> {
+        @Override
+        public void handle(ActionEvent event) {
+            signUpFrameOperations();
+        }
+    }
+
     private class goToSignupFrame implements EventHandler<ActionEvent> {
         @Override
         public void handle(ActionEvent event) {
@@ -197,11 +238,11 @@ public class Controller {
         }
     }
 
-    private class goToHomeFrame implements EventHandler<ActionEvent> {
+    private class loginFrameController implements EventHandler<ActionEvent> {
         @Override
         public void handle(ActionEvent event) {
             api.startResumePlayback();
-            showHomeFrame();
+            loginFrameOperations();
         }
     }
 

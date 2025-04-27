@@ -26,6 +26,7 @@ public class SignUpFrame extends Scene {
     private Label emailLabel;
     private Label usernameLabel;
     private Label passwordLabel;
+    private Label warningLabel;
     private ImageView backgroundImageView;
 
     public SignUpFrame() {
@@ -38,10 +39,13 @@ public class SignUpFrame extends Scene {
         usernameLabel = new Label("Username");
         passwordLabel = new Label("Password");
         emailLabel = new Label("Email");
+        warningLabel = new Label("Username or email already exists");
 
         usernameLabel.setFont(Font.font("Arial", FontWeight.SEMI_BOLD, 35));
         passwordLabel.setFont(Font.font("Arial", FontWeight.SEMI_BOLD, 35));
         emailLabel.setFont(Font.font("Arial", FontWeight.SEMI_BOLD, 35));
+        warningLabel.setStyle("-fx-font-size: 15; -fx-text-fill: red; ");
+        warningLabel.setVisible(false);
 
         // Buttons
         signupButton = new GeneralButton("Sign Up");
@@ -83,19 +87,20 @@ public class SignUpFrame extends Scene {
         VBox allElementsVBox = new VBox(35);
 
         allElementsVBox.setMaxWidth(getScreenWidth()/2);
-        allElementsVBox.setMaxHeight(530);
+        allElementsVBox.setMaxHeight(570);
 
         allElementsVBox.setStyle("-fx-border-color: #9f9b9b; -fx-border-width: 2px; -fx-border-radius: 8px;");
 
         usernameVBox.getChildren().addAll(usernameLabel, usernameTextField);
         passwordVBox.getChildren().addAll(passwordLabel, passwordField);
         emailVBox.getChildren().addAll(emailLabel, emailTextField);
-        allElementsVBox.getChildren().addAll(usernameVBox, passwordVBox, emailVBox, signupButton);
+        allElementsVBox.getChildren().addAll(usernameVBox, passwordVBox, emailVBox, warningLabel, signupButton);
 
         usernameVBox.setAlignment(Pos.CENTER_LEFT);
         passwordVBox.setAlignment(Pos.CENTER_LEFT);
         emailVBox.setAlignment(Pos.CENTER_LEFT);
         allElementsVBox.setAlignment(Pos.CENTER);
+        usernameLabel.setAlignment(Pos.CENTER);
 
         usernameVBox.setPadding(new Insets(0,0,0,35));
         passwordVBox.setPadding(new Insets(0,0,0,35));
@@ -127,5 +132,9 @@ public class SignUpFrame extends Scene {
     }
     public String getPasswordTextFieldText() {
         return passwordField.getText();
+    }
+
+    public Label getWarningLabel() {
+        return warningLabel;
     }
 }
