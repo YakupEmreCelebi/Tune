@@ -5,6 +5,9 @@ module com.example.demo {
     requires se.michaelthelin.spotify;
     requires org.apache.httpcomponents.core5.httpcore5;
     requires com.google.gson;
+    requires org.mongodb.bson;
+    requires org.mongodb.driver.core;
+    requires org.mongodb.driver.sync.client;
 
 
     opens com.example.demo to javafx.fxml;

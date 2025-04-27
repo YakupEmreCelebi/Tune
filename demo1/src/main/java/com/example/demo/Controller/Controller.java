@@ -26,6 +26,12 @@ public class Controller {
     private ArrayList<Song> currentSongList;
     private boolean checkSongPlaying;
 
+    String connectionString = "mongodb+srv://admin:admin@project102.8x4g8.mongodb.net/?retryWrites=true&w=majority&appName=Project102";
+    String dbName = "Project-102";
+
+    // Initialize the database handler
+    Database database = new Database(connectionString, dbName);
+
 
     // Stage and Frames
     private Stage mainStage;
