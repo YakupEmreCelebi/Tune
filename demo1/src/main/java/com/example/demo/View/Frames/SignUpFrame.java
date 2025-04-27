@@ -117,4 +117,15 @@ public class SignUpFrame extends Scene {
     public Button getSignupButton() {
         return signupButton;
     }
+
+    public String getEmailTextFieldText() {
+        return emailTextField.getText();
+    }
+
+    public String getUsernameTextFieldText() {
+        return usernameTextField.getText();
+    }
+    public String getPasswordTextFieldText() {
+        return passwordField.getText();
+    }
 }

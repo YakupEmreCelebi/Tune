@@ -20,7 +20,7 @@ public class Controller {
     private static final Api api = new Api();
 //    private static final Database theDatabase = new Database();
 
-//    private TuneUser currentUser;
+    private TuneUser currentUser;
     private Song currentSong;
 
     private ArrayList<Song> currentSongList;
@@ -42,11 +42,13 @@ public class Controller {
     private ProfileFrame profileFrame;
     private TuneFrame tuneFrame;
     private SettingsFrame settingsFrame;
+    PopUpUpdate popUpUpdate;
 
     private PopUpStage popUpStage;
 
     public Controller(Stage stage) {
         this.mainStage = stage;
+        currentUser = new TuneUser("", "", "", 0, null, null);
     }
 
     public void initScenes() {
@@ -91,8 +93,10 @@ public class Controller {
         settingsFrame.getNavigateBar().getTuneButton().setOnAction(new goToTuneFrame());
         settingsFrame.getNavigateBar().getSettingsButton().setOnAction(new goToSettingsFrame());
 
-        settingsFrame.getEmailButton().setOnAction(e -> showPopUpUpdate("Email", "Email", "Email"));
-        settingsFrame.getPasswordButton().setOnAction(e -> showPopUpUpdate("Password", "Password", "Password"));
+        settingsFrame.getEmailButton().setOnAction(new goToPopUpUpdate("Email" , "Email", "Email"));
+        settingsFrame.getPasswordButton().setOnAction(new goToPopUpUpdate("Password" , "Password", "Password"));
+
+
 
 
     }
@@ -107,9 +111,22 @@ public class Controller {
     }
 
     public void showLoginFrame() {
-        mainStage.setScene(loginFrame);
-        mainStage.setTitle("LOGIN");
-        mainStage.show();
+
+
+        if(database.checkIfUserUnique(signUpFrame.getUsernameTextFieldText(), signUpFrame.getEmailTextFieldText()))
+        {
+            database.addUserToDatabase(signUpFrame.getUsernameTextFieldText(), signUpFrame.getEmailTextFieldText(), signUpFrame.getPasswordTextFieldText());
+            TuneUser newUser  = new TuneUser(signUpFrame.getUsernameTextFieldText(), signUpFrame.getPasswordTextFieldText() , signUpFrame.getEmailTextFieldText(),1, new ArrayList<>(), new ArrayList<>() );
+            currentUser = newUser;
+            mainStage.setScene(loginFrame);
+            mainStage.setTitle("LOGIN");
+            mainStage.show();
+        }
+        else
+        {
+            System.out.println("User is already logged in");
+        }
+
     }
 
     public void showSignupFrame() {
@@ -138,12 +155,16 @@ public class Controller {
         mainStage.show();
     }
 
+    public void closePopUpStage() {
+        popUpStage.close();
+    }
+
     public void showPopUpUpdate(String title, String textAreaPrompt, String buttonText){
-        PopUpUpdate popUpUpdate = new PopUpUpdate(title, textAreaPrompt, buttonText);
+        popUpUpdate = new PopUpUpdate(title, textAreaPrompt, buttonText);
         popUpStage.setScene(popUpUpdate);
         popUpStage.setTitle(title);
         popUpStage.show();
-
+        popUpUpdate.getUpdateButton().setOnAction(new closePopUp());
     }
 
     public void showPopUpShowFriendTune(TuneUser tuneUser){
@@ -206,6 +227,31 @@ public class Controller {
         @Override
         public void handle(ActionEvent actionEvent) {
             showSettingsFrame();
+        }
+    }
+
+    private class goToPopUpUpdate implements EventHandler<ActionEvent> {
+
+        String title;
+        String textAreaPrompt;
+        String buttonText;
+
+        public goToPopUpUpdate(String title, String textAreaPrompt, String buttonText) {
+            this.title = title;
+            this.textAreaPrompt = textAreaPrompt;
+            this.buttonText = buttonText;
+        }
+        @Override
+        public void handle(ActionEvent actionEvent) {
+            showPopUpUpdate(this.title, this.textAreaPrompt, this.buttonText);
+        }
+    }
+
+    private class closePopUp implements EventHandler<ActionEvent> {
+
+        @Override
+        public void handle(ActionEvent actionEvent) {
+            closePopUpStage();
         }
     }
 

@@ -49,12 +49,10 @@ public class PopUpUpdate extends PopUp{
 
         layout.getChildren().addAll(labelContainer, textField, updateButton);
 
-        // Close when button pressed
-        updateButton.setOnAction(e -> {
-            Stage currentStage = (Stage) textField.getScene().getWindow();
-            currentStage.close();
-        });
+
     }
 
-
+    public Button getUpdateButton() {
+        return updateButton;
+    }
 }
