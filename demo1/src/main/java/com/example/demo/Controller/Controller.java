@@ -222,6 +222,8 @@ public class Controller {
         popUpRemoveAccount = new PopUpRemoveAccount();
         popUpStage.setScene(popUpRemoveAccount);
         popUpStage.show();
+        popUpRemoveAccount.getYesButton().setOnAction(actionEvent -> removeAccount());
+        popUpRemoveAccount.getNoButton().setOnAction(actionEvent -> closePopUpStage());
 
     }
 
@@ -235,6 +237,12 @@ public class Controller {
         popUpAddTune = new PopUpAddTune();
         popUpStage.setScene(popUpAddTune);
         popUpStage.show();
+    }
+
+    public void removeAccount(){
+        database.removeUserFromDatabase(currentUser.getUsername());
+        showWelcomeFrame();
+        closePopUpStage();
     }
 
     // Inner Classes for Events
