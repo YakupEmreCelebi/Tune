@@ -153,25 +153,24 @@ public class Controller {
     }
 
     public  void loginFrameOperations(){
-        showHomeFrame();
-//        if(!database.checkUserExistInDatabase(signUpFrame.getUsernameTextFieldText(), signUpFrame.getPasswordTextFieldText()))
-//        {
-//            showHomeFrame();
-//        }
-//        else
-//        {
-//            System.out.println("Incorrect username or password");
-//            loginFrame.getWarningLabel().setVisible(true);
-//
-//            // Timer (disappear after 2 sec)
-//            Timer timer = new Timer(2000, e -> {
-//                loginFrame.getWarningLabel().setVisible(false);
-//            });
-//            timer.setRepeats(false);
-//            timer.start();
-//
-//
-//        }
+
+        if(database.checkUserExistInDatabase(loginFrame.getUsernameTextFieldText(), loginFrame.getPasswordTextFieldText()))
+        {
+            showHomeFrame();
+            System.out.println("successfully logged in");
+        }
+        else
+        {
+            System.out.println("Incorrect username or password");
+            loginFrame.getWarningLabel().setVisible(true);
+
+            // Timer (disappear after 2 sec)
+            Timer timer = new Timer(2000, e -> {
+                loginFrame.getWarningLabel().setVisible(false);
+            });
+            timer.setRepeats(false);
+            timer.start();
+        }
     }
 
     public void showSignupFrame() {

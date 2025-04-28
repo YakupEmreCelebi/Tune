@@ -111,4 +111,12 @@ public class LoginFrame extends Scene {
     public Label getWarningLabel() {
         return warningLabel;
     }
+
+    public String getUsernameTextFieldText() {
+        return usernameTextField.getText();
+    }
+
+    public String getPasswordTextFieldText() {
+        return passwordField.getText();
+    }
 }
