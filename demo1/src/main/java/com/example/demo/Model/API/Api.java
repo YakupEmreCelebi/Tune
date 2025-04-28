@@ -150,8 +150,6 @@ public class Api {
         }
     }
 
-
-
     public void skipPlaybackToNextTrack() {
         try {
             skipUsersPlaybackToNextTrackRequest.execute();
@@ -171,28 +169,6 @@ public class Api {
             System.out.println("Error: " + e.getMessage());
         }
     }
-
-
-
-
-
-
-
-    public void getTrack_Sync() {
-        GetTrackRequest getTrackRequest = spotifyApi.getTrack("")
-                .build();
-
-        try {
-            final Track track = getTrackRequest.execute();
-            track.getAlbum().getImages();
-
-            System.out.println("Name: " + track.getName());
-        } catch (IOException | SpotifyWebApiException | ParseException e) {
-            System.out.println("Error: " + e.getMessage());
-        }
-    }
-
-
 
 
 }

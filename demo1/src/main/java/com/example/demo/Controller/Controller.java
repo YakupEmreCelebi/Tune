@@ -18,7 +18,7 @@ import java.util.ArrayList;
 public class Controller {
 
     private static final Api api = new Api();
-//    private static final Database theDatabase = new Database();
+    private static final Database theDatabase = new Database();
 
     private TuneUser currentUser;
     private Song currentSong;
@@ -371,7 +371,7 @@ public class Controller {
 //        api.startResumePlayback(aSong, aSongList);
 //    }
 //
-//    private void playCurrentSong(int startPosition) {
+//    private void playCurrentSong() {
 //        api.startResumePlayback();
 //    }
 //
@@ -382,7 +382,6 @@ public class Controller {
 //    private void playFriendTuneSong(TuneUser aFriend) {
 //        api.startTrackFromRandomPos(aFriend.getTuneSong());
 //    }
-//
 //
 //    private Song searchSong(String songName) {
 //        return new Song();
