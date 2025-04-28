@@ -84,10 +84,15 @@ public class TuneUser {
         return tuneSong;
     }
 
+    public int getProfileImg() {
+        return profileImg;
+    }
+
     public ArrayList<TuneUser> getFriends() {return friends;}
     public ArrayList<Song> getFavouriteSongs (){return favouriteSongs;}
 
 
-
-
+    public void setProfileImg(int profileImg) {
+        this.profileImg = profileImg;
+    }
 }

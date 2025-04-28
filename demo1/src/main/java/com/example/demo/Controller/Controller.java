@@ -61,7 +61,7 @@ public class Controller {
         loginFrame = new LoginFrame();
         signUpFrame = new SignUpFrame();
         homeFrame = new HomeFrame(currentSong);
-        profileFrame = new ProfileFrame();
+        profileFrame = new ProfileFrame(currentUser);
         tuneFrame = new TuneFrame();
         settingsFrame = new SettingsFrame();
 
@@ -153,7 +153,6 @@ public class Controller {
         if(!database.checkUserExistInDatabase(signUpFrame.getUsernameTextFieldText(), signUpFrame.getPasswordTextFieldText()))
         {
             showHomeFrame();
-
         }
         else
         {
@@ -227,7 +226,6 @@ public class Controller {
         PopUpProfileImageSelection popUpProfileImageSelection = new PopUpProfileImageSelection();
         popUpStage.setScene(popUpProfileImageSelection);
         popUpStage.show();
-
     }
 
     public void showPopUpAddTune(){

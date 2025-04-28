@@ -21,6 +21,8 @@ public class PopUpProfileImageSelection extends PopUp {
     private ImageView imageView6;
     private ImageView imageView7;
     private ImageView imageView8;
+    private int selectedImageIndex;
+    private Button selectButton;
 
     private HBox hBox1;
     private HBox hBox2;
@@ -28,7 +30,11 @@ public class PopUpProfileImageSelection extends PopUp {
     public PopUpProfileImageSelection() {
         super(1000, 700);
 
+        selectedImageIndex = 0;
+
         createImages();
+
+        selectButton = new Button("Select Image");
 
         hBox1 = new HBox(10);
         hBox2 = new HBox(10);
@@ -41,7 +47,7 @@ public class PopUpProfileImageSelection extends PopUp {
         layout.setPadding(new Insets(100,10,30,75));
         layout.setStyle("-fx-background-color: black;");
 
-        layout.getChildren().addAll(hBox1, hBox2);
+        layout.getChildren().addAll(hBox1, hBox2, selectButton);
 
 
     }
@@ -55,6 +61,7 @@ public class PopUpProfileImageSelection extends PopUp {
         imageView1.setClip(new Circle(80,80,80));
         imageView1.setOnMouseEntered(event -> {imageView1.setOpacity(0.5);});
         imageView1.setOnMouseExited(event -> {imageView1.setOpacity(1);});
+        imageView1.setOnMouseClicked(event -> {setSelectedImageIndex(1);});
 
         Image image2 = new Image(getClass().getResourceAsStream("/com/example/demo/duman1_ico.jpg"));
         imageView2 = new ImageView(image2);
@@ -63,6 +70,7 @@ public class PopUpProfileImageSelection extends PopUp {
         imageView2.setClip(new Circle(80, 80, 80));
         imageView2.setOnMouseEntered(event -> {imageView2.setOpacity(0.5);});
         imageView2.setOnMouseExited(event -> {imageView2.setOpacity(1);});
+        imageView2.setOnMouseClicked(event -> {setSelectedImageIndex(2);});
 
         Image image3 = new Image(getClass().getResourceAsStream("/com/example/demo/duman2_ico.jpg"));
         imageView3 = new ImageView(image3);
@@ -71,6 +79,7 @@ public class PopUpProfileImageSelection extends PopUp {
         imageView3.setClip(new Circle(80, 80, 80));
         imageView3.setOnMouseEntered(event -> {imageView3.setOpacity(0.5);});
         imageView3.setOnMouseExited(event -> {imageView3.setOpacity(1);});
+        imageView3.setOnMouseClicked(event -> {setSelectedImageIndex(3);});
 
         Image image4 = new Image(getClass().getResourceAsStream("/com/example/demo/senikendimesakladım_ico.jpg"));
         imageView4 = new ImageView(image4);
@@ -79,6 +88,7 @@ public class PopUpProfileImageSelection extends PopUp {
         imageView4.setClip(new Circle(80, 80, 80));
         imageView4.setOnMouseEntered(event -> {imageView4.setOpacity(0.5);});
         imageView4.setOnMouseExited(event -> {imageView4.setOpacity(1);});
+        imageView4.setOnMouseClicked(event -> {setSelectedImageIndex(4);});
 
         Image image5 = new Image(getClass().getResourceAsStream("/com/example/demo/metallica_ico.jpg"));
         imageView5 = new ImageView(image5);
@@ -87,6 +97,7 @@ public class PopUpProfileImageSelection extends PopUp {
         imageView5.setClip(new Circle(80, 80, 80));
         imageView5.setOnMouseEntered(event -> {imageView5.setOpacity(0.5);});
         imageView5.setOnMouseExited(event -> {imageView5.setOpacity(1);});
+        imageView5.setOnMouseClicked(event -> {setSelectedImageIndex(5);});
 
         Image image6 = new Image(getClass().getResourceAsStream("/com/example/demo/şebnemferah_ico.jpg"));
         imageView6 = new ImageView(image6);
@@ -95,6 +106,7 @@ public class PopUpProfileImageSelection extends PopUp {
         imageView6.setClip(new Circle(80, 80, 80));
         imageView6.setOnMouseEntered(event -> {imageView6.setOpacity(0.5);});
         imageView6.setOnMouseExited(event -> {imageView6.setOpacity(1);});
+        imageView6.setOnMouseClicked(event -> {setSelectedImageIndex(6);});
 
         Image image7 = new Image(getClass().getResourceAsStream("/com/example/demo/megadeth_ico.jpg"));
         imageView7 = new ImageView(image7);
@@ -103,6 +115,7 @@ public class PopUpProfileImageSelection extends PopUp {
         imageView7.setClip(new Circle(80, 80, 80));
         imageView7.setOnMouseEntered(event -> {imageView7.setOpacity(0.5);});
         imageView7.setOnMouseExited(event -> {imageView7.setOpacity(1);});
+        imageView7.setOnMouseClicked(event -> {setSelectedImageIndex(7);});
 
         Image image8 = new Image(getClass().getResourceAsStream("/com/example/demo/judaspriest_ico.jpg"));
         imageView8 = new ImageView(image8);
@@ -111,7 +124,19 @@ public class PopUpProfileImageSelection extends PopUp {
         imageView8.setClip(new Circle(80, 80, 80));
         imageView8.setOnMouseEntered(event -> {imageView8.setOpacity(0.5);});
         imageView8.setOnMouseExited(event -> {imageView8.setOpacity(1);});
+        imageView8.setOnMouseClicked(event -> {setSelectedImageIndex(8);});
 
     }
 
+    public void setSelectedImageIndex(int selectedImageIndex) {
+        this.selectedImageIndex = selectedImageIndex;
+    }
+
+    public Button getSelectButton() {
+        return selectButton;
+    }
+
+    public int getSelectedImageIndex() {
+        return selectedImageIndex;
+    }
 }
