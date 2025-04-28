@@ -1,5 +1,7 @@
 package com.example.demo.Model;
 
+import javafx.scene.image.Image;
+
 import java.util.ArrayList;
 
 public class TuneUser {
@@ -13,7 +15,7 @@ public class TuneUser {
     private Song tuneSong;
     private String tuneNote;
     private ArrayList<Song> tunedSongs;
-    private int profileImg;
+    private int profileImgIndex;
     private int numbOfTunedSongsWithFriends;
 
 
@@ -22,6 +24,10 @@ public class TuneUser {
         this.password = password;
         this.friends = friends;
         this.favouriteSongs = favouriteSongs;
+
+        // For testing
+        tuneSong = new Song(1,"Yanıbaşımdan", "Duman", "TR", 2010, "Rock", "happy", "https://imgur.com/Vbcu0c9.jpg", 4);
+        tuneNote = "I feel tremendous.";
     }
 
 
@@ -54,7 +60,7 @@ public class TuneUser {
     }
 
     public void updateProfileImg(int selectedProfileImg) {
-        profileImg = selectedProfileImg;
+        profileImgIndex = selectedProfileImg;
     }
 
     public void setUserTune(boolean checkTuneExistence, Song tuneSong, String tuneNote) {
@@ -84,15 +90,16 @@ public class TuneUser {
         return tuneSong;
     }
 
-    public int getProfileImg() {
-        return profileImg;
+    public int getProfileImgIndex() {
+        return profileImgIndex;
     }
+
 
     public ArrayList<TuneUser> getFriends() {return friends;}
     public ArrayList<Song> getFavouriteSongs (){return favouriteSongs;}
 
 
-    public void setProfileImg(int profileImg) {
-        this.profileImg = profileImg;
+    public void setProfileImgIndex(int profileImgIndex) {
+        this.profileImgIndex = profileImgIndex;
     }
 }

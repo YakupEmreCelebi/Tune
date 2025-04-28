@@ -42,7 +42,11 @@ public class Controller {
     private ProfileFrame profileFrame;
     private TuneFrame tuneFrame;
     private SettingsFrame settingsFrame;
-    PopUpUpdate popUpUpdate;
+    private PopUpUpdate popUpUpdate;
+    private PopUpShowFriendTune popUpShowFriendTune;
+    private PopUpRemoveAccount popUpRemoveAccount;
+    private PopUpProfileImageSelection popUpProfileImageSelection;
+    private PopUpAddTune popUpAddTune;
 
     private PopUpStage popUpStage;
 
@@ -50,7 +54,7 @@ public class Controller {
         this.mainStage = stage;
 
         // For testing
-        currentUser = new TuneUser("", "", "", 0, null, null);
+        currentUser = new TuneUser("Test", "Test123", "test@mail.com", 0, null, null);
         currentSong = new Song(1,"Yanıbaşımdan", "Duman", "TR", 2010, "Rock", "happy", "https://imgur.com/Vbcu0c9.jpg", 4);
     }
 
@@ -79,7 +83,7 @@ public class Controller {
         homeFrame.getNavigateBar().getHomeButton().setOnAction(new loginFrameController());
         homeFrame.getNavigateBar().getTuneButton().setOnAction(new goToTuneFrame());
         homeFrame.getNavigateBar().getSettingsButton().setOnAction(new goToSettingsFrame());
-        homeFrame.getNavigateBar().getAddTuneButton().setOnAction(new goToPopUpAddTune());
+        homeFrame.getNavigateBar().getAddTuneButton().setOnAction(new goToPopUpShowFriendTune());
 
 
         profileFrame.getNavigateBar().getProfileButton().setOnAction(new goToProfileFrame());
@@ -150,24 +154,24 @@ public class Controller {
 
     public  void loginFrameOperations(){
         showHomeFrame();
-        if(!database.checkUserExistInDatabase(signUpFrame.getUsernameTextFieldText(), signUpFrame.getPasswordTextFieldText()))
-        {
-            showHomeFrame();
-        }
-        else
-        {
-            System.out.println("Incorrect username or password");
-            loginFrame.getWarningLabel().setVisible(true);
-
-            // Timer (disappear after 2 sec)
-            Timer timer = new Timer(2000, e -> {
-                loginFrame.getWarningLabel().setVisible(false);
-            });
-            timer.setRepeats(false);
-            timer.start();
-
-
-        }
+//        if(!database.checkUserExistInDatabase(signUpFrame.getUsernameTextFieldText(), signUpFrame.getPasswordTextFieldText()))
+//        {
+//            showHomeFrame();
+//        }
+//        else
+//        {
+//            System.out.println("Incorrect username or password");
+//            loginFrame.getWarningLabel().setVisible(true);
+//
+//            // Timer (disappear after 2 sec)
+//            Timer timer = new Timer(2000, e -> {
+//                loginFrame.getWarningLabel().setVisible(false);
+//            });
+//            timer.setRepeats(false);
+//            timer.start();
+//
+//
+//        }
     }
 
     public void showSignupFrame() {
@@ -208,28 +212,28 @@ public class Controller {
         popUpUpdate.getUpdateButton().setOnAction(new closePopUp());
     }
 
-    public void showPopUpShowFriendTune(TuneUser tuneUser){
-        PopUpShowFriendTune popUpShowFriendTune = new PopUpShowFriendTune(tuneUser);
+    public void showPopUpShowFriendTune(TuneUser aFriend){
+        popUpShowFriendTune = new PopUpShowFriendTune(aFriend);
         popUpStage.setScene(popUpShowFriendTune);
         popUpStage.show();
 
     }
 
     public void showPopUpRemoveAccount(){
-        PopUpRemoveAccount popUpRemoveAccount = new PopUpRemoveAccount();
+        popUpRemoveAccount = new PopUpRemoveAccount();
         popUpStage.setScene(popUpRemoveAccount);
         popUpStage.show();
 
     }
 
     public void showPopUpProfileImageSelection(){
-        PopUpProfileImageSelection popUpProfileImageSelection = new PopUpProfileImageSelection();
+        popUpProfileImageSelection = new PopUpProfileImageSelection();
         popUpStage.setScene(popUpProfileImageSelection);
         popUpStage.show();
     }
 
     public void showPopUpAddTune(){
-        PopUpAddTune popUpAddTune = new PopUpAddTune();
+        popUpAddTune = new PopUpAddTune();
         popUpStage.setScene(popUpAddTune);
         popUpStage.show();
     }
@@ -327,6 +331,14 @@ public class Controller {
         @Override
         public void handle(ActionEvent actionEvent) {
             showPopUpAddTune();
+        }
+    }
+
+    private class goToPopUpShowFriendTune implements EventHandler<ActionEvent> {
+
+        @Override
+        public void handle(ActionEvent actionEvent) {
+            showPopUpShowFriendTune(currentUser);
         }
     }
 

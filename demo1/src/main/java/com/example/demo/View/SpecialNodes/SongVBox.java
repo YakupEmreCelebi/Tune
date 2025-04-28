@@ -29,6 +29,6 @@ public class SongVBox extends VBox {
 
         getChildren().addAll(imageView, artistLabel, genreLabel);
 
-        setStyle("-fx-border-color: black; -fx-border-width: 1px solid black;");
+        setStyle("-fx-border-color: black; -fx-border-width: 1;");
     }
 }
