@@ -78,7 +78,7 @@ public class SignUpFrame extends Scene {
         backgroundImageView.setFitHeight(900);
         backgroundImageView.setPreserveRatio(false);
 
-        StackPane layout = (StackPane) getRoot();
+
 
         // VBox
         VBox usernameVBox = new VBox(20);
@@ -88,7 +88,6 @@ public class SignUpFrame extends Scene {
 
         allElementsVBox.setMaxWidth(getScreenWidth()/2);
         allElementsVBox.setMaxHeight(570);
-
         allElementsVBox.setStyle("-fx-border-color: #9f9b9b; -fx-border-width: 2px; -fx-border-radius: 8px;");
 
         usernameVBox.getChildren().addAll(usernameLabel, usernameTextField);
@@ -106,6 +105,8 @@ public class SignUpFrame extends Scene {
         passwordVBox.setPadding(new Insets(0,0,0,35));
         emailVBox.setPadding(new Insets(0,0,0,35));
 
+        // Layout
+        StackPane layout = (StackPane) getRoot();
         layout.getChildren().addAll(backgroundImageView, allElementsVBox);
 
     }

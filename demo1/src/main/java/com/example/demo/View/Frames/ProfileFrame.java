@@ -35,11 +35,9 @@ public class ProfileFrame extends Scene {
         this.getStylesheets().add(getClass().getResource("navBar.css").toExternalForm());
 
         currentUser = tuneUser;
+        navigateBar = new NavigateBar();
         createImage();
-
         scrollerNodes = new ArrayList<>();
-
-
 
         //Button
         editProfileButton = new Button("Edit Profile");
@@ -80,15 +78,11 @@ public class ProfileFrame extends Scene {
 //        scroller = new NodeScroller(scrollerNodes);
 
 
-
+        // Layout
         HBox layout = (HBox) getRoot();
-
-        navigateBar = new NavigateBar();
-
-
         layout.getChildren().addAll(navigateBar, profileVBox, nodeScrollersVBox);
 
-
+        // Alignments
         StackPane.setAlignment(navigateBar, Pos.TOP_LEFT);
     }
 

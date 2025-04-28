@@ -17,9 +17,6 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.shape.Circle;
-
-import javax.swing.text.Element;
-import javax.swing.text.html.ImageView;
 import java.util.ArrayList;
 
 public class HomeFrame extends Scene {
@@ -31,15 +28,19 @@ public class HomeFrame extends Scene {
 
     public HomeFrame(Song song) {
         super(new HBox(40), getScreenWidth(), getScreenHeight());
-
-
         this.getStylesheets().add(getClass().getResource("navBar.css").toExternalForm());
+
+        // Create Navigate Bar
+        navigateBar = new NavigateBar();
+
+        // container VBox
         container = new VBox(20);
         container.setPadding(new Insets(100,0,0,0));
         container.setAlignment(Pos.TOP_CENTER);
         container.setStyle("-fx-border-color: black");
         container.setPrefWidth(getScreenWidth() - getScreenWidth() / 5.5 - 80);
 
+        // SearchBar
         searchBar = new TextField();
         searchBar.setPromptText("Search Music");
         searchBar.setStyle("-fx-border-radius: 30px; -fx-background-radius: 30px; -fx-focus-color: transparent; -fx-faint-focus-color: transparent; -fx-border-color: #ccc;");
@@ -48,14 +49,12 @@ public class HomeFrame extends Scene {
 
         ArrayList<Button> friendsButtons = new ArrayList<Button>();
 
-
+        // Add elements to container
         container.getChildren().addAll(searchBar, new SongVBox(song.getImage(), song.getArtist(), song.getGenre()));
 
+        // Layout
         HBox layout = (HBox) getRoot();
         layout.setOnMousePressed(new ChangeFocus());
-
-        navigateBar = new NavigateBar();
-
         layout.getChildren().addAll(navigateBar, container);
     }
 

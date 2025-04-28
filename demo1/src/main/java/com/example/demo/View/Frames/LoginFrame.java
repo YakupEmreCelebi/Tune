@@ -31,7 +31,7 @@ public class LoginFrame extends Scene {
         super(new StackPane(), getScreenWidth(), getScreenHeight());
         this.getStylesheets().add(getClass().getResource("welcomeFrameStyle.css").toExternalForm());
 
-        // Label for the text
+        // Labels
         tuneLabel = new Label("Tune");
         loginLabel = new Label("Log In");
         usernameLabel = new Label("Username");
@@ -68,8 +68,6 @@ public class LoginFrame extends Scene {
         backgroundImageView.setFitHeight(900);
         backgroundImageView.setPreserveRatio(false);
 
-        StackPane layout = (StackPane) getRoot();
-
         // VBox
         VBox usernameVBox = new VBox(20);
         VBox passwordVBox = new VBox(20);
@@ -77,7 +75,6 @@ public class LoginFrame extends Scene {
 
         allElementsVBox.setMaxWidth(getScreenWidth()/2);
         allElementsVBox.setMaxHeight(400);
-
         allElementsVBox.setStyle("-fx-border-color: #9f9b9b; -fx-border-width: 2px; -fx-border-radius: 8px;");
 
         usernameVBox.getChildren().addAll(usernameLabel, usernameTextField);
@@ -92,6 +89,8 @@ public class LoginFrame extends Scene {
         usernameVBox.setPadding(new Insets(0,0,0,35));
         passwordVBox.setPadding(new Insets(0,0,0,35));
 
+        // Layout
+        StackPane layout = (StackPane) getRoot();
         layout.getChildren().addAll(backgroundImageView, allElementsVBox);
 
     }

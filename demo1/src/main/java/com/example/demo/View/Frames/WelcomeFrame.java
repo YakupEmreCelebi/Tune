@@ -34,28 +34,26 @@ public class WelcomeFrame extends Scene {
         //Buttons
         loginButton = new GeneralButton("Login");
         signUpButton = new GeneralButton("Sign Up");
-
-        //loginButton.setStyle("-fx-background-color: LIGHTGRAY;");
         loginButton.getStyleClass().add("grayButton");
 
-        // Images ( Background & Messi )
+        // Image & ImageView
         Image backgroundImage = new Image(getClass().getResourceAsStream("/com/example/demo/TuneBackground.png"));
-
-
         backgroundImageView = new ImageView(backgroundImage);
         backgroundImageView.setFitWidth(getScreenWidth());
         backgroundImageView.setFitHeight(getScreenHeight());
         backgroundImageView.setPreserveRatio(false);
 
-        BorderPane pane = new BorderPane();
+       // Boxes
         VBox vbox = new VBox(40);
         HBox hbox = new HBox(40);
         hbox.getChildren().addAll(loginButton, signUpButton);
         vbox.getChildren().addAll(tuneLabel, descriptionLabel, hbox);
 
+        // Alignments
         vbox.setAlignment(Pos.CENTER);
         hbox.setAlignment(Pos.CENTER);
 
+        // Layout
         StackPane layout = (StackPane) getRoot();
         layout.getChildren().addAll(backgroundImageView, vbox);
     }
