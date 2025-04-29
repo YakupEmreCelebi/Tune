@@ -16,6 +16,8 @@ import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.util.Duration;
 
+import static javafx.stage.Screen.getPrimary;
+
 public class NavigateBar extends BorderPane {
 
     private Label label;
@@ -225,11 +227,11 @@ public class NavigateBar extends BorderPane {
     }
 
     private static double getScreenWidth() {
-        return javafx.stage.Screen.getPrimary().getVisualBounds().getWidth();
+        return getPrimary().getVisualBounds().getWidth();
     }
 
     private static double getScreenHeight() {
-        return javafx.stage.Screen.getPrimary().getVisualBounds().getHeight();
+        return getPrimary().getVisualBounds().getHeight();
     }
 
 }

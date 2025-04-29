@@ -17,6 +17,8 @@ import javafx.scene.shape.Circle;
 
 import java.util.ArrayList;
 
+import static javafx.stage.Screen.getPrimary;
+
 public class ProfileFrame extends Scene {
 
     private NavigateBar navigateBar;
@@ -50,10 +52,10 @@ public class ProfileFrame extends Scene {
         profileVBox.setPadding(new Insets(100,0,0,30));
         profileVBox.getChildren().addAll(profileImageView, editProfileButton);
 
-        nodeScrollersVBox = new VBox();
-        nodeScrollersVBox.setSpacing(10);
-        nodeScrollersVBox.setPadding(new Insets(100,0,0,0));
-        nodeScrollersVBox.getChildren().addAll(new NodeScroller(scrollerNodes));
+//        nodeScrollersVBox = new VBox();
+//        nodeScrollersVBox.setSpacing(10);
+//        nodeScrollersVBox.setPadding(new Insets(100,0,0,0));
+//        nodeScrollersVBox.getChildren().addAll(new NodeScroller(scrollerNodes));
 
 
         Button a = new Button("A");
@@ -95,11 +97,11 @@ public class ProfileFrame extends Scene {
     }
 
     private static double getScreenWidth() {
-        return javafx.stage.Screen.getPrimary().getVisualBounds().getWidth();
+        return getPrimary().getVisualBounds().getWidth();
     }
 
     private static double getScreenHeight() {
-        return javafx.stage.Screen.getPrimary().getVisualBounds().getHeight();
+        return getPrimary().getVisualBounds().getHeight();
     }
 
     public NavigateBar getNavigateBar() {

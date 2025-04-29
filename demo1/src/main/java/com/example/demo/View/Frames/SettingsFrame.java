@@ -15,6 +15,8 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.util.Duration;
 
+import static javafx.stage.Screen.getPrimary;
+
 public class SettingsFrame extends Scene {
 
     NavigateBar navigateBar;
@@ -191,11 +193,11 @@ public class SettingsFrame extends Scene {
     }
 
     private static double getScreenWidth() {
-        return javafx.stage.Screen.getPrimary().getVisualBounds().getWidth();
+        return getPrimary().getVisualBounds().getWidth();
     }
 
     private static double getScreenHeight() {
-        return javafx.stage.Screen.getPrimary().getVisualBounds().getHeight();
+        return getPrimary().getVisualBounds().getHeight();
     }
 
 

@@ -19,12 +19,14 @@ import javafx.scene.layout.VBox;
 import javafx.scene.shape.Circle;
 import java.util.ArrayList;
 
+import static javafx.stage.Screen.getPrimary;
+
 public class HomeFrame extends Scene {
 
     private NavigateBar navigateBar;
     private VBox container;
     private TextField searchBar;
-    private NodeScroller friendsScroller;
+
 
     public HomeFrame(Song song) {
         super(new HBox(40), getScreenWidth(), getScreenHeight());
@@ -32,6 +34,7 @@ public class HomeFrame extends Scene {
 
         // Create Navigate Bar
         navigateBar = new NavigateBar();
+
 
         // container VBox
         container = new VBox(20);
@@ -47,8 +50,6 @@ public class HomeFrame extends Scene {
         searchBar.setMaxWidth(350);
         searchBar.setPrefHeight(40);
 
-        ArrayList<Button> friendsButtons = new ArrayList<Button>();
-
         // Add elements to container
         container.getChildren().addAll(searchBar, new SongVBox(song.getImage(), song.getArtist(), song.getGenre()));
 
@@ -59,11 +60,11 @@ public class HomeFrame extends Scene {
     }
 
     private static double getScreenWidth() {
-        return javafx.stage.Screen.getPrimary().getVisualBounds().getWidth();
+        return getPrimary().getVisualBounds().getWidth();
     }
 
     private static double getScreenHeight() {
-        return javafx.stage.Screen.getPrimary().getVisualBounds().getHeight();
+        return getPrimary().getVisualBounds().getHeight();
     }
 
     public NavigateBar getNavigateBar() {

@@ -15,6 +15,8 @@ import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 
+import static javafx.stage.Screen.getPrimary;
+
 public class LoginFrame extends Scene {
 
     private Button loginButton;
@@ -96,11 +98,11 @@ public class LoginFrame extends Scene {
     }
 
     private static double getScreenWidth() {
-        return javafx.stage.Screen.getPrimary().getVisualBounds().getWidth();
+        return getPrimary().getVisualBounds().getWidth();
     }
 
     private static double getScreenHeight() {
-        return javafx.stage.Screen.getPrimary().getVisualBounds().getHeight();
+        return getPrimary().getVisualBounds().getHeight();
     }
 
     // Getters for Buttons

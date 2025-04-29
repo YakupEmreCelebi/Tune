@@ -15,6 +15,8 @@ import javafx.scene.layout.StackPane;
 import javafx.scene.shape.Circle;
 import javafx.util.Duration;
 
+import static javafx.stage.Screen.getPrimary;
+
 public class TuneFrame extends Scene {
 
     NavigateBar navigateBar;
@@ -121,11 +123,11 @@ public class TuneFrame extends Scene {
 
     // Get Screen dimensions
     private static double getScreenWidth() {
-        return javafx.stage.Screen.getPrimary().getVisualBounds().getWidth();
+        return getPrimary().getVisualBounds().getWidth();
     }
 
     private static double getScreenHeight() {
-        return javafx.stage.Screen.getPrimary().getVisualBounds().getHeight();
+        return getPrimary().getVisualBounds().getHeight();
     }
 
     // Getters
