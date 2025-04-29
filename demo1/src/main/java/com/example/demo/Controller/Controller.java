@@ -18,7 +18,6 @@ import java.util.ArrayList;
 public class Controller {
 
     private static final Api api = new Api();
-    private static final Database theDatabase = new Database();
 
     private TuneUser currentUser;
     private Song currentSong;
