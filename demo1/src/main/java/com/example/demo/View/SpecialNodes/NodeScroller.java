@@ -9,7 +9,7 @@ import java.util.ArrayList;
 
 public class NodeScroller extends ScrollPane {
 
-    public NodeScroller(ArrayList<Button> nodes) {
+    public NodeScroller(ArrayList<Node> nodes) {
 
         this.setPrefWidth(500);
         this.setPrefHeight(130);

@@ -52,10 +52,10 @@ public class ProfileFrame extends Scene {
         profileVBox.setPadding(new Insets(100,0,0,30));
         profileVBox.getChildren().addAll(profileImageView, editProfileButton);
 
-//        nodeScrollersVBox = new VBox();
-//        nodeScrollersVBox.setSpacing(10);
-//        nodeScrollersVBox.setPadding(new Insets(100,0,0,0));
-//        nodeScrollersVBox.getChildren().addAll(new NodeScroller(scrollerNodes));
+        nodeScrollersVBox = new VBox();
+        nodeScrollersVBox.setSpacing(10);
+        nodeScrollersVBox.setPadding(new Insets(100,0,0,0));
+        nodeScrollersVBox.getChildren().addAll(new NodeScroller(scrollerNodes));
 
 
         Button a = new Button("A");

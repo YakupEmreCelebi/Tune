@@ -53,7 +53,7 @@ public class Controller {
         this.mainStage = stage;
 
         // For testing
-        currentUser = new TuneUser("Test", "Test123", "test@mail.com", 0, new ArrayList<>(), null);
+        currentUser = new TuneUser("Test", "Test123", "test@mail.com", 0, null, null);
         currentSong = new Song(1,"Yanıbaşımdan", "Duman", "TR", 2010, "Rock", "happy", "https://imgur.com/Vbcu0c9.jpg", 4);
     }
 

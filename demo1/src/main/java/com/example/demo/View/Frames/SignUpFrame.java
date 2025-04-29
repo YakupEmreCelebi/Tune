@@ -17,6 +17,7 @@ import javafx.scene.text.FontWeight;
 
 import static javafx.stage.Screen.getPrimary;
 
+
 public class SignUpFrame extends Scene {
 
     private Button signupButton;

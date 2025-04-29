@@ -28,7 +28,6 @@ public class TuneUser {
         // For testing
         tuneSong = new Song(1,"Yanıbaşımdan", "Duman", "TR", 2010, "Rock", "happy", "https://imgur.com/Vbcu0c9.jpg", 4);
         tuneNote = "I feel tremendous.";
-        friends.add(new TuneUser("Test", "Test123", "test@mail.com", 0, null, null));
     }
 
 
