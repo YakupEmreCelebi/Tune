@@ -152,24 +152,25 @@ public class Controller {
     }
 
     public  void loginFrameOperations(){
-
-        if(database.checkUserExistInDatabase(loginFrame.getUsernameTextFieldText(), loginFrame.getPasswordTextFieldText()))
-        {
-            showHomeFrame();
-            System.out.println("successfully logged in");
-        }
-        else
-        {
-            System.out.println("Incorrect username or password");
-            loginFrame.getWarningLabel().setVisible(true);
-
-            // Timer (disappear after 2 sec)
-            Timer timer = new Timer(2000, e -> {
-                loginFrame.getWarningLabel().setVisible(false);
-            });
-            timer.setRepeats(false);
-            timer.start();
-        }
+        showHomeFrame();
+//        if(!database.checkUserExistInDatabase(signUpFrame.getUsernameTextFieldText(), signUpFrame.getPasswordTextFieldText()))
+//        {
+//            showHomeFrame();
+//        }
+//        else
+//        {
+//            System.out.println("Incorrect username or password");
+//            loginFrame.getWarningLabel().setVisible(true);
+//
+//            // Timer (disappear after 2 sec)
+//            Timer timer = new Timer(2000, e -> {
+//                loginFrame.getWarningLabel().setVisible(false);
+//            });
+//            timer.setRepeats(false);
+//            timer.start();
+//
+//
+//        }
     }
 
     public void showSignupFrame() {
@@ -221,8 +222,6 @@ public class Controller {
         popUpRemoveAccount = new PopUpRemoveAccount();
         popUpStage.setScene(popUpRemoveAccount);
         popUpStage.show();
-        popUpRemoveAccount.getYesButton().setOnAction(actionEvent -> removeAccount());
-        popUpRemoveAccount.getNoButton().setOnAction(actionEvent -> closePopUpStage());
 
     }
 
@@ -236,12 +235,6 @@ public class Controller {
         popUpAddTune = new PopUpAddTune();
         popUpStage.setScene(popUpAddTune);
         popUpStage.show();
-    }
-
-    public void removeAccount(){
-        database.removeUserFromDatabase(currentUser.getUsername());
-        showWelcomeFrame();
-        closePopUpStage();
     }
 
     // Inner Classes for Events
@@ -370,7 +363,7 @@ public class Controller {
 //        api.startResumePlayback(aSong, aSongList);
 //    }
 //
-//    private void playCurrentSong() {
+//    private void playCurrentSong(int startPosition) {
 //        api.startResumePlayback();
 //    }
 //
@@ -381,6 +374,7 @@ public class Controller {
 //    private void playFriendTuneSong(TuneUser aFriend) {
 //        api.startTrackFromRandomPos(aFriend.getTuneSong());
 //    }
+//
 //
 //    private Song searchSong(String songName) {
 //        return new Song();
