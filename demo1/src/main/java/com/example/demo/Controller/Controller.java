@@ -53,8 +53,17 @@ public class Controller {
         this.mainStage = stage;
 
         // For testing
-        currentUser = new TuneUser("Test", "Test123", "test@mail.com", 0, null, null);
+        ArrayList<TuneUser> friends = new ArrayList<>();
+        TuneUser friend1 = new TuneUser("friend1", "123", "fr1@", 1, null,null);
+        TuneUser friend2 = new TuneUser("friend2", "123", "fr2@", 1, null,null);
+        friends.add(friend1);
+        friends.add(friend2);
+        ArrayList<Song> songs = new ArrayList<>();
         currentSong = new Song(1,"Yanıbaşımdan", "Duman", "TR", 2010, "Rock", "happy", "https://imgur.com/Vbcu0c9.jpg", 4);
+        songs.add(currentSong);
+        songs.add(currentSong);
+        currentUser = new TuneUser("Test", "Test123", "test@mail.com", 0, friends, songs);
+
     }
 
     public void initScenes() {

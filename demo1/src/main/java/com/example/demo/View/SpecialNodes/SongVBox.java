@@ -1,5 +1,6 @@
 package com.example.demo.View.SpecialNodes;
 
+import com.example.demo.Model.Song;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -11,20 +12,20 @@ public class SongVBox extends VBox {
     private Label genreLabel;
     private ImageView imageView;
 
-    public SongVBox(Image image, String artist, String genre) {
+    public SongVBox(Song song) {
 
-        super(10);
-        setMaxWidth(150);
+        super(3);
+        setMaxWidth(100);
 
         //Labels
-        artistLabel = new Label(artist);
-        genreLabel = new Label(genre);
+        artistLabel = new Label(song.getArtist());
+        genreLabel = new Label(song.getGenre());
 
         artistLabel.setStyle("-fx-font-size: 17px; -fx-font-weight: bold; -fx-font-family: Arial ");
         genreLabel.setStyle("-fx-font-size: 12");
 
-        ImageView imageView = new ImageView(image);
-        imageView.setFitHeight(150);
+        ImageView imageView = new ImageView(song.getImage());
+        imageView.setFitHeight(100);
         imageView.setPreserveRatio(true);
 
         getChildren().addAll(imageView, artistLabel, genreLabel);

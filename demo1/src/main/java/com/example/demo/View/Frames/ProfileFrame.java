@@ -2,7 +2,8 @@ package com.example.demo.View.Frames;
 
 import com.example.demo.Model.TuneUser;
 import com.example.demo.View.SpecialNodes.NavigateBar;
-import com.example.demo.View.SpecialNodes.NodeScroller;
+import com.example.demo.View.SpecialNodes.SongScroller;
+import com.example.demo.View.SpecialNodes.SongVBox;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
@@ -23,7 +24,7 @@ public class ProfileFrame extends Scene {
 
     private NavigateBar navigateBar;
     private ArrayList<Node> scrollerNodes;
-    private NodeScroller scroller;
+    private SongScroller scroller;
     private Button editProfileButton;
     private VBox containerVBox;
     private VBox profileVBox;
@@ -31,15 +32,22 @@ public class ProfileFrame extends Scene {
     private ImageView profileImageView;
     private TuneUser currentUser;
     private Image profileImage;
+    private ArrayList<SongVBox> songVBoxList;
 
     public ProfileFrame(TuneUser tuneUser) {
         super(new HBox(40), getScreenWidth() , getScreenHeight());
         this.getStylesheets().add(getClass().getResource("navBar.css").toExternalForm());
 
         currentUser = tuneUser;
+        songVBoxList = new ArrayList<>();
+        constructFavSongs();
+
+
         navigateBar = new NavigateBar();
         createImage();
         scrollerNodes = new ArrayList<>();
+
+        scroller = new SongScroller(songVBoxList);
 
         //Button
         editProfileButton = new Button("Edit Profile");
@@ -52,37 +60,10 @@ public class ProfileFrame extends Scene {
         profileVBox.setPadding(new Insets(100,0,0,30));
         profileVBox.getChildren().addAll(profileImageView, editProfileButton);
 
-        nodeScrollersVBox = new VBox();
-        nodeScrollersVBox.setSpacing(10);
-        nodeScrollersVBox.setPadding(new Insets(100,0,0,0));
-        nodeScrollersVBox.getChildren().addAll(new NodeScroller(scrollerNodes));
-
-
-        Button a = new Button("A");
-        Button b = new Button("B");
-        Button c = new Button("C");
-        Button d = new Button("D");
-
-//        a.setPrefWidth(200);
-//        b.setPrefWidth(200);
-//        c.setPrefWidth(200);
-//        d.setPrefWidth(200);
-//        a.setPrefHeight(130);
-//        b.setPrefHeight(130);
-//        c.setPrefHeight(130);
-//        d.setPrefHeight(130);
-//
-//        scrollerNodes.add(a);
-//        scrollerNodes.add(b);
-//        scrollerNodes.add(c);
-//        scrollerNodes.add(d);
-//
-//        scroller = new NodeScroller(scrollerNodes);
-
 
         // Layout
         HBox layout = (HBox) getRoot();
-        layout.getChildren().addAll(navigateBar, profileVBox, nodeScrollersVBox);
+        layout.getChildren().addAll(navigateBar, profileVBox, scroller);
 
         // Alignments
         StackPane.setAlignment(navigateBar, Pos.TOP_LEFT);
@@ -94,6 +75,18 @@ public class ProfileFrame extends Scene {
         profileImageView.setPreserveRatio(true);
         profileImageView.setFitWidth(180);
         profileImageView.setClip(new Circle(80, 80, 80));
+    }
+
+    private void constructFavSongs(){
+        if(currentUser.getFavouriteSongs() != null)
+        {
+            for(int i=0; i<currentUser.getFavouriteSongs().size(); i++){
+                SongVBox songVBox = new SongVBox(currentUser.getFavouriteSongs().get(i));
+                songVBoxList.add(songVBox);
+            }
+        }
+
+
     }
 
     private static double getScreenWidth() {
@@ -108,11 +101,15 @@ public class ProfileFrame extends Scene {
         return navigateBar;
     }
 
-    public NodeScroller getScroller() {
+    public SongScroller getScroller() {
         return scroller;
     }
 
     public Button getEditProfileButton() {
         return editProfileButton;
+    }
+
+    public ArrayList<SongVBox> getSongVBoxList() {
+        return songVBoxList;
     }
 }

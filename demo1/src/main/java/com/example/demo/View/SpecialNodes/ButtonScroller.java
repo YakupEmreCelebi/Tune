@@ -1,15 +1,16 @@
 package com.example.demo.View.SpecialNodes;
 
-import javafx.scene.Node;
+import com.example.demo.Model.TuneUser;
+import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.HBox;
 
 import java.util.ArrayList;
 
-public class NodeScroller extends ScrollPane {
+public class ButtonScroller extends ScrollPane {
 
-    public NodeScroller(ArrayList<Node> nodes) {
+    public ButtonScroller(ArrayList<Button> buttons) {
 
         this.setPrefWidth(500);
         this.setPrefHeight(130);
@@ -18,13 +19,12 @@ public class NodeScroller extends ScrollPane {
 
         HBox layout = new HBox();
         layout.setSpacing(10);
-        layout.getChildren().addAll(nodes);
+        layout.getChildren().addAll(buttons);
+        layout.setAlignment(Pos.CENTER);
 
         this.setContent(layout);
 
         this.setHbarPolicy(ScrollPane.ScrollBarPolicy.ALWAYS);
         this.setVbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
-
-
     }
 }

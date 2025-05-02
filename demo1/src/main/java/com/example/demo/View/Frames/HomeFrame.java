@@ -2,9 +2,7 @@ package com.example.demo.View.Frames;
 
 import com.example.demo.Model.Song;
 import com.example.demo.Model.TuneUser;
-import com.example.demo.View.SpecialNodes.NavigateBar;
-import com.example.demo.View.SpecialNodes.NodeScroller;
-import com.example.demo.View.SpecialNodes.SongVBox;
+import com.example.demo.View.SpecialNodes.*;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -26,6 +24,8 @@ public class HomeFrame extends Scene {
     private NavigateBar navigateBar;
     private VBox container;
     private TextField searchBar;
+    private ButtonScroller buttonScroller;
+    private ArrayList<Button> friendsButtons;
 
 
     public HomeFrame(Song song) {
@@ -34,6 +34,12 @@ public class HomeFrame extends Scene {
 
         // Create Navigate Bar
         navigateBar = new NavigateBar();
+
+        // Create friends Button Scroller
+        friendsButtons = new ArrayList<>();
+        FriendsButton b = new FriendsButton(new TuneUser("fr", "123", "@", 1, null, null));
+        friendsButtons.add(b);
+        buttonScroller = new ButtonScroller(friendsButtons);
 
 
         // container VBox
@@ -51,7 +57,7 @@ public class HomeFrame extends Scene {
         searchBar.setPrefHeight(40);
 
         // Add elements to container
-        container.getChildren().addAll(searchBar, new SongVBox(song.getImage(), song.getArtist(), song.getGenre()));
+        container.getChildren().addAll(searchBar, new SongVBox(song), buttonScroller);
 
         // Layout
         HBox layout = (HBox) getRoot();
@@ -71,18 +77,6 @@ public class HomeFrame extends Scene {
         return navigateBar;
     }
 
-    private class FriendsButton extends Button {
-
-        public FriendsButton(String text) {
-            super(text);
-            this.setShape(new Circle(1000));
-            this.setMinSize(80, 80);
-            this.setMaxSize(80, 80);
-            this.setPrefSize(80, 80);
-            this.setStyle("-fx-background-color: transparent; -fx-border-color: black; -fx-border-width: 2;" +
-                    " -fx-font-size: 19; -fx-font-family: Arial; -fx-font-weight: bold");
-        }
-    }
 
     private class ChangeFocus implements EventHandler<MouseEvent> {
 
@@ -96,5 +90,8 @@ public class HomeFrame extends Scene {
         }
     }
 
+    public ArrayList<Button> getFriendsButtons() {
+        return friendsButtons;
+    }
 }
 
