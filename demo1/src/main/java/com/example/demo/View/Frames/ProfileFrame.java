@@ -38,7 +38,6 @@ public class ProfileFrame extends Scene {
         super(new HBox(40), getScreenWidth() , getScreenHeight());
         currentUser = tuneUser;
         navigateBar = new NavigateBar();
-        createImage();
 
         friendNodes = new ArrayList<Node>();
         favSongNodes = new ArrayList<Node>();
@@ -53,7 +52,7 @@ public class ProfileFrame extends Scene {
         profileVBox = new VBox();
         profileVBox.setSpacing(0);
         profileVBox.setPadding(new Insets(100,0,0,30));
-        profileVBox.getChildren().addAll(profileImageView, editProfileButton);
+        constructImageContainer();
 
         nodeScrollersVBox = new VBox();
         nodeScrollersVBox.setSpacing(10);
@@ -70,11 +69,17 @@ public class ProfileFrame extends Scene {
     }
 
     private void createImage(){
-        profileImage = new Image(getClass().getResourceAsStream("/com/example/demo/megadeth_ico.jpg"));
-        profileImageView = new ImageView(profileImage);
+        profileImageView = new ImageView(currentUser.getProfileImage());
         profileImageView.setPreserveRatio(true);
         profileImageView.setFitWidth(180);
         profileImageView.setClip(new Circle(80, 80, 80));
+    }
+
+    public void constructImageContainer() {
+        profileVBox.getChildren().clear();
+        createImage();
+        profileVBox.getChildren().addAll(profileImageView, editProfileButton);
+
     }
 
     private void createNodeScrollers() {

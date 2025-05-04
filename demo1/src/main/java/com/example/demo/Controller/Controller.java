@@ -271,6 +271,11 @@ public class Controller {
         popUpProfileImageSelection = new PopUpProfileImageSelection();
         popUpStage.setScene(popUpProfileImageSelection);
         popUpStage.show();
+        for(int i=0; i<popUpProfileImageSelection.getButtons().size(); i++){
+            int finalI = i;
+            popUpProfileImageSelection.getButtons().get(i).setOnAction(actionEvent -> {currentUser.setImageWithIndex(finalI); profileFrame.constructImageContainer();});
+        }
+
     }
 
     public void showPopUpAddTune(){

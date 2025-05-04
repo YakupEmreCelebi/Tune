@@ -17,6 +17,7 @@ public class TuneUser {
     private ArrayList<Song> tunedSongs;
     private int profileImgIndex;
     private int numbOfTunedSongsWithFriends;
+    private Image profileImage;
 
 
     public TuneUser(String username, String password, String mail ,int id, ArrayList<TuneUser> friends, ArrayList<Song> favouriteSongs) {
@@ -29,6 +30,7 @@ public class TuneUser {
         // For testing
         tuneSong = new Song(1,"Yanıbaşımdan", "Duman", "TR", 2010, "Rock", "happy", "https://imgur.com/Vbcu0c9.jpg", 4);
         tuneNote = "I feel tremendous.";
+        profileImage = new Image("https://imgur.com/Vbcu0c9.jpg");
     }
 
 
@@ -87,6 +89,10 @@ public class TuneUser {
     public String getPassword() {return password;}
     public String getTuneNote() {return tuneNote;}
 
+    public Image getProfileImage() {
+        return profileImage;
+    }
+
     public Song getTuneSong() {
         return tuneSong;
     }
@@ -105,5 +111,40 @@ public class TuneUser {
 
     public void setProfileImgIndex(int profileImgIndex) {
         this.profileImgIndex = profileImgIndex;
+    }
+
+    public void setImageWithIndex(int imageIndex) {
+        if(imageIndex == 0)
+        {
+            profileImage = new Image(getClass().getResourceAsStream("/com/example/demo/duman_ico.jpg"));
+        }
+        else if(imageIndex == 1)
+        {
+            profileImage = new Image(getClass().getResourceAsStream("/com/example/demo/duman1_ico.jpg"));
+        }
+        else if(imageIndex == 2)
+        {
+            profileImage = new Image(getClass().getResourceAsStream("/com/example/demo/duman2_ico.jpg"));
+        }
+        else if(imageIndex == 3)
+        {
+            profileImage = new Image(getClass().getResourceAsStream("/com/example/demo/senikendimesakladım_ico.jpg"));
+        }
+        else if(imageIndex == 4)
+        {
+            profileImage = new Image(getClass().getResourceAsStream("/com/example/demo/metallica_ico.jpg"));
+        }
+        else if(imageIndex == 5)
+        {
+            profileImage = new Image(getClass().getResourceAsStream("/com/example/demo/şebnemferah_ico.jpg"));
+        }
+        else if(imageIndex == 6)
+        {
+            profileImage = new Image(getClass().getResourceAsStream("/com/example/demo/megadeth_ico.jpg"));
+        }
+        else if(imageIndex == 7)
+        {
+            profileImage = new Image(getClass().getResourceAsStream("/com/example/demo/judaspriest_ico.jpg"));
+        }
     }
 }
