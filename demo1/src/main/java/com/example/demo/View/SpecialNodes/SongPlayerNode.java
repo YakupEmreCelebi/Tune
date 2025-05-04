@@ -92,7 +92,7 @@ public class SongPlayerNode extends HBox {
         songTitleHBox.setAlignment(Pos.CENTER_LEFT);
 
         // Song Node
-        songNode = new SongNode(song, 150,150);
+        songNode = new SongNode(song, 150,150, false);
 
         playerVBox = new VBox(8);
         playerVBox.getChildren().addAll(songTitleHBox, sliderHBox, buttonsHBox);

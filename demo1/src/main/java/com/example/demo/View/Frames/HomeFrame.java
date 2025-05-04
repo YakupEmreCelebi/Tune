@@ -79,7 +79,7 @@ public class HomeFrame extends Scene {
     private void createNodeScrollers() {
 
         for (Song randomSong : randomSongs) {
-            SongNode songNode = new SongNode(randomSong, 100, 100);
+            SongNode songNode = new SongNode(randomSong, 100, 100, true);
             songNodes.add(songNode);
         }
 

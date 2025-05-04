@@ -87,7 +87,7 @@ public class ProfileFrame extends Scene {
         friendNodes.add(addFriendNode);
 
         for (Song favSong : currentUser.getFavouriteSongs()) {
-            SongNode favSongNode = new SongNode(favSong, 100, 100);
+            SongNode favSongNode = new SongNode(favSong, 100, 100, true);
             favSongNodes.add(favSongNode);
         }
 
@@ -95,7 +95,7 @@ public class ProfileFrame extends Scene {
         favSongNodes.add(addFavSongNode);
 
         for (Song recentTunedSong : currentUser.getTunedSongs()) {
-            SongNode recentTunedSongNode = new SongNode(recentTunedSong, 100, 100);
+            SongNode recentTunedSongNode = new SongNode(recentTunedSong, 100, 100, true);
             recentTunedNodes.add(recentTunedSongNode);
         }
 

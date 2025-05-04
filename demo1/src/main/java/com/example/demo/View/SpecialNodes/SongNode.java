@@ -8,21 +8,21 @@ import javafx.scene.shape.Rectangle;
 
 public class SongNode extends VBox {
 
-    private Label artistLabel;
+    private Label firstLabel;
     private Label genreLabel;
     private ImageView imageView;
 
-    public SongNode(Song song, int width, int imgHeight) {
+    public SongNode(Song song, int width, int imgHeight, boolean nameOrArtist) {
 
         super(1.5);
 
         setMaxWidth(width);
 
         //Labels
-        artistLabel = new Label(song.getArtist());
+        firstLabel = (nameOrArtist) ? new Label(song.getName()) : new Label(song.getArtist());
         genreLabel = new Label(song.getGenre());
 
-        artistLabel.setStyle("-fx-font-size: 17px; -fx-font-weight: bold; -fx-font-family: Arial ");
+        firstLabel.setStyle("-fx-font-size: 17px; -fx-font-weight: bold; -fx-font-family: Arial ");
         genreLabel.setStyle("-fx-font-size: 12");
 
         ImageView imageView = new ImageView(song.getImage());
@@ -34,7 +34,7 @@ public class SongNode extends VBox {
         clip.setArcHeight(10);
         imageView.setClip(clip);
 
-        getChildren().addAll(imageView, artistLabel, genreLabel);
+        getChildren().addAll(imageView, firstLabel, genreLabel);
 
         //setStyle("-fx-border-color: black; -fx-border-width: 1;");
     }
