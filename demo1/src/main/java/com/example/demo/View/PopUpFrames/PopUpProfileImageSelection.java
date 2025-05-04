@@ -65,15 +65,15 @@ public class PopUpProfileImageSelection extends PopUp {
         }
 
 
-        hBox1 = new HBox(20);
-        hBox2 = new HBox(20);
+        hBox1 = new HBox(25);
+        hBox2 = new HBox(25);
 
         hBox1.getChildren().addAll(button1, button2, button3, button4);
         hBox2.getChildren().addAll(button5, button6, button7, button8);
 
         // Layout
         VBox layout = (VBox) getRoot();
-        layout.setSpacing(80);
+        layout.setSpacing(100);
         layout.setPadding(new Insets(100,10,30,75));
         layout.setStyle("-fx-background-color: black;");
 

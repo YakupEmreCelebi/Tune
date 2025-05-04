@@ -3,6 +3,8 @@ package com.example.demo.View.Frames;
 import com.example.demo.Model.Song;
 import com.example.demo.Model.TuneUser;
 import com.example.demo.View.SpecialNodes.*;
+import javafx.animation.ScaleTransition;
+import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
@@ -10,8 +12,10 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.*;
 import javafx.scene.shape.Circle;
+import javafx.util.Duration;
 
 import java.util.ArrayList;
 
@@ -47,6 +51,7 @@ public class ProfileFrame extends Scene {
         editProfileButton = new Button("Edit Profile");
         editProfileButton.setStyle("-fx-font-size: 18; -fx-background-color: black; -fx-text-fill: white");
         editProfileButton.setTranslateX(20);
+        addHoverEffect(editProfileButton);
 
         //VBoxes
         profileVBox = new VBox();
@@ -112,6 +117,32 @@ public class ProfileFrame extends Scene {
         recentTunedScroller = new NodeScroller("Recent Tuned Songs", recentTunedNodes, 750);
 
         nodeScrollersVBox.getChildren().addAll(friendScroller, favSongScroller, recentTunedScroller);
+    }
+
+    private void addHoverEffect(Button button){
+        ScaleTransition scaleUp = new ScaleTransition(Duration.seconds(0.1), button);
+        scaleUp.setToX(1.03);
+        scaleUp.setToY(1.03);
+
+        ScaleTransition scaleDown = new ScaleTransition(Duration.seconds(0.1), button);
+        scaleDown.setToX(1.0);
+        scaleDown.setToY(1.0);
+
+        button.setOnMouseEntered(new EventHandler<MouseEvent>() {
+
+            @Override
+            public void handle(MouseEvent mouseEvent) {
+                scaleUp.play();
+            }
+        });
+
+        button.setOnMouseExited(new EventHandler<MouseEvent>() {
+
+            @Override
+            public void handle(MouseEvent mouseEvent) {
+                scaleDown.play();
+            }
+        });
     }
 
     private static double getScreenWidth() {

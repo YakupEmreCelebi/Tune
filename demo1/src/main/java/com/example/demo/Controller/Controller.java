@@ -110,7 +110,7 @@ public class Controller {
         signUpFrame = new SignUpFrame();
         homeFrame = new HomeFrame(currentUser, currentSong, randomSongs);
         profileFrame = new ProfileFrame(currentUser);
-        tuneFrame = new TuneFrame();
+        tuneFrame = new TuneFrame(currentUser);
         settingsFrame = new SettingsFrame();
 
         popUpStage = new PopUpStage();
