@@ -99,7 +99,7 @@ public class SettingsFrame extends Scene {
     }
 
     private void createImages() {
-        Image pencilImage = new Image(getClass().getResourceAsStream("/com/example/demo/pencil_ico.png"));
+        Image pencilImage = new Image(getClass().getResourceAsStream("/com/example/demo/pen2.png"));
         pencilImageView = new ImageView(pencilImage);
         pencilImageView.setPreserveRatio(true);
         pencilImageView.setFitWidth(32);
@@ -109,7 +109,7 @@ public class SettingsFrame extends Scene {
         infoImageView.setPreserveRatio(true);
         infoImageView.setFitWidth(35);
 
-        Image pencilImage2 = new Image(getClass().getResourceAsStream("/com/example/demo/pencil_ico.png"));
+        Image pencilImage2 = new Image(getClass().getResourceAsStream("/com/example/demo/pen2.png"));
         pencilImageView2 = new ImageView(pencilImage2);
         pencilImageView2.setPreserveRatio(true);
         pencilImageView2.setFitWidth(32);

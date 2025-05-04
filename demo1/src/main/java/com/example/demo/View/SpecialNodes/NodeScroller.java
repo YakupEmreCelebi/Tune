@@ -1,5 +1,6 @@
 package com.example.demo.View.SpecialNodes;
 
+import javafx.animation.ScaleTransition;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
@@ -9,10 +10,12 @@ import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
+import javafx.util.Duration;
 
 
 import java.util.ArrayList;
@@ -71,6 +74,9 @@ public class NodeScroller extends BorderPane {
         leftScrollButton.setStyle("-fx-background-color: transparent;");
         rightScrollButton.setStyle("-fx-background-color: transparent;");
 
+        addHoverEffect(leftScrollButton);
+        addHoverEffect(rightScrollButton);
+
 
         leftScrollButton.setOnAction(new ScrolLeft());
         rightScrollButton.setOnAction(new ScrollRight());
@@ -108,6 +114,32 @@ public class NodeScroller extends BorderPane {
             scrollPane.setHvalue(Math.min(1, current + SCROLL_PIXELS));
         }
 
+    }
+
+    private void addHoverEffect(Button button){
+        ScaleTransition scaleUp = new ScaleTransition(Duration.seconds(0.1), button);
+        scaleUp.setToX(1.07);
+        scaleUp.setToY(1.1);
+
+        ScaleTransition scaleDown = new ScaleTransition(Duration.seconds(0.1), button);
+        scaleDown.setToX(1.0);
+        scaleDown.setToY(1.0);
+
+        button.setOnMouseEntered(new EventHandler<MouseEvent>() {
+
+            @Override
+            public void handle(MouseEvent mouseEvent) {
+                scaleUp.play();
+            }
+        });
+
+        button.setOnMouseExited(new EventHandler<MouseEvent>() {
+
+            @Override
+            public void handle(MouseEvent mouseEvent) {
+                scaleDown.play();
+            }
+        });
     }
 
 

@@ -28,6 +28,7 @@ public class HomeFrame extends Scene {
     private ArrayList<Node> songNodes;
     private TuneUser currentUser;
     private ArrayList<Song> randomSongs;
+    private SongPlayerNode songPlayer;
 
 
 
@@ -49,8 +50,8 @@ public class HomeFrame extends Scene {
         createNodeScrollers();
 
         // Create Song Player slider
-        SongPlayerNode s = new SongPlayerNode(theSong);
-        s.setAlignment(Pos.CENTER);
+        songPlayer = new SongPlayerNode(theSong);
+        songPlayer.setAlignment(Pos.CENTER);
 
         // container VBox
         container = new VBox(20);
@@ -67,7 +68,7 @@ public class HomeFrame extends Scene {
         searchBar.setPrefHeight(40);
 
         // Add elements to container
-        container.getChildren().addAll(searchBar, s, songNodeScroller, friendTunesScroller);
+        constructContainer();
 
         // Layout
         HBox layout = (HBox) getRoot();
@@ -90,6 +91,11 @@ public class HomeFrame extends Scene {
         }
 
         friendTunesScroller = new NodeScroller("Friends' Tunes", friendTuneNodes, 600);
+    }
+
+    public void constructContainer() {
+        container.getChildren().clear();
+        container.getChildren().addAll(searchBar, songPlayer, songNodeScroller, friendTunesScroller);
     }
 
     private static double getScreenWidth() {
