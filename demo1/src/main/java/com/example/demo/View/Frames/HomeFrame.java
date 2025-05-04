@@ -10,11 +10,10 @@ import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
-import javafx.scene.image.Image;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
-import javafx.scene.shape.Circle;
+
 import java.util.ArrayList;
 
 import static javafx.stage.Screen.getPrimary;
@@ -24,8 +23,8 @@ public class HomeFrame extends Scene {
     private NavigateBar navigateBar;
     private VBox container;
     private TextField searchBar;
-    private ButtonScroller buttonScroller;
-    private ArrayList<Button> friendsButtons;
+    private NodeScroller nodeScroller;
+    private ArrayList<Node> friendsButtons;
 
 
     public HomeFrame(Song song) {
@@ -39,7 +38,7 @@ public class HomeFrame extends Scene {
         friendsButtons = new ArrayList<>();
         FriendsButton b = new FriendsButton(new TuneUser("fr", "123", "@", 1, null, null));
         friendsButtons.add(b);
-        buttonScroller = new ButtonScroller(friendsButtons);
+        nodeScroller = new NodeScroller("", friendsButtons, 600);
 
 
         // container VBox
@@ -57,7 +56,7 @@ public class HomeFrame extends Scene {
         searchBar.setPrefHeight(40);
 
         // Add elements to container
-        container.getChildren().addAll(searchBar, new SongVBox(song), buttonScroller);
+        container.getChildren().addAll(searchBar, new SongVBox(song), nodeScroller);
 
         // Layout
         HBox layout = (HBox) getRoot();
@@ -90,7 +89,7 @@ public class HomeFrame extends Scene {
         }
     }
 
-    public ArrayList<Button> getFriendsButtons() {
+    public ArrayList<Node> getFriendsButtons() {
         return friendsButtons;
     }
 }
