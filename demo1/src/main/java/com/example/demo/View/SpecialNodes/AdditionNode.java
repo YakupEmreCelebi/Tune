@@ -8,9 +8,9 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.VBox;
 import javafx.util.Duration;
 
-public class AddFriendNode extends VBox {
+public class AdditionNode extends VBox {
 
-    public AddFriendNode() {
+    public AdditionNode() {
         super(10);
         Image plusImg = new Image(getClass().getResourceAsStream("/com/example/demo/plus_ico.png"));
         ImageView plusImgView = new ImageView(plusImg);

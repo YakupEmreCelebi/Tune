@@ -2,9 +2,6 @@ package com.example.demo.Model;
 
 import javafx.scene.image.Image;
 
-import javax.swing.text.Element;
-import javax.swing.text.html.ImageView;
-
 public class Song {
 
     private int trackID;
@@ -14,11 +11,9 @@ public class Song {
     private int year;
     private String genre;
     private String mood;
-    private int duration;
-    private int currentPosition;
+    private int durationMS;
+    private int currentPositionMS;
     private Image image;
-
-
 
 
     public Song(int trackID, String name, String artist, String language, int year, String genre, String mood, String imageUrl, int duration) {
@@ -30,12 +25,12 @@ public class Song {
         this.genre = genre;
         this.mood = mood;
         this.image = new Image(imageUrl);
-        this.duration = duration;
-        this.currentPosition = 0;
+        this.durationMS = duration;
+        this.currentPositionMS = 0;
     }
 
-    public void setCurrentPosition(int currentPosition) {
-        this.currentPosition = currentPosition;
+    public void setCurrentPositionMS(int currentPosition) {
+        this.currentPositionMS = currentPosition;
     }
 
     // Getters
@@ -71,12 +66,12 @@ public class Song {
         return name;
     }
 
-    public int getDuration() {
-        return duration;
+    public int getDurationMS() {
+        return durationMS;
     }
 
-    public int getCurrentPosition() {
-        return currentPosition;
+    public int getCurrentPositionMS() {
+        return currentPositionMS;
     }
 
 }

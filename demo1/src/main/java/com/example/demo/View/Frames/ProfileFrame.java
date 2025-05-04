@@ -1,23 +1,17 @@
 package com.example.demo.View.Frames;
 
+import com.example.demo.Model.Song;
 import com.example.demo.Model.TuneUser;
-import com.example.demo.View.SpecialNodes.AddFriendNode;
-import com.example.demo.View.SpecialNodes.FriendNode;
-import com.example.demo.View.SpecialNodes.NavigateBar;
-import com.example.demo.View.SpecialNodes.NodeScroller;
+import com.example.demo.View.SpecialNodes.*;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
 import javafx.scene.shape.Circle;
-import javafx.scene.text.Font;
-import javafx.scene.text.FontWeight;
-import javafx.scene.text.TextAlignment;
 
 import java.util.ArrayList;
 
@@ -45,10 +39,10 @@ public class ProfileFrame extends Scene {
         currentUser = tuneUser;
         navigateBar = new NavigateBar();
         createImage();
+
         friendNodes = new ArrayList<Node>();
         favSongNodes = new ArrayList<Node>();
         recentTunedNodes = new ArrayList<Node>();
-
 
         //Button
         editProfileButton = new Button("Edit Profile");
@@ -65,7 +59,7 @@ public class ProfileFrame extends Scene {
         nodeScrollersVBox.setSpacing(10);
         nodeScrollersVBox.setPadding(new Insets(100,0,0,0));
 
-        createNodeSrollers();
+        createNodeScrollers();
 
         // Layout
         HBox layout = (HBox) getRoot();
@@ -83,16 +77,30 @@ public class ProfileFrame extends Scene {
         profileImageView.setClip(new Circle(80, 80, 80));
     }
 
-    private void createNodeSrollers() {
+    private void createNodeScrollers() {
         for (TuneUser friend : currentUser.getFriends()) {
             FriendNode friendBox = new FriendNode(friend);
             friendNodes.add(friendBox);
         }
 
-        friendNodes.add(new AddFriendNode());
+        AdditionNode addFriendNode = new AdditionNode();
+        friendNodes.add(addFriendNode);
 
+        for (Song favSong : currentUser.getFavouriteSongs()) {
+            SongNode favSongNode = new SongNode(favSong, 100, 100);
+            favSongNodes.add(favSongNode);
+        }
 
+        AdditionNode addFavSongNode = new AdditionNode();
+        favSongNodes.add(addFavSongNode);
 
+        for (Song recentTunedSong : currentUser.getTunedSongs()) {
+            SongNode recentTunedSongNode = new SongNode(recentTunedSong, 100, 100);
+            recentTunedNodes.add(recentTunedSongNode);
+        }
+
+        AdditionNode addRecentTunedSongNode = new AdditionNode();
+        recentTunedNodes.add(addRecentTunedSongNode);
 
         friendScroller = new NodeScroller("Friends", friendNodes, 750);
         favSongScroller = new NodeScroller("Favorite Songs", favSongNodes, 750);

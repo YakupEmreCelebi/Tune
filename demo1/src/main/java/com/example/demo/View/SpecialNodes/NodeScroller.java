@@ -38,7 +38,7 @@ public class NodeScroller extends BorderPane {
         setSides();
 
         this.setPrefWidth(prefWidth);
-        this.setPrefHeight(200);
+        this.setMaxHeight(300);
 
         setScrollPane(nodes);
 

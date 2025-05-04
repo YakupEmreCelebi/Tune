@@ -11,10 +11,11 @@ public class SongNode extends VBox {
     private Label genreLabel;
     private ImageView imageView;
 
-    public SongNode(Song song) {
+    public SongNode(Song song, int width, int imgHeight) {
 
-        super(3);
-        setMaxWidth(100);
+        super(10);
+
+        setMaxWidth(width);
 
         //Labels
         artistLabel = new Label(song.getArtist());
@@ -24,7 +25,8 @@ public class SongNode extends VBox {
         genreLabel.setStyle("-fx-font-size: 12");
 
         ImageView imageView = new ImageView(song.getImage());
-        imageView.setFitHeight(100);
+        imageView.setFitHeight(imgHeight);
+
         imageView.setPreserveRatio(true);
 
         getChildren().addAll(imageView, artistLabel, genreLabel);

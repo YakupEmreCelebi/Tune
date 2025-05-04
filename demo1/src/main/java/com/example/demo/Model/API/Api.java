@@ -88,7 +88,7 @@ public class Api {
 
         startResumeUsersPlaybackRequest = spotifyApi.startResumeUsersPlayback()
                 .uris(nextSongs)
-                .position_ms(song.getCurrentPosition())
+                .position_ms(song.getCurrentPositionMS())
                 .build();
 
         try {

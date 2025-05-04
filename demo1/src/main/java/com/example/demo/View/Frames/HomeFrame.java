@@ -9,8 +9,6 @@ import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.TextField;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
@@ -29,9 +27,12 @@ public class HomeFrame extends Scene {
     private ArrayList<Node> friendTuneNodes;
     private ArrayList<Node> songNodes;
     private TuneUser currentUser;
+    private ArrayList<Song> randomSongs;
 
 
-    public HomeFrame(TuneUser user, Song song) {
+
+
+    public HomeFrame(TuneUser user, Song theSong, ArrayList<Song> randomSongs) {
         super(new HBox(40), getScreenWidth(), getScreenHeight());
         this.getStylesheets().add(getClass().getResource("navBar.css").toExternalForm());
 
@@ -39,10 +40,12 @@ public class HomeFrame extends Scene {
         friendTuneNodes = new ArrayList<Node>();
         songNodes = new ArrayList<Node>();
 
+        this.randomSongs = randomSongs;
+
         // Create Navigate Bar
         navigateBar = new NavigateBar();
 
-        // Create friends Button Scroller
+        // Create friends node Scroller
         createNodeScrollers();
 
 
@@ -61,7 +64,7 @@ public class HomeFrame extends Scene {
         searchBar.setPrefHeight(40);
 
         // Add elements to container
-        container.getChildren().addAll(searchBar, new SongNode(song), songNodeScroller, friendTunesScroller);
+        container.getChildren().addAll(searchBar, new SongNode(theSong, 100, 150), songNodeScroller, friendTunesScroller);
 
         // Layout
         HBox layout = (HBox) getRoot();
@@ -70,14 +73,18 @@ public class HomeFrame extends Scene {
     }
 
     private void createNodeScrollers() {
+
+        for (Song randomSong : randomSongs) {
+            SongNode songNode = new SongNode(randomSong, 100, 100);
+            songNodes.add(songNode);
+        }
+
         songNodeScroller = new NodeScroller("Songs", songNodes, 600);
 
         for (TuneUser friend : currentUser.getFriends()) {
             FriendNode friendBox = new FriendNode(friend);
             friendTuneNodes.add(friendBox);
         }
-
-        friendTuneNodes.add(new AddFriendNode());
 
         friendTunesScroller = new NodeScroller("Friends' Tunes", friendTuneNodes, 600);
     }

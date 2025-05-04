@@ -46,12 +46,14 @@ public class Controller {
     private PopUpRemoveAccount popUpRemoveAccount;
     private PopUpProfileImageSelection popUpProfileImageSelection;
     private PopUpAddTune popUpAddTune;
+    private ArrayList<Song> randomSongs;
 
     private PopUpStage popUpStage;
 
     public Controller(Stage stage) {
         this.mainStage = stage;
 
+        // For testing
         TuneUser friend1 = new TuneUser("friend1", "Test123", "test@mail.com", 0, null, null);
         TuneUser friend2 = new TuneUser("friend2", "Test123", "test@mail.com", 0, null, null);
         TuneUser friend3 = new TuneUser("friend1", "Test123", "test@mail.com", 0, null, null);
@@ -68,11 +70,36 @@ public class Controller {
         testFriends.add(friend3);
         testFriends.add(friend4);
         testFriends.add(friend5);
+        testFriends.add(friend6);
+        testFriends.add(friend7);
+        testFriends.add(friend8);
 
 
-        // For testing
-        currentUser = new TuneUser("Test", "Test123", "test@mail.com", 0, testFriends, null);
+        randomSongs = new ArrayList<Song>();
+
+        Song testSong1 = new Song(1,"Yanıbaşımdan", "Duman", "TR", 2010, "Rock", "happy", "https://imgur.com/Vbcu0c9.jpg", 4);
+        Song testSong2 = new Song(1,"Yanıbaşımdan", "Duman", "TR", 2010, "Rock", "happy", "https://imgur.com/Vbcu0c9.jpg", 4);
+        Song testSong3 = new Song(1,"Yanıbaşımdan", "Duman", "TR", 2010, "Rock", "happy", "https://imgur.com/Vbcu0c9.jpg", 4);
+        Song testSong4 = new Song(1,"Yanıbaşımdan", "Duman", "TR", 2010, "Rock", "happy", "https://imgur.com/Vbcu0c9.jpg", 4);
+        Song testSong5 = new Song(1,"Yanıbaşımdan", "Duman", "TR", 2010, "Rock", "happy", "https://imgur.com/Vbcu0c9.jpg", 4);
+        Song testSong6 = new Song(1,"Yanıbaşımdan", "Duman", "TR", 2010, "Rock", "happy", "https://imgur.com/Vbcu0c9.jpg", 4);
+        Song testSong7 = new Song(1,"Yanıbaşımdan", "Duman", "TR", 2010, "Rock", "happy", "https://imgur.com/Vbcu0c9.jpg", 4);
+        Song testSong8 = new Song(1,"Yanıbaşımdan", "Duman", "TR", 2010, "Rock", "happy", "https://imgur.com/Vbcu0c9.jpg", 4);
+
+        randomSongs.add(testSong1);
+        randomSongs.add(testSong2);
+        randomSongs.add(testSong3);
+        randomSongs.add(testSong4);
+        randomSongs.add(testSong5);
+        randomSongs.add(testSong6);
+        randomSongs.add(testSong7);
+        randomSongs.add(testSong8);
+
+        currentUser = new TuneUser("Test", "Test123", "test@mail.com", 0, testFriends, randomSongs);
         currentSong = new Song(1,"Yanıbaşımdan", "Duman", "TR", 2010, "Rock", "happy", "https://imgur.com/Vbcu0c9.jpg", 4);
+
+        // Test end
+
     }
 
     public void initScenes() {
@@ -81,7 +108,7 @@ public class Controller {
         welcomeFrame = new WelcomeFrame();
         loginFrame = new LoginFrame();
         signUpFrame = new SignUpFrame();
-        homeFrame = new HomeFrame(currentUser, currentSong);
+        homeFrame = new HomeFrame(currentUser, currentSong, randomSongs);
         profileFrame = new ProfileFrame(currentUser);
         tuneFrame = new TuneFrame();
         settingsFrame = new SettingsFrame();

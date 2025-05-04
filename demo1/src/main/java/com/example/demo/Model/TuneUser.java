@@ -24,6 +24,7 @@ public class TuneUser {
         this.password = password;
         this.friends = friends;
         this.favouriteSongs = favouriteSongs;
+        this.tunedSongs = new ArrayList<Song>();
 
         // For testing
         tuneSong = new Song(1,"Yanıbaşımdan", "Duman", "TR", 2010, "Rock", "happy", "https://imgur.com/Vbcu0c9.jpg", 4);
@@ -94,6 +95,9 @@ public class TuneUser {
         return profileImgIndex;
     }
 
+    public ArrayList<Song> getTunedSongs() {
+        return tunedSongs;
+    }
 
     public ArrayList<TuneUser> getFriends() {return friends;}
     public ArrayList<Song> getFavouriteSongs (){return favouriteSongs;}
