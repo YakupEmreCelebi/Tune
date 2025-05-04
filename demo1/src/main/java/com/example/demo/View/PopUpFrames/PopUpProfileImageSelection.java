@@ -1,12 +1,16 @@
 package com.example.demo.View.PopUpFrames;
 
+import javafx.animation.ScaleTransition;
+import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.scene.control.Button;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.shape.Circle;
+import javafx.util.Duration;
 
 import java.util.ArrayList;
 
@@ -43,8 +47,9 @@ public class PopUpProfileImageSelection extends PopUp {
 
         buttons = new ArrayList<>();
 
-        createImages();
+        createImagesAndButtons();
 
+        // Add buttons to arraylist
         buttons.add(button1);
         buttons.add(button2);
         buttons.add(button3);
@@ -54,6 +59,11 @@ public class PopUpProfileImageSelection extends PopUp {
         buttons.add(button7);
         buttons.add(button8);
 
+        for (Button button : buttons) {
+            addHoverEffect(button);
+            button.setStyle("-fx-border-color: transparent; -fx-background-color: transparent;");
+        }
+
 
         hBox1 = new HBox(20);
         hBox2 = new HBox(20);
@@ -61,6 +71,7 @@ public class PopUpProfileImageSelection extends PopUp {
         hBox1.getChildren().addAll(button1, button2, button3, button4);
         hBox2.getChildren().addAll(button5, button6, button7, button8);
 
+        // Layout
         VBox layout = (VBox) getRoot();
         layout.setSpacing(80);
         layout.setPadding(new Insets(100,10,30,75));
@@ -71,7 +82,7 @@ public class PopUpProfileImageSelection extends PopUp {
 
     }
 
-    private void createImages() {
+    private void createImagesAndButtons() {
 
         Image image1 = new Image(getClass().getResourceAsStream("/com/example/demo/duman_ico.jpg"));
         imageView1 = new ImageView(image1);
@@ -190,5 +201,31 @@ public class PopUpProfileImageSelection extends PopUp {
 
     public ArrayList<Button> getButtons() {
         return buttons;
+    }
+
+    private void addHoverEffect(Button button){
+        ScaleTransition scaleUp = new ScaleTransition(Duration.seconds(0.1), button);
+        scaleUp.setToX(1.03);
+        scaleUp.setToY(1.03);
+
+        ScaleTransition scaleDown = new ScaleTransition(Duration.seconds(0.1), button);
+        scaleDown.setToX(1.0);
+        scaleDown.setToY(1.0);
+
+        button.setOnMouseEntered(new EventHandler<MouseEvent>() {
+
+            @Override
+            public void handle(MouseEvent mouseEvent) {
+                scaleUp.play();
+            }
+        });
+
+        button.setOnMouseExited(new EventHandler<MouseEvent>() {
+
+            @Override
+            public void handle(MouseEvent mouseEvent) {
+                scaleDown.play();
+            }
+        });
     }
 }
