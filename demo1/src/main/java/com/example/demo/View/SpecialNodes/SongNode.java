@@ -4,6 +4,7 @@ import com.example.demo.Model.Song;
 import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.VBox;
+import javafx.scene.shape.Rectangle;
 
 public class SongNode extends VBox {
 
@@ -13,7 +14,7 @@ public class SongNode extends VBox {
 
     public SongNode(Song song, int width, int imgHeight) {
 
-        super(10);
+        super(1.5);
 
         setMaxWidth(width);
 
@@ -26,11 +27,15 @@ public class SongNode extends VBox {
 
         ImageView imageView = new ImageView(song.getImage());
         imageView.setFitHeight(imgHeight);
-
         imageView.setPreserveRatio(true);
+
+        Rectangle clip = new Rectangle(width, imgHeight);
+        clip.setArcWidth (10);
+        clip.setArcHeight(10);
+        imageView.setClip(clip);
 
         getChildren().addAll(imageView, artistLabel, genreLabel);
 
-        setStyle("-fx-border-color: black; -fx-border-width: 1;");
+        //setStyle("-fx-border-color: black; -fx-border-width: 1;");
     }
 }

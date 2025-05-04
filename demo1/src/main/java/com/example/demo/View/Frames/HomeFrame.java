@@ -48,6 +48,9 @@ public class HomeFrame extends Scene {
         // Create friends node Scroller
         createNodeScrollers();
 
+        // Create Song Player slider
+        SongPlayerNode s = new SongPlayerNode(theSong);
+        s.setAlignment(Pos.CENTER);
 
         // container VBox
         container = new VBox(20);
@@ -64,7 +67,7 @@ public class HomeFrame extends Scene {
         searchBar.setPrefHeight(40);
 
         // Add elements to container
-        container.getChildren().addAll(searchBar, new SongNode(theSong, 100, 150), songNodeScroller, friendTunesScroller);
+        container.getChildren().addAll(searchBar, s, songNodeScroller, friendTunesScroller);
 
         // Layout
         HBox layout = (HBox) getRoot();
