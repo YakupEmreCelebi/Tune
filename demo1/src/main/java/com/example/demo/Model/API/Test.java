@@ -9,6 +9,6 @@ public class Test {
 
     public static void main(String[] args) {
         Api api = new Api();
-        api.skipPlaybackToPreviousTrack();
+        api.startResumePlayback();
     }
 }

@@ -52,8 +52,26 @@ public class Controller {
     public Controller(Stage stage) {
         this.mainStage = stage;
 
+        TuneUser friend1 = new TuneUser("friend1", "Test123", "test@mail.com", 0, null, null);
+        TuneUser friend2 = new TuneUser("friend2", "Test123", "test@mail.com", 0, null, null);
+        TuneUser friend3 = new TuneUser("friend1", "Test123", "test@mail.com", 0, null, null);
+        TuneUser friend4 = new TuneUser("friend2", "Test123", "test@mail.com", 0, null, null);
+        TuneUser friend5 = new TuneUser("friend1", "Test123", "test@mail.com", 0, null, null);
+        TuneUser friend6 = new TuneUser("friend2", "Test123", "test@mail.com", 0, null, null);
+        TuneUser friend7 = new TuneUser("friend1", "Test123", "test@mail.com", 0, null, null);
+        TuneUser friend8 = new TuneUser("friend2", "Test123", "test@mail.com", 0, null, null);
+
+
+        ArrayList<TuneUser> testFriends = new ArrayList<TuneUser>();
+        testFriends.add(friend1);
+        testFriends.add(friend2);
+        testFriends.add(friend3);
+        testFriends.add(friend4);
+        testFriends.add(friend5);
+
+
         // For testing
-        currentUser = new TuneUser("Test", "Test123", "test@mail.com", 0, null, null);
+        currentUser = new TuneUser("Test", "Test123", "test@mail.com", 0, testFriends, null);
         currentSong = new Song(1,"Yanıbaşımdan", "Duman", "TR", 2010, "Rock", "happy", "https://imgur.com/Vbcu0c9.jpg", 4);
     }
 
@@ -108,11 +126,7 @@ public class Controller {
         settingsFrame.getPasswordButton().setOnAction(new goToPopUpUpdate("Password" , "Password", "Password"));
         settingsFrame.getRemoveButton().setOnAction(new goToPopUpRemoveAccount());
 
-
-
-
     }
-
 
 
     // Action event methods
@@ -277,7 +291,6 @@ public class Controller {
     private class loginFrameController implements EventHandler<ActionEvent> {
         @Override
         public void handle(ActionEvent event) {
-            api.startResumePlayback();
             loginFrameOperations();
         }
     }
@@ -286,7 +299,6 @@ public class Controller {
 
         @Override
         public void handle(ActionEvent actionEvent) {
-            api.pausePlayback();
             showProfileFrame();
         }
     }

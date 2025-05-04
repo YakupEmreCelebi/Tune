@@ -8,12 +8,14 @@ import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.StackPane;
-import javafx.scene.layout.VBox;
+import javafx.scene.layout.*;
 import javafx.scene.shape.Circle;
+import javafx.scene.text.Font;
+import javafx.scene.text.FontWeight;
+import javafx.scene.text.TextAlignment;
 
 import java.util.ArrayList;
 
@@ -22,8 +24,12 @@ import static javafx.stage.Screen.getPrimary;
 public class ProfileFrame extends Scene {
 
     private NavigateBar navigateBar;
-    private ArrayList<Node> scrollerNodes;
-    private NodeScroller scroller;
+    private ArrayList<Node> friendNodes;
+    private ArrayList<Node> favSongNodes;
+    private ArrayList<Node> recentTunedNodes;
+    private NodeScroller friendScroller;
+    private NodeScroller favSongScroller;
+    private NodeScroller recentTunedScroller;
     private Button editProfileButton;
     private VBox containerVBox;
     private VBox profileVBox;
@@ -34,12 +40,13 @@ public class ProfileFrame extends Scene {
 
     public ProfileFrame(TuneUser tuneUser) {
         super(new HBox(40), getScreenWidth() , getScreenHeight());
-        this.getStylesheets().add(getClass().getResource("navBar.css").toExternalForm());
-
         currentUser = tuneUser;
         navigateBar = new NavigateBar();
         createImage();
-        scrollerNodes = new ArrayList<>();
+        friendNodes = new ArrayList<Node>();
+        favSongNodes = new ArrayList<Node>();
+        recentTunedNodes = new ArrayList<Node>();
+
 
         //Button
         editProfileButton = new Button("Edit Profile");
@@ -55,29 +62,41 @@ public class ProfileFrame extends Scene {
         nodeScrollersVBox = new VBox();
         nodeScrollersVBox.setSpacing(10);
         nodeScrollersVBox.setPadding(new Insets(100,0,0,0));
-        nodeScrollersVBox.getChildren().addAll(new NodeScroller(scrollerNodes));
+
+        for (TuneUser friend : tuneUser.getFriends()) {
+            VBox friendBox = new VBox(10);
+            friendBox.setAlignment(Pos.CENTER);
+            friendBox.setPadding(new Insets(10));
+
+            Image friendProfileImage = new Image(getClass().getResourceAsStream("/com/example/demo/megadeth_ico.jpg"));
+            ImageView friendProfileImageView = new ImageView(friendProfileImage);
+            friendProfileImageView.setPreserveRatio(true);
+            friendProfileImageView.setFitWidth(100);
+            friendProfileImageView.setClip(new Circle(50, 50, 50));
+
+            Label friendName = new Label(friend.getUsername());
+            friendName.setFont(Font.font("Arial", FontWeight.NORMAL, 16));
+            friendName.setAlignment(Pos.CENTER);
+            friendName.setTextAlignment(TextAlignment.CENTER);
+
+            friendBox.getChildren().addAll(friendProfileImageView, friendName);
+
+            friendNodes.add(friendBox);
+        }
+
+        Image plusImg = new Image(getClass().getResourceAsStream("/com/example/demo/plus_ico.png"));
+        ImageView plusImgView = new ImageView(plusImg);
+        plusImgView.setPreserveRatio(true);
+        plusImgView.setFitWidth(110);
+        friendNodes.add(plusImgView);
 
 
-        Button a = new Button("A");
-        Button b = new Button("B");
-        Button c = new Button("C");
-        Button d = new Button("D");
+        friendScroller = new NodeScroller("Friends", friendNodes, 750);
+        favSongScroller = new NodeScroller("Favorite Songs", favSongNodes, 750);
+        recentTunedScroller = new NodeScroller("Recent Tuned Songs", recentTunedNodes, 750);
 
-//        a.setPrefWidth(200);
-//        b.setPrefWidth(200);
-//        c.setPrefWidth(200);
-//        d.setPrefWidth(200);
-//        a.setPrefHeight(130);
-//        b.setPrefHeight(130);
-//        c.setPrefHeight(130);
-//        d.setPrefHeight(130);
-//
-//        scrollerNodes.add(a);
-//        scrollerNodes.add(b);
-//        scrollerNodes.add(c);
-//        scrollerNodes.add(d);
-//
-//        scroller = new NodeScroller(scrollerNodes);
+        nodeScrollersVBox.getChildren().addAll(friendScroller, favSongScroller, recentTunedScroller);
+
 
 
         // Layout
@@ -108,8 +127,8 @@ public class ProfileFrame extends Scene {
         return navigateBar;
     }
 
-    public NodeScroller getScroller() {
-        return scroller;
+    public NodeScroller getFriendScroller() {
+        return friendScroller;
     }
 
     public Button getEditProfileButton() {

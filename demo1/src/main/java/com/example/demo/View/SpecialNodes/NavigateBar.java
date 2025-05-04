@@ -108,6 +108,9 @@ public class NavigateBar extends BorderPane {
         ImageView plusImgView = new ImageView(plusImg);
         addTune = new Button("", plusImgView);
 
+        addTune.setStyle("-fx-background-color: transparent;");
+
+
         ScaleTransition scaleUp = new ScaleTransition(Duration.seconds(0.1), addTune);
         scaleUp.setToX(1.03);
         scaleUp.setToY(1.03);
@@ -174,7 +177,6 @@ public class NavigateBar extends BorderPane {
     public Button getSettingsButton() {
         return settingsButton;
     }
-
     public Button getAddTuneButton() {
         return addTune;
     }
@@ -191,6 +193,7 @@ public class NavigateBar extends BorderPane {
             super(name, imgView);
             this.setGraphicTextGap(10);
             this.setFont(Font.font("Arial", FontWeight.SEMI_BOLD, 22));
+            this.setStyle("-fx-background-color: transparent;");
             this.setAlignment(Pos.BASELINE_LEFT);
             this.setPrefWidth(BUTTON_WIDTH);
             this.setPrefHeight(BUTTON_HEIGHT);
