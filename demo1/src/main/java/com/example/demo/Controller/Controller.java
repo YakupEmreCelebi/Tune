@@ -273,7 +273,7 @@ public class Controller {
         popUpStage.show();
         for(int i=0; i<popUpProfileImageSelection.getButtons().size(); i++){
             int finalI = i;
-            popUpProfileImageSelection.getButtons().get(i).setOnAction(actionEvent -> {currentUser.setImageWithIndex(finalI); profileFrame.constructImageContainer();});
+            popUpProfileImageSelection.getButtons().get(i).setOnAction(actionEvent -> {currentUser.setImageWithIndex(finalI); profileFrame.constructImageContainer(); closePopUpStage();});
         }
 
     }
