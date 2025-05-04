@@ -1,6 +1,8 @@
 package com.example.demo.View.Frames;
 
 import com.example.demo.Model.TuneUser;
+import com.example.demo.View.SpecialNodes.AddFriendNode;
+import com.example.demo.View.SpecialNodes.FriendNode;
 import com.example.demo.View.SpecialNodes.NavigateBar;
 import com.example.demo.View.SpecialNodes.NodeScroller;
 import javafx.geometry.Insets;
@@ -63,41 +65,7 @@ public class ProfileFrame extends Scene {
         nodeScrollersVBox.setSpacing(10);
         nodeScrollersVBox.setPadding(new Insets(100,0,0,0));
 
-        for (TuneUser friend : tuneUser.getFriends()) {
-            VBox friendBox = new VBox(10);
-            friendBox.setAlignment(Pos.CENTER);
-            friendBox.setPadding(new Insets(10));
-
-            Image friendProfileImage = new Image(getClass().getResourceAsStream("/com/example/demo/megadeth_ico.jpg"));
-            ImageView friendProfileImageView = new ImageView(friendProfileImage);
-            friendProfileImageView.setPreserveRatio(true);
-            friendProfileImageView.setFitWidth(100);
-            friendProfileImageView.setClip(new Circle(50, 50, 50));
-
-            Label friendName = new Label(friend.getUsername());
-            friendName.setFont(Font.font("Arial", FontWeight.NORMAL, 16));
-            friendName.setAlignment(Pos.CENTER);
-            friendName.setTextAlignment(TextAlignment.CENTER);
-
-            friendBox.getChildren().addAll(friendProfileImageView, friendName);
-
-            friendNodes.add(friendBox);
-        }
-
-        Image plusImg = new Image(getClass().getResourceAsStream("/com/example/demo/plus_ico.png"));
-        ImageView plusImgView = new ImageView(plusImg);
-        plusImgView.setPreserveRatio(true);
-        plusImgView.setFitWidth(110);
-        friendNodes.add(plusImgView);
-
-
-        friendScroller = new NodeScroller("Friends", friendNodes, 750);
-        favSongScroller = new NodeScroller("Favorite Songs", favSongNodes, 750);
-        recentTunedScroller = new NodeScroller("Recent Tuned Songs", recentTunedNodes, 750);
-
-        nodeScrollersVBox.getChildren().addAll(friendScroller, favSongScroller, recentTunedScroller);
-
-
+        createNodeSrollers();
 
         // Layout
         HBox layout = (HBox) getRoot();
@@ -113,6 +81,24 @@ public class ProfileFrame extends Scene {
         profileImageView.setPreserveRatio(true);
         profileImageView.setFitWidth(180);
         profileImageView.setClip(new Circle(80, 80, 80));
+    }
+
+    private void createNodeSrollers() {
+        for (TuneUser friend : currentUser.getFriends()) {
+            FriendNode friendBox = new FriendNode(friend);
+            friendNodes.add(friendBox);
+        }
+
+        friendNodes.add(new AddFriendNode());
+
+
+
+
+        friendScroller = new NodeScroller("Friends", friendNodes, 750);
+        favSongScroller = new NodeScroller("Favorite Songs", favSongNodes, 750);
+        recentTunedScroller = new NodeScroller("Recent Tuned Songs", recentTunedNodes, 750);
+
+        nodeScrollersVBox.getChildren().addAll(friendScroller, favSongScroller, recentTunedScroller);
     }
 
     private static double getScreenWidth() {

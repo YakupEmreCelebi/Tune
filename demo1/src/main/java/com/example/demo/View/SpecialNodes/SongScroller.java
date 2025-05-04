@@ -8,7 +8,7 @@ import java.util.ArrayList;
 
 public class SongScroller extends ScrollPane {
 
-    public SongScroller(ArrayList<SongVBox> nodes) {
+    public SongScroller(ArrayList<SongNode> nodes) {
 
         this.setPrefWidth(500);
         this.setPrefHeight(160);

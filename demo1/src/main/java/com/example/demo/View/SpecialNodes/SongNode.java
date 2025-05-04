@@ -2,17 +2,16 @@ package com.example.demo.View.SpecialNodes;
 
 import com.example.demo.Model.Song;
 import javafx.scene.control.Label;
-import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.VBox;
 
-public class SongVBox extends VBox {
+public class SongNode extends VBox {
 
     private Label artistLabel;
     private Label genreLabel;
     private ImageView imageView;
 
-    public SongVBox(Song song) {
+    public SongNode(Song song) {
 
         super(3);
         setMaxWidth(100);

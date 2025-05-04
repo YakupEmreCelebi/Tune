@@ -2,6 +2,7 @@ package com.example.demo.View.SpecialNodes;
 
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
+import javafx.geometry.Insets;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -29,6 +30,7 @@ public class NodeScroller extends BorderPane {
 
         header = new Label(headerString);
         header.setFont(Font.font("Arial", FontWeight.SEMI_BOLD, 35));
+        header.setPadding(new Insets(20));
 
         scrollPane = new ScrollPane();
         scrollPane.setStyle("-fx-background-color: transparent; -fx-border-color: transparent;");

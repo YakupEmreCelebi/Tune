@@ -81,7 +81,7 @@ public class Controller {
         welcomeFrame = new WelcomeFrame();
         loginFrame = new LoginFrame();
         signUpFrame = new SignUpFrame();
-        homeFrame = new HomeFrame(currentSong);
+        homeFrame = new HomeFrame(currentUser, currentSong);
         profileFrame = new ProfileFrame(currentUser);
         tuneFrame = new TuneFrame();
         settingsFrame = new SettingsFrame();
