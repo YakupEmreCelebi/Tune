@@ -1,6 +1,7 @@
 package com.example.demo.View.SpecialNodes;
 
 import javafx.animation.ScaleTransition;
+import javafx.animation.Transition;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
@@ -22,7 +23,7 @@ import java.util.ArrayList;
 
 public class NodeScroller extends BorderPane {
 
-    private final double SCROLL_PIXELS = .1;
+    private final double SCROLL_PIXELS = .7;
 
     Label header;
     ScrollPane scrollPane;
@@ -100,8 +101,11 @@ public class NodeScroller extends BorderPane {
     private class ScrolLeft implements EventHandler<ActionEvent> {
         @Override
         public void handle(ActionEvent event) {
+
             double current = scrollPane.getHvalue();
+            double target = Math.max(0, current - SCROLL_PIXELS);
             scrollPane.setHvalue(Math.max(0, current - SCROLL_PIXELS));
+            animateScroller(current, target, 0.2);
 
         }
 
@@ -111,7 +115,9 @@ public class NodeScroller extends BorderPane {
         @Override
         public void handle(ActionEvent event) {
             double current = scrollPane.getHvalue();
+            double target = Math.min(1, current + SCROLL_PIXELS);
             scrollPane.setHvalue(Math.min(1, current + SCROLL_PIXELS));
+            animateScroller(current, target, 0.2);
         }
 
     }
@@ -141,6 +147,24 @@ public class NodeScroller extends BorderPane {
             }
         });
     }
+
+    private void animateScroller(double start, double end, double duration) {
+        Transition scrollAnim = new Transition() {
+            {
+                setCycleDuration(Duration.seconds(duration));
+            }
+
+            @Override
+            protected void interpolate(double frac) {
+                double value = start + (end - start) * frac;
+                scrollPane.setHvalue(value);
+            }
+        };
+        scrollAnim.play();
+    }
+
+
+
 
 
 }
