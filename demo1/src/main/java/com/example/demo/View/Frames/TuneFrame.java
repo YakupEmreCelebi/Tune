@@ -51,20 +51,20 @@ public class TuneFrame extends Scene {
     String noOfTunedSongs;
     String noOfTuneWithFriends;
 
-    TuneUser tuneUser;
+    TuneUser currentUser;
 
-    public TuneFrame(TuneUser tuneUser) {
+    public TuneFrame(TuneUser currentUser) {
         super(new StackPane() , getScreenWidth(),getScreenHeight());
         this.getStylesheets().add(getClass().getResource("navBar.css").toExternalForm());
 
         // User
-        this.tuneUser = tuneUser;
+        this.currentUser = currentUser;
 
         // Images
         createImages();
 
         // Navigate Bar
-        navigateBar = new NavigateBar();
+        navigateBar = new NavigateBar(currentUser);
 
         //Buttons
         instantTuneButton = new TuneButton("Instant Tune", 680, 150, tuneImageView);
@@ -169,7 +169,7 @@ public class TuneFrame extends Scene {
 
     public void constructRecentTunedSongs() {
         recentTunedSongsVBox.getChildren().clear();
-        noOfTunedSongs = String.valueOf(tuneUser.getTunedSongs().size());
+        noOfTunedSongs = String.valueOf(currentUser.getTunedSongs().size());
         noOfTunedSongsLabel = new Label(noOfTunedSongs);
         noOfTunedSongsLabel.setStyle("-fx-font-weight: bold; -fx-font-size: 16");
         recentTunedSongsVBox.getChildren().addAll(noOfTunedSongsLabel, songYouDiscoveredByTuningLabel, seeRecentTunedSongsButton);
@@ -177,13 +177,13 @@ public class TuneFrame extends Scene {
 
     public void constructImageVBox(){
         lastTunedSongVBox.getChildren().clear();
-        SongNode songNode = new SongNode(tuneUser.getTuneSong(), 150, 150, true);
+        SongNode songNode = new SongNode(currentUser.getFavouriteSongs().get(0), 150, 150, true);
         lastTunedSongVBox.getChildren().addAll(lastTunedSongLabel, songNode);
     }
 
     public void constructTuneWithFriendsVBox(){
         tuneWithFriendsVBox.getChildren().clear();
-        noOfTuneWithFriends = String.valueOf(tuneUser.getNumbOfTunedSongsWithFriends());
+        noOfTuneWithFriends = String.valueOf(currentUser.getNumbOfTunedSongsWithFriends());
         noOfTuneWithFriendsLabel = new Label(noOfTuneWithFriends);
         noOfTuneWithFriendsLabel.setStyle("-fx-font-weight: bold; -fx-font-size: 16");
         tuneWithFriendsVBox.getChildren().addAll(noOfTuneWithFriendsLabel, tuneWithFriendTitleLabel, tuneWithFriendImageView2);

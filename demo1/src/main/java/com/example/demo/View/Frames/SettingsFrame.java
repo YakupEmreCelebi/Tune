@@ -1,5 +1,6 @@
 package com.example.demo.View.Frames;
 
+import com.example.demo.Model.TuneUser;
 import com.example.demo.View.SpecialNodes.NavigateBar;
 import javafx.animation.ScaleTransition;
 import javafx.event.EventHandler;
@@ -37,11 +38,13 @@ public class SettingsFrame extends Scene {
     Label accountLabel;
     Label aboutLabel;
     Label settingsLabel;
+    private TuneUser currentUser;
 
-    public SettingsFrame() {
+    public SettingsFrame(TuneUser currentUser) {
         super(new HBox(60), getScreenWidth(), getScreenHeight());
 
         this.getStylesheets().add(getClass().getResource("navBar.css").toExternalForm());
+        this.currentUser = currentUser;
 
         createImages();
 
@@ -85,7 +88,7 @@ public class SettingsFrame extends Scene {
         removeButtonHBox.setAlignment(Pos.CENTER);
 
         //Navigate Bar
-        navigateBar = new NavigateBar();
+        navigateBar = new NavigateBar(currentUser);
 
         // Add elements to VBoxes & HBox
         removeButtonHBox.getChildren().addAll(removeButton);

@@ -1,11 +1,11 @@
 package com.example.demo.View.SpecialNodes;
 
+import com.example.demo.Model.TuneUser;
 import javafx.animation.FadeTransition;
 import javafx.animation.ScaleTransition;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
-import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
@@ -13,6 +13,8 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
+import javafx.scene.shape.Circle;
+import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.util.Duration;
@@ -34,9 +36,11 @@ public class NavigateBar extends BorderPane {
     private BorderPane usersTune;
     private Button addTune;
     private String currentFrame;
+    private TuneUser currentUser;
 
-    public NavigateBar() {
+    public NavigateBar(TuneUser currentUser) {
 
+        this.currentUser = currentUser;
         topContents = new VBox(20);
 
         // Set Navigate Bar VBox (Color, size)
@@ -106,12 +110,23 @@ public class NavigateBar extends BorderPane {
         usersTune.setPrefSize(50,65);
         VBox buttonNLabel = new VBox(20);
 
-        Image plusImg = new Image(getClass().getResourceAsStream("/com/example/demo/plus_ico.png"));
-        ImageView plusImgView = new ImageView(plusImg);
-        addTune = new Button("", plusImgView);
+
+        Image img = (!currentUser.getTuneExistence()) ?
+                new Image(getClass().getResourceAsStream("/com/example/demo/plus_ico.png")) :
+                currentUser.getTuneSong().getImage();
+
+        ImageView tuneImgView = new ImageView(img);
+        tuneImgView.setPreserveRatio(true);
+        tuneImgView.setFitHeight(140);
+
+        Rectangle clip = new Rectangle(140, 140);
+        clip.setArcWidth (10);
+        clip.setArcHeight(10);
+        tuneImgView.setClip(clip);
+
+        addTune = new Button("", tuneImgView);
 
         addTune.setStyle("-fx-background-color: transparent;");
-
 
         ScaleTransition scaleUp = new ScaleTransition(Duration.seconds(0.1), addTune);
         scaleUp.setToX(1.03);
@@ -142,9 +157,12 @@ public class NavigateBar extends BorderPane {
         usersTuneLabel.setFont(Font.font("Arial", FontWeight.BOLD, 22));
         usersTuneLabel.setAlignment(Pos.CENTER);
 
-        buttonNLabel.getChildren().addAll(addTune,usersTuneLabel);
         buttonNLabel.setAlignment(Pos.CENTER);
+        buttonNLabel.getChildren().addAll(addTune,usersTuneLabel);
+
+
         usersTune.setCenter(buttonNLabel);
+
 
     }
 
@@ -232,10 +250,6 @@ public class NavigateBar extends BorderPane {
                 }
             });
         }
-
-
-
-
     }
 
     public void setCurrentFrame(String currentFrame) {

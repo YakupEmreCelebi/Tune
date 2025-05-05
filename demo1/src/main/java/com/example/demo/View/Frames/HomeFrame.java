@@ -44,7 +44,7 @@ public class HomeFrame extends Scene {
         this.randomSongs = randomSongs;
 
         // Create Navigate Bar
-        navigateBar = new NavigateBar();
+        navigateBar = new NavigateBar(currentUser);
 
         // Create friends node Scroller
         createNodeScrollers();

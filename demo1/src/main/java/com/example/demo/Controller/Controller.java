@@ -7,6 +7,7 @@ import com.example.demo.Model.Song;
 import com.example.demo.Model.TuneUser;
 import com.example.demo.View.Frames.*;
 import com.example.demo.View.PopUpFrames.*;
+import com.example.demo.View.SpecialNodes.FriendNode;
 import com.example.demo.View.SpecialNodes.SongNode;
 import com.example.demo.View.Stage.PopUpStage;
 import javafx.event.ActionEvent;
@@ -115,7 +116,7 @@ public class Controller {
         homeFrame = new HomeFrame(currentUser, currentSong, randomSongs);
         profileFrame = new ProfileFrame(currentUser);
         tuneFrame = new TuneFrame(currentUser);
-        settingsFrame = new SettingsFrame();
+        settingsFrame = new SettingsFrame(currentUser);
 
         popUpStage = new PopUpStage();
 
@@ -131,7 +132,8 @@ public class Controller {
         homeFrame.getNavigateBar().getHomeButton().setOnAction(new loginFrameController());
         homeFrame.getNavigateBar().getTuneButton().setOnAction(new goToTuneFrame());
         homeFrame.getNavigateBar().getSettingsButton().setOnAction(new goToSettingsFrame());
-        homeFrame.getNavigateBar().getAddTuneButton().setOnAction(new goToPopUpShowFriendTune());
+        homeFrame.getNavigateBar().getAddTuneButton().setOnAction(new goToPopUpAddTune());
+
 
 
         profileFrame.getNavigateBar().getProfileButton().setOnAction(new goToProfileFrame());
@@ -189,6 +191,15 @@ public class Controller {
             });
         }
 
+        for (Node node : homeFrame.getFriendTunesNodeScroller().getNodes()) {
+            FriendNode friendNode = (FriendNode) node;
+            friendNode.setOnMouseClicked(new EventHandler<MouseEvent>() {
+                public void handle(MouseEvent event) {
+                    showPopUpShowFriendTune(friendNode.getFriend());
+                }
+            });
+        }
+
         for (int i = 0; i < profileFrame.getFavSongScroller().getNodes().size(); i++) {
             if (i != profileFrame.getFavSongScroller().getNodes().size() - 1) {
                 Node node =  profileFrame.getFavSongScroller().getNodes().get(i);
@@ -212,6 +223,8 @@ public class Controller {
                 });
             }
         }
+
+
 
 
     }
@@ -315,14 +328,15 @@ public class Controller {
     }
 
     public void showPopUpShowFriendTune(TuneUser aFriend){
-        popUpShowFriendTune = new PopUpShowFriendTune(aFriend);
-        popUpStage.setScene(popUpShowFriendTune);
-        popUpStage.show();
-
+        if (aFriend.getTuneExistence()) {
+            popUpShowFriendTune = new PopUpShowFriendTune(aFriend);
+            popUpStage.setScene(popUpShowFriendTune);
+            popUpStage.show();
+        }
     }
 
     public void showPopUpQuestion(){
-        popUpQuestion = new PopUpQuestion("1. What is genre?", "Rock", "Jazz", "Metal", "Pop");
+        popUpQuestion = new PopUpQuestion("1. Genre", "Rock", "Jazz", "Metal", "Pop");
         popUpStage.setScene(popUpQuestion);
         popUpStage.show();
 

@@ -41,7 +41,7 @@ public class ProfileFrame extends Scene {
     public ProfileFrame(TuneUser tuneUser) {
         super(new HBox(40), getScreenWidth() , getScreenHeight());
         currentUser = tuneUser;
-        navigateBar = new NavigateBar();
+        navigateBar = new NavigateBar(currentUser);
 
         friendNodes = new ArrayList<Node>();
         favSongNodes = new ArrayList<Node>();

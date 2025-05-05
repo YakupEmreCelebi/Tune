@@ -48,7 +48,7 @@ public class PopUpQuestion extends PopUp{
 
         // Button
         nextButton = new Button("Next");
-        nextButton.setStyle("-fx-background-color: red; -fx-text-fill: white; -fx-font-size: 15; -fx-font-family: Arial; -fx-font-weight: bold");
+        nextButton.setStyle("-fx-background-color: #c5a0e7; -fx-text-fill: black; -fx-font-size: 15; -fx-font-family: Arial; -fx-font-weight: bold");
         nextButton.setPrefWidth(500);
         nextButton.setPrefHeight(50);
         addHoverEffect(nextButton);
@@ -182,7 +182,7 @@ public class PopUpQuestion extends PopUp{
             @Override
             public void handle(MouseEvent event) {
 
-                hBox.setStyle("-fx-border-color: green; -fx-border-width: 3; -fx-background-color: transparent; -fx-background-radius: 5; -fx-border-radius: 5");
+                hBox.setStyle("-fx-border-color: #95dc95; -fx-border-width: 3; -fx-background-color: transparent; -fx-background-radius: 5; -fx-border-radius: 5");
             }
         });
 
@@ -200,7 +200,7 @@ public class PopUpQuestion extends PopUp{
             @Override
             public void handle(MouseEvent event) {
 
-                button.setStyle("-fx-background-color: green; -fx-text-fill: white; -fx-font-size: 15; -fx-font-family: Arial; -fx-font-weight: bold");
+                button.setStyle("-fx-background-color: #95dc95; -fx-text-fill: black; -fx-font-size: 15; -fx-font-family: Arial; -fx-font-weight: bold");
             }
         });
 
@@ -208,7 +208,7 @@ public class PopUpQuestion extends PopUp{
             @Override
             public void handle(MouseEvent event) {
 
-                button.setStyle("-fx-background-color: red; -fx-text-fill: white; -fx-font-size: 15; -fx-font-family: Arial; -fx-font-weight: bold");
+                button.setStyle("-fx-background-color: #c5a0e7; -fx-text-fill: black; -fx-font-size: 15; -fx-font-family: Arial; -fx-font-weight: bold");
             }
         });
     }
