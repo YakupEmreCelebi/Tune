@@ -56,12 +56,15 @@ public class ProfileFrame extends Scene {
         //VBoxes
         profileVBox = new VBox();
         profileVBox.setSpacing(3);
-        profileVBox.setPadding(new Insets(100,0,0,30));
+        profileVBox.setPadding(new Insets(70,0,0,20));
         constructImageContainer();
 
         nodeScrollersVBox = new VBox();
-        nodeScrollersVBox.setSpacing(10);
-        nodeScrollersVBox.setPadding(new Insets(100,0,0,0));
+        nodeScrollersVBox.setSpacing(50);
+        nodeScrollersVBox.setPadding(new Insets(60,0,0,0));
+
+        System.out.println(getScreenWidth());
+
 
         createNodeScrollers();
 
@@ -97,7 +100,7 @@ public class ProfileFrame extends Scene {
         friendNodes.add(addFriendNode);
 
         for (Song favSong : currentUser.getFavouriteSongs()) {
-            SongNode favSongNode = new SongNode(favSong, 100, 100, true);
+            SongNode favSongNode = new SongNode(favSong, 120, 120, true);
             favSongNodes.add(favSongNode);
         }
 
@@ -105,14 +108,14 @@ public class ProfileFrame extends Scene {
         favSongNodes.add(addFavSongNode);
 
         for (Song recentTunedSong : currentUser.getTunedSongs()) {
-            SongNode recentTunedSongNode = new SongNode(recentTunedSong, 100, 100, true);
+            SongNode recentTunedSongNode = new SongNode(recentTunedSong, 120, 120, true);
             recentTunedNodes.add(recentTunedSongNode);
         }
 
         AdditionNode addRecentTunedSongNode = new AdditionNode();
         recentTunedNodes.add(addRecentTunedSongNode);
 
-        friendScroller = new NodeScroller("Friends", friendNodes, 750);
+        friendScroller = new NodeScroller("Friends", friendNodes,(int) (getScreenWidth() - getScreenWidth()/5.5 - 370));
         favSongScroller = new NodeScroller("Favorite Songs", favSongNodes, 750);
         recentTunedScroller = new NodeScroller("Recent Tuned Songs", recentTunedNodes, 750);
 

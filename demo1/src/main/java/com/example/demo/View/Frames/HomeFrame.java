@@ -55,9 +55,8 @@ public class HomeFrame extends Scene {
 
         // container VBox
         container = new VBox(20);
-        container.setPadding(new Insets(100,0,0,0));
+        container.setPadding(new Insets(20,0,0,0));
         container.setAlignment(Pos.TOP_CENTER);
-        container.setStyle("-fx-border-color: black");
         container.setPrefWidth(getScreenWidth() - getScreenWidth() / 5.5 - 80);
 
         // SearchBar
@@ -65,7 +64,7 @@ public class HomeFrame extends Scene {
         searchBar.setPromptText("Search Music");
         searchBar.setStyle("-fx-border-radius: 30px; -fx-background-radius: 30px; -fx-focus-color: transparent; -fx-faint-focus-color: transparent; -fx-border-color: #ccc;");
         searchBar.setMaxWidth(350);
-        searchBar.setPrefHeight(40);
+        searchBar.setPrefHeight(42);
 
         // Add elements to container
         constructContainer();
@@ -79,7 +78,7 @@ public class HomeFrame extends Scene {
     private void createNodeScrollers() {
 
         for (Song randomSong : randomSongs) {
-            SongNode songNode = new SongNode(randomSong, 100, 100, true);
+            SongNode songNode = new SongNode(randomSong, 120, 120, true);
             songNodes.add(songNode);
         }
 

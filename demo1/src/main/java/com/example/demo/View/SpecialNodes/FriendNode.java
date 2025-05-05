@@ -31,8 +31,8 @@ public class FriendNode extends VBox {
         Image friendProfileImage = new Image(getClass().getResourceAsStream("/com/example/demo/megadeth_ico.jpg"));
         ImageView friendProfileImageView = new ImageView(friendProfileImage);
         friendProfileImageView.setPreserveRatio(true);
-        friendProfileImageView.setFitWidth(100);
-        friendProfileImageView.setClip(new Circle(50, 50, 50));
+        friendProfileImageView.setFitWidth(120);
+        friendProfileImageView.setClip(new Circle(60, 60, 60));
 
         Label friendName = new Label(friend.getUsername());
         friendName.setFont(Font.font("Arial", FontWeight.NORMAL, 16));

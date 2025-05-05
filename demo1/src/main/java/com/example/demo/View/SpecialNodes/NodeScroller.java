@@ -34,8 +34,8 @@ public class NodeScroller extends BorderPane {
     public NodeScroller(String headerString, ArrayList<Node> nodes, int prefWidth) {
 
         header = new Label(headerString);
-        header.setFont(Font.font("Arial", FontWeight.SEMI_BOLD, 35));
-        header.setPadding(new Insets(20));
+        header.setFont(Font.font("Arial", FontWeight.SEMI_BOLD, 30));
+        header.setPadding(new Insets(0,0,5,70));
 
         this.nodes = nodes;
 

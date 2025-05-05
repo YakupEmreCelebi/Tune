@@ -31,7 +31,7 @@ public class SongNode extends VBox {
         genreLabel = new Label(song.getGenre());
 
         firstLabel.setStyle("-fx-font-size: 17px; -fx-font-weight: bold; -fx-font-family: Arial ");
-        genreLabel.setStyle("-fx-font-size: 12");
+        genreLabel.setStyle("-fx-font-size: 13");
 
         ImageView imageView = new ImageView(song.getImage());
         imageView.setFitHeight(imgHeight);
