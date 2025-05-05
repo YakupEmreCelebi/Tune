@@ -231,4 +231,20 @@ public class TuneFrame extends Scene {
     public NavigateBar getNavigateBar() {
         return navigateBar;
     }
+
+    public TuneButton getDetailedTuneButton() {
+        return detailedTuneButton;
+    }
+
+    public Button getSeeRecentTunedSongsButton() {
+        return seeRecentTunedSongsButton;
+    }
+
+    public TuneButton getInstantTuneButton() {
+        return instantTuneButton;
+    }
+
+    public TuneButton getTuneWithFriendButton() {
+        return tuneWithFriendButton;
+    }
 }

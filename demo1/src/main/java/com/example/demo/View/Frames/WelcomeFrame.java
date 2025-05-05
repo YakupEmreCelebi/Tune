@@ -45,7 +45,7 @@ public class WelcomeFrame extends Scene {
         backgroundImageView.setFitHeight(getScreenHeight());
         backgroundImageView.setPreserveRatio(false);
 
-       // Boxes
+        // Boxes
         VBox vbox = new VBox(40);
         HBox hbox = new HBox(40);
         hbox.getChildren().addAll(loginButton, signUpButton);

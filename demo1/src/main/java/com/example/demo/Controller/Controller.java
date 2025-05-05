@@ -49,6 +49,7 @@ public class Controller {
     private PopUpRemoveAccount popUpRemoveAccount;
     private PopUpProfileImageSelection popUpProfileImageSelection;
     private PopUpAddTune popUpAddTune;
+    private PopUpQuestion popUpQuestion;
     private ArrayList<Song> randomSongs;
 
     private PopUpStage popUpStage;
@@ -145,6 +146,8 @@ public class Controller {
         tuneFrame.getNavigateBar().getTuneButton().setOnAction(new goToTuneFrame());
         tuneFrame.getNavigateBar().getSettingsButton().setOnAction(new goToSettingsFrame());
         tuneFrame.getNavigateBar().getAddTuneButton().setOnAction(new goToPopUpAddTune());
+
+        tuneFrame.getDetailedTuneButton().setOnAction(actionEvent -> showPopUpQuestion());
 
         settingsFrame.getNavigateBar().getProfileButton().setOnAction(new goToProfileFrame());
         settingsFrame.getNavigateBar().getHomeButton().setOnAction(new loginFrameController());
@@ -314,6 +317,13 @@ public class Controller {
     public void showPopUpShowFriendTune(TuneUser aFriend){
         popUpShowFriendTune = new PopUpShowFriendTune(aFriend);
         popUpStage.setScene(popUpShowFriendTune);
+        popUpStage.show();
+
+    }
+
+    public void showPopUpQuestion(){
+        popUpQuestion = new PopUpQuestion("1. What is genre?", "Rock", "Jazz", "Metal", "Pop");
+        popUpStage.setScene(popUpQuestion);
         popUpStage.show();
 
     }
