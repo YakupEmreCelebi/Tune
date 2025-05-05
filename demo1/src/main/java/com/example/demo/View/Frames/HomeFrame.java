@@ -22,7 +22,7 @@ public class HomeFrame extends Scene {
     private NavigateBar navigateBar;
     private VBox container;
     private TextField searchBar;
-    private NodeScroller friendTunesScroller;
+    private NodeScroller friendTunesNodeScroller;
     private NodeScroller songNodeScroller;
     private ArrayList<Node> friendTuneNodes;
     private ArrayList<Node> songNodes;
@@ -90,12 +90,12 @@ public class HomeFrame extends Scene {
             friendTuneNodes.add(friendBox);
         }
 
-        friendTunesScroller = new NodeScroller("Friends' Tunes", friendTuneNodes, 600);
+        friendTunesNodeScroller = new NodeScroller("Friends' Tunes", friendTuneNodes, 600);
     }
 
     public void constructContainer() {
         container.getChildren().clear();
-        container.getChildren().addAll(searchBar, songPlayer, songNodeScroller, friendTunesScroller);
+        container.getChildren().addAll(searchBar, songPlayer, songNodeScroller, friendTunesNodeScroller);
     }
 
     private static double getScreenWidth() {
@@ -125,6 +125,18 @@ public class HomeFrame extends Scene {
 
     public ArrayList<Node> getFriendsButtons() {
         return friendTuneNodes;
+    }
+
+    public NodeScroller getSongNodeScroller() {
+        return songNodeScroller;
+    }
+
+    public NodeScroller getFriendTunesNodeScroller() {
+        return friendTunesNodeScroller;
+    }
+
+    public SongPlayerNode getSongPlayer() {
+        return songPlayer;
     }
 }
 

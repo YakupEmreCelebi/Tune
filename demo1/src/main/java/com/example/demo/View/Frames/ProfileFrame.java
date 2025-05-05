@@ -164,4 +164,12 @@ public class ProfileFrame extends Scene {
     public Button getEditProfileButton() {
         return editProfileButton;
     }
+
+    public NodeScroller getFavSongScroller() {
+        return favSongScroller;
+    }
+
+    public NodeScroller getRecentTunedScroller() {
+        return recentTunedScroller;
+    }
 }

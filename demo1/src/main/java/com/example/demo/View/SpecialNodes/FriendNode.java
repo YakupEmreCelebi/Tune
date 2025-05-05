@@ -18,8 +18,13 @@ import javafx.util.Duration;
 
 public class FriendNode extends VBox {
 
+    private TuneUser friend;
+
     public FriendNode(TuneUser friend) {
         super(10);
+
+        this.friend = friend;
+
         this.setAlignment(Pos.CENTER);
         this.setPadding(new Insets(10));
 
@@ -66,5 +71,7 @@ public class FriendNode extends VBox {
         });
     }
 
-
+    public TuneUser getFriend() {
+        return friend;
+    }
 }

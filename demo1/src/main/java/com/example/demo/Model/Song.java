@@ -4,7 +4,7 @@ import javafx.scene.image.Image;
 
 public class Song {
 
-    private int trackID;
+    private String trackID;
     private String name;
     private String artist;
     private String language;
@@ -16,7 +16,7 @@ public class Song {
     private Image image;
 
 
-    public Song(int trackID, String name, String artist, String language, int year, String genre, String mood, String imageUrl, int duration) {
+    public Song(String trackID, String name, String artist, String language, int year, String genre, String mood, String imageUrl, int duration) {
         this.trackID = trackID;
         this.name = name;
         this.artist = artist;
@@ -34,7 +34,7 @@ public class Song {
     }
 
     // Getters
-    public int getTrackID() {
+    public String getTrackID() {
         return trackID;
     }
 

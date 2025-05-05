@@ -26,7 +26,7 @@ public class Api {
     public static final String clientSecret = "89f49024768b4c5b837c2be769be09e8";
     public static final URI redirectUri = SpotifyHttpManager.makeUri("https://drallin.com/");
 
-    public static final String accessTokenAuth = "BQDKNYLwi44ZDStKJZwFlmlBt_90dEE4LeN0qtjGHgQRaDr9TfednQGAE3Je9VQGe1IwjdEpRGklFu40wGyrlzeQ9tD7rWVkGCsY4XypYjM0nFmvWaJmTcjt2R_6GxwJBnZsh3-eeOMarX4ldxZ__MV6ZWuTMhR9o7u7FqbwJ-3S-UCn8GuwiNolrvZs-gyoS8jfxkgNLCUxyt7mpOUIrTtVCXdtHDXY_cveNp-8D2moXSgU4g";
+    public static final String accessTokenAuth = "BQB_wTqddN-3UuPOeUYLzP2GepoJnydiPb8NXBLMwdYMUiJWc_DWVBgBFqy1bKAnu6tm0k1wD81XTqi-_x8q5-5ZY5FNf7bHt-pixdeI3W4yYomOLhVb4aDv0OsxnaYn6hKf20OOyX7WUt-EL1DGbVSu1BGShgs_z_xVRwfGBROVTRF3OKMJdGY1w6JyAQyHYyofeXMQ5S4yAsIFu2WXxLb7l6BiU6aWVv3XhI_Mf1OXqEN_o-oEjA";
     public static final String refreshTokenAuth = "AQCqgsOMEZWtLTJLcmNgkyRUv_jt07QHKW4Y0XqAHjqr0xqEdDf1wUjC6bCG969KKksECbY1ZfOnZ4JMRQwGoDbe8sahDgvfLcnsUhOZTEbxSbDrHqcC007sfng9w5SUsrs";
 
 

@@ -25,16 +25,19 @@ public class NodeScroller extends BorderPane {
 
     private final double SCROLL_PIXELS = .7;
 
-    Label header;
-    ScrollPane scrollPane;
-    BorderPane leftPane;
-    BorderPane rightPane;
+    private Label header;
+    private ScrollPane scrollPane;
+    private BorderPane leftPane;
+    private BorderPane rightPane;
+    private ArrayList<Node> nodes;
 
     public NodeScroller(String headerString, ArrayList<Node> nodes, int prefWidth) {
 
         header = new Label(headerString);
         header.setFont(Font.font("Arial", FontWeight.SEMI_BOLD, 35));
         header.setPadding(new Insets(20));
+
+        this.nodes = nodes;
 
         scrollPane = new ScrollPane();
         scrollPane.setStyle("-fx-background-color: transparent; -fx-border-color: transparent;");
@@ -105,7 +108,7 @@ public class NodeScroller extends BorderPane {
             double current = scrollPane.getHvalue();
             double target = Math.max(0, current - SCROLL_PIXELS);
             scrollPane.setHvalue(Math.max(0, current - SCROLL_PIXELS));
-            animateScroller(current, target, 0.2);
+            animateScroller(current, target, Math.abs(target - current));
 
         }
 
@@ -117,7 +120,7 @@ public class NodeScroller extends BorderPane {
             double current = scrollPane.getHvalue();
             double target = Math.min(1, current + SCROLL_PIXELS);
             scrollPane.setHvalue(Math.min(1, current + SCROLL_PIXELS));
-            animateScroller(current, target, 0.2);
+            animateScroller(current, target, Math.abs(target - current));
         }
 
     }
@@ -164,7 +167,7 @@ public class NodeScroller extends BorderPane {
     }
 
 
-
-
-
+    public ArrayList<Node> getNodes() {
+        return nodes;
+    }
 }
