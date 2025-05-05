@@ -163,20 +163,6 @@ public class Controller {
             }
         });
 
-        homeFrame.getSongPlayer().getNextButton().setOnAction(new EventHandler<>() {
-            @Override
-            public void handle(ActionEvent actionEvent) {
-                api.skipPlaybackToNextTrack();
-            }
-        });
-
-        homeFrame.getSongPlayer().getPreviousButton().setOnAction(new EventHandler<>() {
-            @Override
-            public void handle(ActionEvent actionEvent) {
-                api.skipPlaybackToPreviousTrack();
-            }
-        });
-
         for (Node node : homeFrame.getSongNodeScroller().getNodes()) {
             SongNode songNode = (SongNode) node;
             songNode.setOnMouseClicked(new EventHandler<MouseEvent>() {
