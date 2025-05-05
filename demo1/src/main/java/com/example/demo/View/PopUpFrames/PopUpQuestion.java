@@ -21,6 +21,7 @@ public class PopUpQuestion extends PopUp{
     ImageView backgroundImageView2;
     ImageView backgroundImageView3;
     ImageView backgroundImageView4;
+    ImageView backgroundImageView5;
 
     HBox imageHBox1;
     HBox imageHBox2;
@@ -50,6 +51,7 @@ public class PopUpQuestion extends PopUp{
         nextButton.setStyle("-fx-background-color: red; -fx-text-fill: white; -fx-font-size: 15; -fx-font-family: Arial; -fx-font-weight: bold");
         nextButton.setPrefWidth(500);
         nextButton.setPrefHeight(50);
+        addHoverEffect(nextButton);
 
         // Image HBoxes
         imageHBox1 = new HBox();
@@ -57,39 +59,39 @@ public class PopUpQuestion extends PopUp{
 
         // Question elements
         questionLabel = new Label(question);
-        questionLabel.setStyle("-fx-text-fill: white; -fx-font-size: 21; -fx-font-weight: bold");
+        questionLabel.setStyle("-fx-text-fill: #290029; -fx-font-size: 21; -fx-font-weight: bold; ");
 
         questionHBox = new HBox();
         questionHBox.getChildren().add(questionLabel);
-        questionHBox.setStyle("-fx-border-color: white; -fx-border-width: 2; -fx-background-color: black");
+        questionHBox.setStyle("-fx-border-color: black; -fx-border-width: 3; -fx-background-color: transparent;  -fx-background-radius: 5; -fx-border-radius: 5");
         questionHBox.setPrefHeight(60);
         questionHBox.setAlignment(Pos.CENTER);
         questionHBox.setPadding(new Insets(0,0,0,10));
 
         // Option 1 elements
         option1Label = new Label(option1);
-        option1Label.setStyle("-fx-text-fill: white; -fx-font-size: 18");
+        option1Label.setStyle("-fx-text-fill: #290029; -fx-font-size: 18");
 
         option1HBox = new HBox();
         setHBox(option1HBox, option1Label);
 
         // Option 2 elements
         option2Label = new Label(option2);
-        option2Label.setStyle("-fx-text-fill: white; -fx-font-size: 18");
+        option2Label.setStyle("-fx-text-fill: #290029; -fx-font-size: 18");
 
         option2HBox = new HBox();
         setHBox(option2HBox, option2Label);
 
         // Option 3 elements
         option3Label = new Label(option3);
-        option3Label.setStyle("-fx-text-fill: white; -fx-font-size: 18");
+        option3Label.setStyle("-fx-text-fill:  #290029; -fx-font-size: 18");
 
         option3HBox = new HBox();
         setHBox(option3HBox, option3Label);
 
         // Option 4 elements
         option4Label = new Label(option4);
-        option4Label.setStyle("-fx-text-fill: white; -fx-font-size: 18");
+        option4Label.setStyle("-fx-text-fill: #290029; -fx-font-size: 18");
 
         option4HBox = new HBox();
         if(!option4.equals(""))
@@ -118,7 +120,7 @@ public class PopUpQuestion extends PopUp{
 
         Rectangle overlay = new Rectangle(1100, 600, Color.rgb(0, 0, 0, 0.7));
         StackPane stackPane = new StackPane();
-        stackPane.getChildren().addAll(imageVBox,overlay, mainVBox);
+        stackPane.getChildren().addAll(backgroundImageView5, mainVBox);
         stackPane.setAlignment(mainVBox, Pos.CENTER);
 
 
@@ -157,11 +159,17 @@ public class PopUpQuestion extends PopUp{
         backgroundImageView4.setFitHeight(300);
         backgroundImageView4.setPreserveRatio(true);
 
+        Image backgroundImage5 = new Image(getClass().getResourceAsStream("/com/example/demo/TuneBackground.png"));
+        backgroundImageView5 = new ImageView(backgroundImage5);
+        backgroundImageView5.setFitHeight(600);
+        backgroundImageView5.setFitWidth(1000);
+        backgroundImageView5.setPreserveRatio(false);
+
     }
 
     public void setHBox(HBox hBox, Label label){
         hBox.getChildren().add(label);
-        hBox.setStyle("-fx-border-color: white; -fx-border-width: 2; -fx-background-color: black");
+        hBox.setStyle("-fx-border-color: black; -fx-border-width: 3; -fx-background-color: transparent; -fx-background-radius: 5; -fx-border-radius: 5");
         hBox.setPrefHeight(50);
         hBox.setAlignment(Pos.CENTER);
         hBox.setPadding(new Insets(0,0,0,10));
@@ -174,7 +182,7 @@ public class PopUpQuestion extends PopUp{
             @Override
             public void handle(MouseEvent event) {
 
-                hBox.setStyle("-fx-border-color: white; -fx-border-width: 2; -fx-background-color: red");
+                hBox.setStyle("-fx-border-color: green; -fx-border-width: 3; -fx-background-color: transparent; -fx-background-radius: 5; -fx-border-radius: 5");
             }
         });
 
@@ -182,7 +190,25 @@ public class PopUpQuestion extends PopUp{
             @Override
             public void handle(MouseEvent event) {
 
-                hBox.setStyle("-fx-border-color: white; -fx-border-width: 2; -fx-background-color: black");
+                hBox.setStyle("-fx-border-color: black; -fx-border-width: 3; -fx-background-color: transparent; -fx-background-radius: 5; -fx-border-radius: 5");
+            }
+        });
+    }
+
+    private void addHoverEffect(Button button) {
+        button.setOnMouseEntered(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent event) {
+
+                button.setStyle("-fx-background-color: green; -fx-text-fill: white; -fx-font-size: 15; -fx-font-family: Arial; -fx-font-weight: bold");
+            }
+        });
+
+        button.setOnMouseExited(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent event) {
+
+                button.setStyle("-fx-background-color: red; -fx-text-fill: white; -fx-font-size: 15; -fx-font-family: Arial; -fx-font-weight: bold");
             }
         });
     }
