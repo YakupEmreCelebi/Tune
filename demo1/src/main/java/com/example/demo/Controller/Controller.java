@@ -280,6 +280,8 @@ public class Controller {
         mainStage.setScene(homeFrame);
         mainStage.setTitle("HOME");
         mainStage.show();
+        homeFrame.getNavigateBar().setCurrentFrame("Home");
+        homeFrame.getNavigateBar().getHomeButton().setStyle("-fx-background-color: #dadada; -fx-border-radius: 10; -fx-background-radius: 10");
     }
     public void showSettingsFrame() {
         mainStage.setScene(settingsFrame);
@@ -389,7 +391,10 @@ public class Controller {
 
         @Override
         public void handle(ActionEvent actionEvent) {
+
             showProfileFrame();
+            profileFrame.getNavigateBar().setCurrentFrame("Profile");
+            profileFrame.getNavigateBar().getProfileButton().setStyle("-fx-background-color: #dadada; -fx-border-radius: 10; -fx-background-radius: 10");
         }
     }
 
@@ -397,7 +402,10 @@ public class Controller {
 
         @Override
         public void handle(ActionEvent actionEvent) {
+
             showTuneFrame();
+            tuneFrame.getNavigateBar().setCurrentFrame("Tune");
+            tuneFrame.getNavigateBar().getTuneButton().setStyle("-fx-background-color: #dadada; -fx-border-radius: 10; -fx-background-radius: 10");
         }
     }
 
@@ -405,7 +413,10 @@ public class Controller {
 
         @Override
         public void handle(ActionEvent actionEvent) {
+
             showSettingsFrame();
+            settingsFrame.getNavigateBar().setCurrentFrame("Settings");
+            settingsFrame.getNavigateBar().getSettingsButton().setStyle("-fx-background-color: #dadada; -fx-border-radius: 10; -fx-background-radius: 10");
         }
     }
 

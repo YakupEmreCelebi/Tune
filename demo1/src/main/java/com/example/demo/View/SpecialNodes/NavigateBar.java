@@ -5,6 +5,7 @@ import javafx.animation.ScaleTransition;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
@@ -32,6 +33,7 @@ public class NavigateBar extends BorderPane {
     private VBox topContents;
     private BorderPane usersTune;
     private Button addTune;
+    private String currentFrame;
 
     public NavigateBar() {
 
@@ -150,8 +152,11 @@ public class NavigateBar extends BorderPane {
         button.setOnMouseEntered(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent event) {
+                if(!button.getText().equals(currentFrame))
+                {
+                    button.setStyle("-fx-background-color: #bfbfbf; -fx-border-radius: 10; -fx-background-radius: 10");
+                }
 
-                button.setStyle("-fx-background-color: #dadada;");
             }
         });
 
@@ -159,7 +164,11 @@ public class NavigateBar extends BorderPane {
             @Override
             public void handle(MouseEvent event) {
 
-                button.setStyle(String.format("-fx-background-color: transparent;"));
+                if(!button.getText().equals(currentFrame))
+                {
+                    button.setStyle("-fx-background-color: transparent; -fx-border-radius: 10; -fx-background-radius: 10");
+                }
+
             }
         });
     }
@@ -183,7 +192,7 @@ public class NavigateBar extends BorderPane {
 
     class NavBarButton extends Button {
 
-        private final double BUTTON_WIDTH = getScreenWidth() / 5.5 - 5;
+        private final double BUTTON_WIDTH = getScreenWidth() / 5.5 -5 ;
         private final double BUTTON_HEIGHT = 45;
 
         private FadeTransition fadeUp;
@@ -193,7 +202,7 @@ public class NavigateBar extends BorderPane {
             super(name, imgView);
             this.setGraphicTextGap(10);
             this.setFont(Font.font("Arial", FontWeight.SEMI_BOLD, 22));
-            this.setStyle("-fx-background-color: transparent;");
+            this.setStyle("-fx-background-color: transparent; -fx-border-radius: 10; -fx-background-radius: 10");
             this.setAlignment(Pos.BASELINE_LEFT);
             this.setPrefWidth(BUTTON_WIDTH);
             this.setPrefHeight(BUTTON_HEIGHT);
@@ -227,6 +236,10 @@ public class NavigateBar extends BorderPane {
 
 
 
+    }
+
+    public void setCurrentFrame(String currentFrame) {
+        this.currentFrame = currentFrame;
     }
 
     private static double getScreenWidth() {
