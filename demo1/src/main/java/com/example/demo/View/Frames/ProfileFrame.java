@@ -55,7 +55,7 @@ public class ProfileFrame extends Scene {
 
         //VBoxes
         profileVBox = new VBox();
-        profileVBox.setSpacing(0);
+        profileVBox.setSpacing(3);
         profileVBox.setPadding(new Insets(100,0,0,30));
         constructImageContainer();
 
@@ -76,7 +76,7 @@ public class ProfileFrame extends Scene {
     private void createImage(){
         profileImageView = new ImageView(currentUser.getProfileImage());
         profileImageView.setPreserveRatio(true);
-        profileImageView.setFitWidth(180);
+        profileImageView.setFitWidth(160);
         profileImageView.setClip(new Circle(80, 80, 80));
     }
 

@@ -4,6 +4,8 @@ import javafx.animation.ScaleTransition;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.control.ScrollPane;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
@@ -16,15 +18,22 @@ import java.util.ArrayList;
 
 public class PopUpProfileImageSelection extends PopUp {
 
-    private ImageView imageView1;
-    private ImageView imageView2;
-    private ImageView imageView3;
-    private ImageView imageView4;
-    private ImageView imageView5;
-    private ImageView imageView6;
-    private ImageView imageView7;
-    private ImageView imageView8;
-    private int selectedImageIndex;
+    ImageView imageView1;
+    ImageView imageView2;
+    ImageView imageView3;
+    ImageView imageView4;
+    ImageView imageView5;
+    ImageView imageView6;
+    ImageView imageView7;
+    ImageView imageView8;
+    ImageView imageView9;
+    ImageView imageView10;
+    ImageView imageView11;
+    ImageView imageView12;
+
+    Label box1Title;
+    Label box2Title;
+    Label box3Title;
 
     Button button1;
     Button button2;
@@ -34,19 +43,29 @@ public class PopUpProfileImageSelection extends PopUp {
     Button button6;
     Button button7;
     Button button8;
+    Button button9;
+    Button button10;
+    Button button11;
+    Button button12;
 
     ArrayList<Button> buttons;
 
-    private HBox hBox1;
-    private HBox hBox2;
+    HBox hBox1;
+    HBox hBox2;
+    HBox hBox3;
+
+    VBox vBox1;
+    VBox vBox2;
+    VBox vBox3;
+
+    VBox mainVBox;
+
+
 
     public PopUpProfileImageSelection() {
-        super(1000, 700);
-
-        selectedImageIndex = 0;
+        super(840,700);
 
         buttons = new ArrayList<>();
-
         createImagesAndButtons();
 
         // Add buttons to arraylist
@@ -58,27 +77,57 @@ public class PopUpProfileImageSelection extends PopUp {
         buttons.add(button6);
         buttons.add(button7);
         buttons.add(button8);
+        buttons.add(button9);
+        buttons.add(button10);
+        buttons.add(button11);
+        buttons.add(button12);
 
         for (Button button : buttons) {
             addHoverEffect(button);
             button.setStyle("-fx-border-color: transparent; -fx-background-color: transparent;");
         }
 
+        // Labels
+        box1Title = new Label("Duman");
+        box2Title = new Label("Metallica");
+        box3Title = new Label("AC/DC");
 
+        box1Title.setStyle("-fx-font-size: 23; -fx-text-fill: white; -fx-font-weight: bold");
+        box2Title.setStyle("-fx-font-size: 23; -fx-text-fill: white; -fx-font-weight: bold");
+        box3Title.setStyle("-fx-font-size: 23; -fx-text-fill: white; -fx-font-weight: bold");
+
+        // HBoxes
         hBox1 = new HBox(25);
         hBox2 = new HBox(25);
+        hBox3 = new HBox(25);
 
         hBox1.getChildren().addAll(button1, button2, button3, button4);
         hBox2.getChildren().addAll(button5, button6, button7, button8);
+        hBox3.getChildren().addAll(button9, button10, button11, button12);
+
+        //VBoxes
+        vBox1 = new VBox(3);
+        vBox2 = new VBox(3);
+        vBox3 = new VBox(3);
+
+        vBox1.getChildren().addAll(box1Title, hBox1);
+        vBox2.getChildren().addAll(box2Title, hBox2);
+        vBox3.getChildren().addAll(box3Title, hBox3);
 
         // Layout
-        VBox layout = (VBox) getRoot();
-        layout.setSpacing(100);
-        layout.setPadding(new Insets(100,10,30,75));
-        layout.setStyle("-fx-background-color: black;");
 
-        layout.getChildren().addAll(hBox1, hBox2);
+        mainVBox = new VBox(75);
+        mainVBox.setPadding(new Insets(100,10,30,60));
+        mainVBox.setStyle("-fx-background-color: black;");
+        mainVBox.getChildren().addAll(vBox1, vBox2, vBox3);
 
+        ScrollPane scrollPane = new ScrollPane();
+        scrollPane.setContent(mainVBox);
+        scrollPane.setFitToWidth(true);
+        scrollPane.setStyle("-fx-background: black; -fx-border-color: transparent;");
+
+
+        ((VBox) getRoot()).getChildren().add(scrollPane);
 
     }
 
@@ -91,12 +140,8 @@ public class PopUpProfileImageSelection extends PopUp {
         imageView1.setClip(new Circle(80,80,80));
         button1 = new Button("", imageView1);
         button1.setShape(new Circle(1000));
-        button1.setMinSize(160, 160);
-        button1.setMaxSize(160, 160);
-        button1.setPrefSize(160, 160);
-        imageView1.setOnMouseEntered(event -> {imageView1.setOpacity(0.5);});
-        imageView1.setOnMouseExited(event -> {imageView1.setOpacity(1);});
-        imageView1.setOnMouseClicked(event -> {setSelectedImageIndex(1);});
+        button1.setMinSize(164, 164);
+        button1.setMaxSize(164, 164);
 
         Image image2 = new Image(getClass().getResourceAsStream("/com/example/demo/duman1_ico.jpg"));
         imageView2 = new ImageView(image2);
@@ -105,11 +150,8 @@ public class PopUpProfileImageSelection extends PopUp {
         imageView2.setClip(new Circle(80, 80, 80));
         button2 = new Button("", imageView2);
         button2.setShape(new Circle(1000));
-        button2.setMinSize(160, 160);
-        button2.setMaxSize(160, 160);
-        imageView2.setOnMouseEntered(event -> {imageView2.setOpacity(0.5);});
-        imageView2.setOnMouseExited(event -> {imageView2.setOpacity(1);});
-        imageView2.setOnMouseClicked(event -> {setSelectedImageIndex(2);});
+        button2.setMinSize(164, 164);
+        button2.setMaxSize(164, 164);
 
         Image image3 = new Image(getClass().getResourceAsStream("/com/example/demo/duman2_ico.jpg"));
         imageView3 = new ImageView(image3);
@@ -118,11 +160,8 @@ public class PopUpProfileImageSelection extends PopUp {
         imageView3.setClip(new Circle(80, 80, 80));
         button3 = new Button("", imageView3);
         button3.setShape(new Circle(1000));
-        button3.setMinSize(160, 160);
-        button3.setMaxSize(160, 160);
-        imageView3.setOnMouseEntered(event -> {imageView3.setOpacity(0.5);});
-        imageView3.setOnMouseExited(event -> {imageView3.setOpacity(1);});
-        imageView3.setOnMouseClicked(event -> {setSelectedImageIndex(3);});
+        button3.setMinSize(164, 164);
+        button3.setMaxSize(164, 164);
 
         Image image4 = new Image(getClass().getResourceAsStream("/com/example/demo/senikendimesakladım_ico.jpg"));
         imageView4 = new ImageView(image4);
@@ -131,11 +170,8 @@ public class PopUpProfileImageSelection extends PopUp {
         imageView4.setClip(new Circle(80, 80, 80));
         button4 = new Button("", imageView4);
         button4.setShape(new Circle(1000));
-        button4.setMinSize(160, 160);
-        button4.setMaxSize(160, 160);
-        imageView4.setOnMouseEntered(event -> {imageView4.setOpacity(0.5);});
-        imageView4.setOnMouseExited(event -> {imageView4.setOpacity(1);});
-        imageView4.setOnMouseClicked(event -> {setSelectedImageIndex(4);});
+        button4.setMinSize(164, 164);
+        button4.setMaxSize(164, 164);
 
         Image image5 = new Image(getClass().getResourceAsStream("/com/example/demo/metallica_ico.jpg"));
         imageView5 = new ImageView(image5);
@@ -144,59 +180,80 @@ public class PopUpProfileImageSelection extends PopUp {
         imageView5.setClip(new Circle(80, 80, 80));
         button5 = new Button("", imageView5);
         button5.setShape(new Circle(1000));
-        button5.setMinSize(160, 160);
-        button5.setMaxSize(160, 160);
-        imageView5.setOnMouseEntered(event -> {imageView5.setOpacity(0.5);});
-        imageView5.setOnMouseExited(event -> {imageView5.setOpacity(1);});
-        imageView5.setOnMouseClicked(event -> {setSelectedImageIndex(5);});
+        button5.setMinSize(164, 164);
+        button5.setMaxSize(164, 164);
 
-        Image image6 = new Image(getClass().getResourceAsStream("/com/example/demo/şebnemferah_ico.jpg"));
+        Image image6 = new Image(getClass().getResourceAsStream("/com/example/demo/metallica2_ico.jpg"));
         imageView6 = new ImageView(image6);
         imageView6.setPreserveRatio(true);
         imageView6.setFitWidth(160);
         imageView6.setClip(new Circle(80, 80, 80));
         button6 = new Button("", imageView6);
         button6.setShape(new Circle(1000));
-        button6.setMinSize(160, 160);
-        button6.setMaxSize(160, 160);
-        imageView6.setOnMouseEntered(event -> {imageView6.setOpacity(0.5);});
-        imageView6.setOnMouseExited(event -> {imageView6.setOpacity(1);});
-        imageView6.setOnMouseClicked(event -> {setSelectedImageIndex(6);});
+        button6.setMinSize(164, 164);
+        button6.setMaxSize(164, 164);
 
-        Image image7 = new Image(getClass().getResourceAsStream("/com/example/demo/megadeth_ico.jpg"));
+        Image image7 = new Image(getClass().getResourceAsStream("/com/example/demo/metallica3_ico.jpg"));
         imageView7 = new ImageView(image7);
         imageView7.setPreserveRatio(true);
         imageView7.setFitWidth(160);
         imageView7.setClip(new Circle(80, 80, 80));
         button7 = new Button("", imageView7);
         button7.setShape(new Circle(1000));
-        button7.setMinSize(160, 160);
-        button7.setMaxSize(160, 160);
-        imageView7.setOnMouseEntered(event -> {imageView7.setOpacity(0.5);});
-        imageView7.setOnMouseExited(event -> {imageView7.setOpacity(1);});
-        imageView7.setOnMouseClicked(event -> {setSelectedImageIndex(7);});
+        button7.setMinSize(164, 164);
+        button7.setMaxSize(164, 164);
 
-        Image image8 = new Image(getClass().getResourceAsStream("/com/example/demo/judaspriest_ico.jpg"));
+        Image image8 = new Image(getClass().getResourceAsStream("/com/example/demo/metallica4_ico.jpg"));
         imageView8 = new ImageView(image8);
         imageView8.setPreserveRatio(true);
         imageView8.setFitWidth(160);
         imageView8.setClip(new Circle(80, 80, 80));
         button8 = new Button("", imageView8);
         button8.setShape(new Circle(1000));
-        button8.setMinSize(160, 160);
-        button8.setMaxSize(160, 160);
-        imageView8.setOnMouseEntered(event -> {imageView8.setOpacity(0.5);});
-        imageView8.setOnMouseExited(event -> {imageView8.setOpacity(1);});
-        imageView8.setOnMouseClicked(event -> {setSelectedImageIndex(8);});
+        button8.setMinSize(164, 164);
+        button8.setMaxSize(164, 164);
 
-    }
+        Image image9 = new Image(getClass().getResourceAsStream("/com/example/demo/acdc_ico.jpg"));
+        imageView9 = new ImageView(image9);
+        imageView9.setPreserveRatio(true);
+        imageView9.setFitWidth(160);
+        imageView9.setClip(new Circle(80, 80, 80));
+        button9 = new Button("", imageView9);
+        button9.setShape(new Circle(1000));
+        button9.setMinSize(164, 164);
+        button9.setMaxSize(164, 164);
 
-    public void setSelectedImageIndex(int selectedImageIndex) {
-        this.selectedImageIndex = selectedImageIndex;
-    }
+        Image image10 = new Image(getClass().getResourceAsStream("/com/example/demo/acdc2_ico.jpg"));
+        imageView10 = new ImageView(image10);
+        imageView10.setPreserveRatio(true);
+        imageView10.setFitWidth(160);
+        imageView10.setClip(new Circle(80, 80, 80));
+        button10 = new Button("", imageView10);
+        button10.setShape(new Circle(1000));
+        button10.setMinSize(164, 164);
+        button10.setMaxSize(164, 164);
 
-    public int getSelectedImageIndex() {
-        return selectedImageIndex;
+        Image image11 = new Image(getClass().getResourceAsStream("/com/example/demo/acdc3_ico.jpg"));
+        imageView11 = new ImageView(image11);
+        imageView11.setPreserveRatio(true);
+        imageView11.setFitWidth(160);
+        imageView11.setClip(new Circle(80, 80, 80));
+        button11 = new Button("", imageView11);
+        button11.setShape(new Circle(1000));
+        button11.setMinSize(164, 164);
+        button11.setMaxSize(164, 164);
+
+        Image image12 = new Image(getClass().getResourceAsStream("/com/example/demo/acdc4_ico.jpg"));
+        imageView12 = new ImageView(image12);
+        imageView12.setPreserveRatio(true);
+        imageView12.setFitWidth(160);
+        imageView12.setClip(new Circle(80, 80, 80));
+        button12 = new Button("", imageView12);
+        button12.setShape(new Circle(1000));
+        button12.setMinSize(164, 164);
+        button12.setMaxSize(164, 164);
+
+
     }
 
     public ArrayList<Button> getButtons() {
@@ -204,19 +261,14 @@ public class PopUpProfileImageSelection extends PopUp {
     }
 
     private void addHoverEffect(Button button){
-        ScaleTransition scaleUp = new ScaleTransition(Duration.seconds(0.1), button);
-        scaleUp.setToX(1.03);
-        scaleUp.setToY(1.03);
-
-        ScaleTransition scaleDown = new ScaleTransition(Duration.seconds(0.1), button);
-        scaleDown.setToX(1.0);
-        scaleDown.setToY(1.0);
-
         button.setOnMouseEntered(new EventHandler<MouseEvent>() {
 
             @Override
             public void handle(MouseEvent mouseEvent) {
-                scaleUp.play();
+
+                // To get different result make background color: transparent
+                button.setStyle("-fx-background-color: white; -fx-border-color: white;");
+
             }
         });
 
@@ -224,7 +276,7 @@ public class PopUpProfileImageSelection extends PopUp {
 
             @Override
             public void handle(MouseEvent mouseEvent) {
-                scaleDown.play();
+                button.setStyle("-fx-border-color: transparent; -fx-background-color: transparent;");
             }
         });
     }

@@ -5,6 +5,7 @@ import com.example.demo.View.SpecialNodes.NavigateBar;
 import com.example.demo.View.SpecialNodes.SongNode;
 import javafx.animation.ScaleTransition;
 import javafx.event.EventHandler;
+import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -24,64 +25,94 @@ import static javafx.stage.Screen.getPrimary;
 public class TuneFrame extends Scene {
 
     NavigateBar navigateBar;
+
     ImageView backgroundImageView;
     ImageView tuneImageView;
     ImageView detailedTuneImageView;
     ImageView tuneWithFriendImageView;
+    ImageView tuneWithFriendImageView2;
+
     TuneButton instantTuneButton;
     TuneButton detailedTuneButton;
     TuneButton tuneWithFriendButton;
+
     VBox lastTunedSongVBox;
-    VBox recentTunedSongVBox;
+    VBox recentTunedSongsVBox;
+    VBox tuneWithFriendsVBox;
+
     Label lastTunedSongLabel;
-    TuneUser tuneUser;
+    Label noOfTuneWithFriendsLabel;
+    Label tuneWithFriendTitleLabel;
     Label noOfTunedSongsLabel;
-    String noOfTunedSongs;
     Label songYouDiscoveredByTuningLabel;
+
     Button seeRecentTunedSongsButton;
+
+    String noOfTunedSongs;
+    String noOfTuneWithFriends;
+
+    TuneUser tuneUser;
 
     public TuneFrame(TuneUser tuneUser) {
         super(new StackPane() , getScreenWidth(),getScreenHeight());
         this.getStylesheets().add(getClass().getResource("navBar.css").toExternalForm());
 
+        // User
         this.tuneUser = tuneUser;
 
+        // Images
         createImages();
+
+        // Navigate Bar
         navigateBar = new NavigateBar();
 
         //Buttons
         instantTuneButton = new TuneButton("Instant Tune", 680, 150, tuneImageView);
-        tuneWithFriendButton = new TuneButton("Tune with a\n    Friend", 1130, 180, detailedTuneImageView);
+        tuneWithFriendButton = new TuneButton("Tune with a\n    Friend", 1100, 180, detailedTuneImageView);
         detailedTuneButton = new TuneButton("Detailed Tune",820,430, tuneWithFriendImageView);
         seeRecentTunedSongsButton = new Button("See recent tuned songs");
+        seeRecentTunedSongsButton.setStyle("-fx-border-radius: 5; -fx-background-radius: 5; -fx-border-color: #2c2c2c; -fx-font-size: 13");
 
         //Labels
         lastTunedSongLabel = new Label("Last Tuned Song");
-        lastTunedSongLabel.setStyle("-fx-font-weight: bold; -fx-font-size: 21; -fx-font-family: Arial");
+        lastTunedSongLabel.setStyle("-fx-font-weight: bold; -fx-font-size: 21; -fx-font-family: Arial;");
 
         songYouDiscoveredByTuningLabel = new Label("Songs You Discovered By Tuning");
-        songYouDiscoveredByTuningLabel.setStyle("-fx-font-weight: bold; -fx-font-size: 18; -fx-font-family: Arial");
+        songYouDiscoveredByTuningLabel.setStyle("-fx-font-size: 13; -fx-font-family: Arial; -fx-text-fill: #939393");
+
+        tuneWithFriendTitleLabel = new Label("Songs you tuned with a friend\n     what a catcher");
+        tuneWithFriendTitleLabel.setStyle("-fx-font-size: 13; -fx-font-family: Arial; -fx-text-fill: #939393");
 
 
 
-        //VBoxes
+        //Last Tuned Song VBox (Song Image)
         lastTunedSongVBox = new VBox(3);
         lastTunedSongVBox.setAlignment(Pos.CENTER);
-
-        // !!! Song parameter will change !!!
-        lastTunedSongVBox.getChildren().addAll(lastTunedSongLabel, new SongNode(tuneUser.getTuneSong(), 150, 150, true));
-        lastTunedSongVBox.setLayoutX(300);
+        lastTunedSongVBox.setLayoutX(350);
         lastTunedSongVBox.setLayoutY(50);
 
-        recentTunedSongVBox = new VBox(3);
-        constructRecentTunedSongs();
-        recentTunedSongVBox.setLayoutY(650);
-        recentTunedSongVBox.setLayoutX(300);
-        recentTunedSongVBox.setStyle("-fx-border-color: black; -fx-border-width: 1px");
+        // !!! Song parameter will change !!!
+        constructImageVBox();
 
-        // Pane
+        // Recent Tuned Songs VBox
+        recentTunedSongsVBox = new VBox(7);
+        recentTunedSongsVBox.setLayoutY(600);
+        recentTunedSongsVBox.setLayoutX(350);
+        recentTunedSongsVBox.setPadding(new Insets(20,60,20,15));
+        recentTunedSongsVBox.setStyle("-fx-border-color: #989898; -fx-border-width: 1px; -fx-background-radius: 5; -fx-border-radius: 5");
+        constructRecentTunedSongs();
+
+        // Tune With Friends VBox
+        tuneWithFriendsVBox = new VBox(3);
+        tuneWithFriendsVBox.setLayoutX(1250);
+        tuneWithFriendsVBox.setLayoutY(50);
+        tuneWithFriendsVBox.setPadding(new Insets(20,60,20,15));
+        tuneWithFriendsVBox.setStyle("-fx-border-color: #989898; -fx-border-width: 1px; -fx-background-radius: 5; -fx-border-radius: 5");
+        constructTuneWithFriendsVBox();
+
+        // Pane (add all VBoxes and buttons to pane)
         Pane pane = new Pane();
-        pane.getChildren().addAll(instantTuneButton, detailedTuneButton, tuneWithFriendButton, lastTunedSongVBox, recentTunedSongVBox);
+        pane.getChildren().addAll(instantTuneButton, detailedTuneButton, tuneWithFriendButton, lastTunedSongVBox, recentTunedSongsVBox, tuneWithFriendsVBox);
 
         // Layout
         StackPane layout = (StackPane) getRoot();
@@ -103,7 +134,7 @@ public class TuneFrame extends Scene {
             this.setPrefSize(160, 160);
             this.setLayoutX(x);
             this.setLayoutY(y);
-            this.setStyle("-fx-background-color: transparent; -fx-border-color: black; -fx-border-width: 2;" +
+            this.setStyle("-fx-background-color: transparent; -fx-border-color: black; -fx-border-width: 3;" +
                     " -fx-font-size: 19; -fx-font-family: Arial; -fx-font-weight: bold");
 
             this.setContentDisplay(ContentDisplay.TOP);
@@ -137,11 +168,25 @@ public class TuneFrame extends Scene {
     }
 
     public void constructRecentTunedSongs() {
-        recentTunedSongVBox.getChildren().clear();
+        recentTunedSongsVBox.getChildren().clear();
         noOfTunedSongs = String.valueOf(tuneUser.getTunedSongs().size());
         noOfTunedSongsLabel = new Label(noOfTunedSongs);
+        noOfTunedSongsLabel.setStyle("-fx-font-weight: bold; -fx-font-size: 16");
+        recentTunedSongsVBox.getChildren().addAll(noOfTunedSongsLabel, songYouDiscoveredByTuningLabel, seeRecentTunedSongsButton);
+    }
 
-        recentTunedSongVBox.getChildren().addAll(noOfTunedSongsLabel, songYouDiscoveredByTuningLabel, seeRecentTunedSongsButton);
+    public void constructImageVBox(){
+        lastTunedSongVBox.getChildren().clear();
+        SongNode songNode = new SongNode(tuneUser.getTuneSong(), 150, 150, true);
+        lastTunedSongVBox.getChildren().addAll(lastTunedSongLabel, songNode);
+    }
+
+    public void constructTuneWithFriendsVBox(){
+        tuneWithFriendsVBox.getChildren().clear();
+        noOfTuneWithFriends = String.valueOf(tuneUser.getNumbOfTunedSongsWithFriends());
+        noOfTuneWithFriendsLabel = new Label(noOfTuneWithFriends);
+        noOfTuneWithFriendsLabel.setStyle("-fx-font-weight: bold; -fx-font-size: 16");
+        tuneWithFriendsVBox.getChildren().addAll(noOfTuneWithFriendsLabel, tuneWithFriendTitleLabel, tuneWithFriendImageView2);
     }
 
     private void createImages(){
@@ -166,6 +211,11 @@ public class TuneFrame extends Scene {
         tuneWithFriendImageView = new ImageView(tuneWithFriendImage);
         tuneWithFriendImageView.setPreserveRatio(true);
         tuneWithFriendImageView.setFitWidth(60);
+
+        Image tuneWithFriendImage2 = new Image(getClass().getResourceAsStream("/com/example/demo/tunewithafriend_ico.png"));
+        tuneWithFriendImageView2 = new ImageView(tuneWithFriendImage2);
+        tuneWithFriendImageView2.setPreserveRatio(true);
+        tuneWithFriendImageView2.setFitWidth(50);
     }
 
     // Get Screen dimensions

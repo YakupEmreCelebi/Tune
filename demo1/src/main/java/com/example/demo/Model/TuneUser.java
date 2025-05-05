@@ -108,6 +108,9 @@ public class TuneUser {
     public ArrayList<TuneUser> getFriends() {return friends;}
     public ArrayList<Song> getFavouriteSongs (){return favouriteSongs;}
 
+    public int getNumbOfTunedSongsWithFriends() {
+        return numbOfTunedSongsWithFriends;
+    }
 
     public void setProfileImgIndex(int profileImgIndex) {
         this.profileImgIndex = profileImgIndex;
@@ -136,15 +139,31 @@ public class TuneUser {
         }
         else if(imageIndex == 5)
         {
-            profileImage = new Image(getClass().getResourceAsStream("/com/example/demo/şebnemferah_ico.jpg"));
+            profileImage = new Image(getClass().getResourceAsStream("/com/example/demo/metallica2_ico.jpg"));
         }
         else if(imageIndex == 6)
         {
-            profileImage = new Image(getClass().getResourceAsStream("/com/example/demo/megadeth_ico.jpg"));
+            profileImage = new Image(getClass().getResourceAsStream("/com/example/demo/metallica3_ico.jpg"));
         }
         else if(imageIndex == 7)
         {
-            profileImage = new Image(getClass().getResourceAsStream("/com/example/demo/judaspriest_ico.jpg"));
+            profileImage = new Image(getClass().getResourceAsStream("/com/example/demo/metallica4_ico.jpg"));
+        }
+        else if(imageIndex == 8)
+        {
+            profileImage = new Image(getClass().getResourceAsStream("/com/example/demo/acdc_ico.jpg"));
+        }
+        else if(imageIndex == 9)
+        {
+            profileImage = new Image(getClass().getResourceAsStream("/com/example/demo/acdc2_ico.jpg"));
+        }
+        else if(imageIndex == 10)
+        {
+            profileImage = new Image(getClass().getResourceAsStream("/com/example/demo/acdc3_ico.jpg"));
+        }
+        else if(imageIndex == 11)
+        {
+            profileImage = new Image(getClass().getResourceAsStream("/com/example/demo/acdc4_ico.jpg"));
         }
     }
 }
