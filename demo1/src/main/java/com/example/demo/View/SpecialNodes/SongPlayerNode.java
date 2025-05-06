@@ -34,11 +34,13 @@ public class SongPlayerNode extends HBox {
     Button nextButton;
     Button previousButton;
     Label songLabel;
-
+    boolean playingStatus;
 
     public SongPlayerNode(Song song) {
         super(30);
         setPrefHeight(200);
+
+        playingStatus = false;
 
         // StyleSheet
         this.getStylesheets().add(getClass().getResource("slider.css").toExternalForm());
@@ -102,8 +104,9 @@ public class SongPlayerNode extends HBox {
     }
 
     private void createImages(){
+        String buttonLoc = (playingStatus) ? "pause-button.png" : "play_ico.png";
 
-        Image playImage = new Image(getClass().getResourceAsStream("/com/example/demo/play_ico.png"));
+        Image playImage = new Image(getClass().getResourceAsStream("/com/example/demo/" + buttonLoc));
         playImageView = new ImageView(playImage);
         playImageView.setPreserveRatio(true);
         playImageView.setFitWidth(40);
@@ -159,5 +162,13 @@ public class SongPlayerNode extends HBox {
 
     public Slider getSlider() {
         return slider;
+    }
+
+    public boolean getPLayingStatus() {
+        return playingStatus;
+    }
+
+    public void setPlayingStatus(boolean playing) {
+        this.playingStatus = playing;
     }
 }

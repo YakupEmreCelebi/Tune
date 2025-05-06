@@ -223,10 +223,6 @@ public class Controller {
                 });
             }
         }
-
-
-
-
     }
 
 
@@ -505,14 +501,21 @@ public class Controller {
         currentSong = aSong;
         currentSongList = aSongList;
         api.startResumePlayback(aSong, aSongList);
+        homeFrame.getSongPlayer().setPlayingStatus(true);
+        System.out.println(homeFrame.getSongPlayer().getPLayingStatus());
     }
 
     private void playCurrentSong() {
         api.startResumePlayback();
+        homeFrame.getSongPlayer().setPlayingStatus(true);
+        System.out.println(homeFrame.getSongPlayer().getPLayingStatus());
+
     }
 
     private void pauseCurrentSong() {
         api.pausePlayback();
+        homeFrame.getSongPlayer().setPlayingStatus(false);
+        System.out.println(homeFrame.getSongPlayer().getPLayingStatus());
     }
 //
 //    private void playFriendTuneSong(TuneUser aFriend) {
