@@ -2,6 +2,7 @@ package com.example.demo.View.SpecialNodes;
 
 import com.example.demo.Model.TuneUser;
 import javafx.animation.ScaleTransition;
+import javafx.animation.Transition;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -15,6 +16,8 @@ import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.scene.text.TextAlignment;
 import javafx.util.Duration;
+
+import javax.swing.*;
 
 public class FriendNode extends VBox {
 
@@ -33,6 +36,16 @@ public class FriendNode extends VBox {
         friendProfileImageView.setPreserveRatio(true);
         friendProfileImageView.setFitWidth(120);
         friendProfileImageView.setClip(new Circle(60, 60, 60));
+        if(friend.getTuneExistence())
+        {
+            animateButtonImage(0,360,2,friendProfileImageView);
+
+            Timer timer = new Timer(2000, e -> { animateButtonImage(0, 360, 2, friendProfileImageView); });
+
+            timer.setRepeats(true);
+            timer.start();
+        }
+
 
         Label friendName = new Label(friend.getUsername());
         friendName.setFont(Font.font("Arial", FontWeight.NORMAL, 16));
@@ -69,6 +82,21 @@ public class FriendNode extends VBox {
                 scaleDown.play();
             }
         });
+    }
+
+    private void animateButtonImage(double start, double end, double duration, ImageView imageView) {
+        Transition buttonImageAnim = new Transition() {
+            {
+                setCycleDuration(Duration.seconds(duration));
+            }
+
+            @Override
+            protected void interpolate(double frac) {
+                double value = start + (end - start) * frac * frac;
+                imageView.setRotate(value);
+            }
+        };
+        buttonImageAnim.play();
     }
 
     public TuneUser getFriend() {

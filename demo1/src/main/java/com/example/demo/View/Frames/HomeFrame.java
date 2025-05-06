@@ -3,15 +3,18 @@ package com.example.demo.View.Frames;
 import com.example.demo.Model.Song;
 import com.example.demo.Model.TuneUser;
 import com.example.demo.View.SpecialNodes.*;
+import javafx.animation.Transition;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.TextField;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import javafx.util.Duration;
 
 import java.util.ArrayList;
 
@@ -96,6 +99,7 @@ public class HomeFrame extends Scene {
         container.getChildren().clear();
         container.getChildren().addAll(searchBar, songPlayer, songNodeScroller, friendTunesNodeScroller);
     }
+
 
     private static double getScreenWidth() {
         return getPrimary().getVisualBounds().getWidth();

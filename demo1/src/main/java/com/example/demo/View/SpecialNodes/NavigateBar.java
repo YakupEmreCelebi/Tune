@@ -113,9 +113,17 @@ public class NavigateBar extends BorderPane {
         VBox buttonNLabel = new VBox(20);
 
 
-        Image img = (!currentUser.getTuneExistence()) ?
-                new Image(getClass().getResourceAsStream("/com/example/demo/plus_ico.png")) :
-                currentUser.getTuneSong().getImage();
+        Image img;
+
+        if (!currentUser.getTuneExistence())
+        {
+            img = new Image(getClass().getResourceAsStream("/com/example/demo/plus_ico.png"));
+        }
+        else
+        {
+            img = currentUser.getTuneSong().getImage();
+        }
+
 
         tuneImgView = new ImageView(img);
         tuneImgView.setPreserveRatio(true);
