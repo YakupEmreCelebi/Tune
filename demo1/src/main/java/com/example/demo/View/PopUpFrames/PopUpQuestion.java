@@ -1,5 +1,6 @@
 package com.example.demo.View.PopUpFrames;
 
+import javafx.animation.Transition;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -13,7 +14,11 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
+import javafx.scene.paint.CycleMethod;
+import javafx.scene.paint.LinearGradient;
+import javafx.scene.paint.Stop;
 import javafx.scene.shape.Rectangle;
+import javafx.util.Duration;
 
 public class PopUpQuestion extends PopUp{
 
@@ -41,6 +46,8 @@ public class PopUpQuestion extends PopUp{
     Label option4Label;
 
     Button nextButton;
+
+    Rectangle overlay;
 
 
     public PopUpQuestion(String question, String option1, String option2, String option3, String option4) {
@@ -118,10 +125,16 @@ public class PopUpQuestion extends PopUp{
         imageVBox.getChildren().addAll(imageHBox1, imageHBox2);
 
 
-        Rectangle overlay = new Rectangle(1100, 600, Color.rgb(0, 0, 0, 0.7));
+        overlay = new Rectangle(1100, 100, Color.rgb(0, 0, 0, 0.3));
+        overlay.setFill(new LinearGradient(
+                0, 1, 0, 0, true, CycleMethod.NO_CYCLE,
+                new Stop(0, Color.rgb(0, 0, 0, 0.3)),
+                new Stop(1, Color.rgb(0, 0, 0, 0.0))
+        ));
         StackPane stackPane = new StackPane();
-        stackPane.getChildren().addAll(backgroundImageView5, mainVBox);
+        stackPane.getChildren().addAll(backgroundImageView5, overlay, mainVBox);
         stackPane.setAlignment(mainVBox, Pos.CENTER);
+        animateOverlay(-100,600, 7);
 
 
         //Layout
@@ -211,5 +224,20 @@ public class PopUpQuestion extends PopUp{
                 button.setStyle("-fx-background-color: #c5a0e7; -fx-text-fill: black; -fx-font-size: 15; -fx-font-family: Arial; -fx-font-weight: bold");
             }
         });
+    }
+
+    private void animateOverlay(double start, double end, double duration) {
+        Transition overlayAnim = new Transition() {
+            {
+                setCycleDuration(Duration.seconds(duration));
+            }
+
+            @Override
+            protected void interpolate(double frac) {
+                double value = start + (end - start) * frac;
+                overlay.setTranslateY(value);
+            }
+        };
+        overlayAnim.play();
     }
 }

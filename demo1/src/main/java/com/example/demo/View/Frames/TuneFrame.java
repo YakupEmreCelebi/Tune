@@ -4,6 +4,7 @@ import com.example.demo.Model.TuneUser;
 import com.example.demo.View.SpecialNodes.NavigateBar;
 import com.example.demo.View.SpecialNodes.SongNode;
 import javafx.animation.ScaleTransition;
+import javafx.animation.Transition;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -126,8 +127,11 @@ public class TuneFrame extends Scene {
 
     public class TuneButton extends Button {
 
+        ImageView imageView;
+
         public TuneButton(String text, int x, int y, ImageView imageView) {
             super(text, imageView);
+            this.imageView = imageView;
             this.setShape(new Circle(1000));
             this.setMinSize(160, 160);
             this.setMaxSize(160, 160);
@@ -152,7 +156,17 @@ public class TuneFrame extends Scene {
 
                 @Override
                 public void handle(MouseEvent mouseEvent) {
+
                     scaleUp.play();
+                    if(imageView.getRotate() == 0 || imageView.getRotate() == 360)
+                    {
+                        animateButtonImage(0,360,1);
+                    }
+                    else
+                    {
+                        animateButtonImage(imageView.getRotate(),360,(360 - imageView.getRotate()) / 360);
+                    }
+
                 }
             });
 
@@ -160,9 +174,25 @@ public class TuneFrame extends Scene {
 
                 @Override
                 public void handle(MouseEvent mouseEvent) {
+
                     scaleDown.play();
                 }
             });
+        }
+
+        private void animateButtonImage(double start, double end, double duration) {
+            Transition buttonImageAnim = new Transition() {
+                {
+                    setCycleDuration(Duration.seconds(duration));
+                }
+
+                @Override
+                protected void interpolate(double frac) {
+                    double value = start + (end - start) * frac * frac;
+                    imageView.setRotate(value);
+                }
+            };
+            buttonImageAnim.play();
         }
 
     }
@@ -217,6 +247,7 @@ public class TuneFrame extends Scene {
         tuneWithFriendImageView2.setPreserveRatio(true);
         tuneWithFriendImageView2.setFitWidth(50);
     }
+
 
     // Get Screen dimensions
     private static double getScreenWidth() {

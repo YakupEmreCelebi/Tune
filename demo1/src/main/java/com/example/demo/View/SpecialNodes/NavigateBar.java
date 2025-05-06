@@ -3,6 +3,7 @@ package com.example.demo.View.SpecialNodes;
 import com.example.demo.Model.TuneUser;
 import javafx.animation.FadeTransition;
 import javafx.animation.ScaleTransition;
+import javafx.animation.Transition;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -37,6 +38,7 @@ public class NavigateBar extends BorderPane {
     private Button addTune;
     private String currentFrame;
     private TuneUser currentUser;
+    private ImageView tuneImgView;
 
     public NavigateBar(TuneUser currentUser) {
 
@@ -115,16 +117,17 @@ public class NavigateBar extends BorderPane {
                 new Image(getClass().getResourceAsStream("/com/example/demo/plus_ico.png")) :
                 currentUser.getTuneSong().getImage();
 
-        ImageView tuneImgView = new ImageView(img);
+        tuneImgView = new ImageView(img);
         tuneImgView.setPreserveRatio(true);
         tuneImgView.setFitHeight(140);
 
-        Rectangle clip = new Rectangle(140, 140);
-        clip.setArcWidth (10);
-        clip.setArcHeight(10);
+        Circle clip = new Circle(70,70,70);
         tuneImgView.setClip(clip);
 
-        addTune = new Button("", tuneImgView);
+        addTune = new Button();
+        addTune.setGraphic(tuneImgView);
+        Circle circleClip = new Circle(71, 72, 73);
+        addTune.setClip(circleClip);
 
         addTune.setStyle("-fx-background-color: transparent;");
 
@@ -140,7 +143,17 @@ public class NavigateBar extends BorderPane {
 
             @Override
             public void handle(MouseEvent mouseEvent) {
+
                 scaleUp.play();
+                if(tuneImgView.getRotate() == 0 || tuneImgView.getRotate() == 360 || tuneImgView.getRotate() == 720 || tuneImgView.getRotate() == 1080 || tuneImgView.getRotate() == 1920 || tuneImgView.getRotate() == 1440)
+                {
+                    animateButtonImage(0,1440, 2.5);
+                }
+                else
+                {
+                    animateButtonImage(tuneImgView.getRotate(),1440,2);
+                }
+
             }
         });
 
@@ -148,9 +161,12 @@ public class NavigateBar extends BorderPane {
 
             @Override
             public void handle(MouseEvent mouseEvent) {
+
                 scaleDown.play();
             }
         });
+
+
 
         Label usersTuneLabel = new Label("Your Tune");
 
@@ -164,6 +180,23 @@ public class NavigateBar extends BorderPane {
         usersTune.setCenter(buttonNLabel);
 
 
+
+
+    }
+
+    private void animateButtonImage(double start, double end, double duration) {
+        Transition buttonImageAnim = new Transition() {
+            {
+                setCycleDuration(Duration.seconds(duration));
+            }
+
+            @Override
+            protected void interpolate(double frac) {
+                double value = start + (end - start) * frac * frac;
+                tuneImgView.setRotate(value);
+            }
+        };
+        buttonImageAnim.play();
     }
 
     private void addHoverEffect(Button button) {
