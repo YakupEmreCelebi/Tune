@@ -21,6 +21,8 @@ import javafx.scene.layout.VBox;
 import javafx.scene.shape.Circle;
 import javafx.util.Duration;
 
+import javax.swing.*;
+
 import static javafx.stage.Screen.getPrimary;
 
 public class TuneFrame extends Scene {
@@ -193,6 +195,7 @@ public class TuneFrame extends Scene {
                 }
             };
             buttonImageAnim.play();
+
         }
 
     }

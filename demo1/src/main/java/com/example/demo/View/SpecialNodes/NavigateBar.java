@@ -147,11 +147,11 @@ public class NavigateBar extends BorderPane {
                 scaleUp.play();
                 if(tuneImgView.getRotate() == 0 || tuneImgView.getRotate() == 360 || tuneImgView.getRotate() == 720 || tuneImgView.getRotate() == 1080 || tuneImgView.getRotate() == 1920 || tuneImgView.getRotate() == 1440)
                 {
-                    animateButtonImage(0,1440, 2.5);
+                    animateButtonImage(0,1440, 2.5, tuneImgView);
                 }
                 else
                 {
-                    animateButtonImage(tuneImgView.getRotate(),1440,2);
+                    animateButtonImage(tuneImgView.getRotate(),1440,2, tuneImgView);
                 }
 
             }
@@ -184,7 +184,7 @@ public class NavigateBar extends BorderPane {
 
     }
 
-    private void animateButtonImage(double start, double end, double duration) {
+    private void animateButtonImage(double start, double end, double duration, ImageView imageView) {
         Transition buttonImageAnim = new Transition() {
             {
                 setCycleDuration(Duration.seconds(duration));
@@ -193,7 +193,7 @@ public class NavigateBar extends BorderPane {
             @Override
             protected void interpolate(double frac) {
                 double value = start + (end - start) * frac * frac;
-                tuneImgView.setRotate(value);
+                imageView.setRotate(value);
             }
         };
         buttonImageAnim.play();
