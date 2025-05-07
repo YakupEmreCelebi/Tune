@@ -151,17 +151,19 @@ public class NavigateBar extends BorderPane {
 
             @Override
             public void handle(MouseEvent mouseEvent) {
-
-                scaleUp.play();
-                if(tuneImgView.getRotate() == 0 || tuneImgView.getRotate() == 360 || tuneImgView.getRotate() == 720 || tuneImgView.getRotate() == 1080 || tuneImgView.getRotate() == 1920 || tuneImgView.getRotate() == 1440)
-                {
-                    animateButtonImage(0,1440, 2.5, tuneImgView);
+                try {
+                    scaleUp.play();
+                    if(tuneImgView.getRotate() % 360 == 0)
+                    {
+                        animateButtonImage(0,1440, 2.5, tuneImgView);
+                    }
+                    else
+                    {
+                        animateButtonImage(tuneImgView.getRotate(),1440,2, tuneImgView);
+                    }
+                } catch (Exception e) {
+                    e.printStackTrace();
                 }
-                else
-                {
-                    animateButtonImage(tuneImgView.getRotate(),1440,2, tuneImgView);
-                }
-
             }
         });
 

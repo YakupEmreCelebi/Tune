@@ -9,6 +9,8 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
+import java.util.concurrent.RecursiveTask;
+
 public class PopUpUpdate extends PopUp{
 
     Label label;
@@ -54,5 +56,9 @@ public class PopUpUpdate extends PopUp{
 
     public Button getUpdateButton() {
         return updateButton;
+    }
+
+    public String getStringToUpdate() {
+        return textField.getText();
     }
 }

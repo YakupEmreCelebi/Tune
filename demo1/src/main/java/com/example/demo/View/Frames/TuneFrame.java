@@ -162,7 +162,11 @@ public class TuneFrame extends Scene {
                     scaleUp.play();
                     if(imageView.getRotate() == 0 || imageView.getRotate() == 360)
                     {
-                        animateButtonImage(0,360,1);
+                        try {
+                            animateButtonImage(0,360,1);
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
                     }
                     else
                     {
@@ -195,9 +199,7 @@ public class TuneFrame extends Scene {
                 }
             };
             buttonImageAnim.play();
-
         }
-
     }
 
     public void constructRecentTunedSongs() {
@@ -210,7 +212,7 @@ public class TuneFrame extends Scene {
 
     public void constructImageVBox(){
         lastTunedSongVBox.getChildren().clear();
-        SongNode songNode = new SongNode(currentUser.getFavouriteSongs().get(0), 150, 150, true);
+        SongNode songNode = new SongNode(currentUser.getTunedSongs().getLast(), 150, 150, true);
         lastTunedSongVBox.getChildren().addAll(lastTunedSongLabel, songNode);
     }
 
@@ -280,5 +282,9 @@ public class TuneFrame extends Scene {
 
     public TuneButton getTuneWithFriendButton() {
         return tuneWithFriendButton;
+    }
+
+    public VBox getLastTunedSongVBox() {
+        return lastTunedSongVBox;
     }
 }

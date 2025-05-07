@@ -35,18 +35,17 @@ public class SongPlayerNode extends HBox {
     Button previousButton;
     Label songLabel;
     boolean playingStatus;
+    Song theSong;
 
     public SongPlayerNode(Song song) {
         super(30);
         setPrefHeight(200);
-
+        theSong = song;
         playingStatus = false;
 
         // StyleSheet
         this.getStylesheets().add(getClass().getResource("slider.css").toExternalForm());
 
-        // Images
-        createImages();
 
         // Circles for end and start point for slider
         Circle startCircle = new Circle(7.5);
@@ -57,17 +56,7 @@ public class SongPlayerNode extends HBox {
         endCircle.setTranslateX(-4.2);
 
         // Buttons
-        playButton = new Button("", playImageView);
-        nextButton = new Button("", nextImageView);
-        previousButton = new Button("", previousImageView);
-
-        playButton.setStyle("-fx-background-color: transparent;");
-        nextButton.setStyle("-fx-background-color: transparent;");
-        previousButton.setStyle("-fx-background-color: transparent;");
-
-        addHoverEffect(playButton);
-        addHoverEffect(nextButton);
-        addHoverEffect(previousButton);
+        createButtons();
 
         // Slider
         slider = new Slider();
@@ -94,13 +83,44 @@ public class SongPlayerNode extends HBox {
         songTitleHBox.setAlignment(Pos.CENTER_LEFT);
 
         // Song Node
-        songNode = new SongNode(song, 150,150, false);
+
+        songNode = new SongNode(theSong, 150,150, false);
 
         playerVBox = new VBox(8);
         playerVBox.getChildren().addAll(songTitleHBox, sliderHBox, buttonsHBox);
         playerVBox.setAlignment(Pos.CENTER);
 
         getChildren().addAll(songNode, playerVBox);
+    }
+
+    public void reset() {
+        createImages();
+
+        playButton.setGraphic(playImageView);
+        playButton.setStyle("-fx-background-color: transparent;");
+        addHoverEffect(playButton);
+
+        buttonsHBox.getChildren().set(1, playButton);
+
+//        playerVBox.getChildren().set(2, buttonsHBox);
+//
+//        getChildren().set(1, playerVBox);
+    }
+
+    public void createButtons() {
+        createImages();
+
+        playButton = new Button("", playImageView);
+        nextButton = new Button("", nextImageView);
+        previousButton = new Button("", previousImageView);
+
+        playButton.setStyle("-fx-background-color: transparent;");
+        nextButton.setStyle("-fx-background-color: transparent;");
+        previousButton.setStyle("-fx-background-color: transparent;");
+
+        addHoverEffect(playButton);
+        addHoverEffect(nextButton);
+        addHoverEffect(previousButton);
     }
 
     private void createImages(){

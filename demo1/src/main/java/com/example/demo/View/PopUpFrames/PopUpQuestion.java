@@ -133,7 +133,7 @@ public class PopUpQuestion extends PopUp{
         stackPane.getChildren().addAll(backgroundImageView5, overlay, mainVBox);
         stackPane.setAlignment(mainVBox, Pos.CENTER);
         stackPane.setAlignment(backgroundImageView5, Pos.CENTER);
-        animateOverlay(-380,320, 6);
+        //animateOverlay(-380,320, 6);
 
 
         //Layout
@@ -225,23 +225,23 @@ public class PopUpQuestion extends PopUp{
         });
     }
 
-    private void animateOverlay(double start, double end, double duration) {
-        Transition overlayAnim = new Transition() {
-            {
-                setCycleDuration(Duration.seconds(duration));
-            }
-
-            @Override
-            protected void interpolate(double frac) {
-                double value = start + (end - start) * frac;
-                overlay.setTranslateY(value);
-            }
-        };
-        overlayAnim.play();
-
-        Timer timer = new Timer(7000, e -> { animateOverlay(start, end, duration); });
-
-        timer.setRepeats(true);
-        timer.start();
-    }
+//    private void animateOverlay(double start, double end, double duration) {
+//        Transition overlayAnim = new Transition() {
+//            {
+//                setCycleDuration(Duration.seconds(duration));
+//            }
+//
+//            @Override
+//            protected void interpolate(double frac) {
+//                double value = start + (end - start) * frac;
+//                overlay.setTranslateY(value);
+//            }
+//        };
+//        overlayAnim.play();
+//
+//        Timer timer = new Timer(7000, e -> { animateOverlay(start, end, duration); });
+//
+//        timer.setRepeats(true);
+//        timer.start();
+//    }
 }
