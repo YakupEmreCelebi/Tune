@@ -409,7 +409,7 @@ public class Database {
     }
 
     //add Song To Database
-    public void addSongToDatabase(String trackId, String songName, String artist, String language, int year, String genre, String mood, String imageUrl, int duration) {
+    public void addSongToDatabase(String trackId, String songName, String artist, String language, int year, String genre, String mood, String imageUrl, int duration, String parameters) {
         MongoCollection<Document> collection = database.getCollection("Songs");
         try {
             Document newSong = new Document("name", songName)
@@ -420,7 +420,10 @@ public class Database {
                     .append("genre", genre)
                     .append("mood", mood)
                     .append("imageUrl", imageUrl)
-                    .append("duration", duration);
+                    .append("duration", duration)
+                    .append("parameters", parameters)
+                    .append("currentPositionMS", 0);
+
 
             collection.insertOne(newSong);
             System.out.println("Song '" + songName + "' added successfully.");
