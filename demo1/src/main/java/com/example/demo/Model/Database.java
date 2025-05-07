@@ -9,6 +9,7 @@ import com.mongodb.client.result.DeleteResult;
 import com.mongodb.client.result.UpdateResult;
 import org.bson.Document;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -82,28 +83,76 @@ public class Database {
     }
 
     // Perform a wildcard search on the "Users" collection for a specific query
-    public void searchUsers(String searchQuery) {
+    public TuneUser searchUserInDatabase(String searchQuery) {
         MongoCollection<Document> collection = database.getCollection("Users");
 
         try {
-            // Modify the aggregation query to target only the "username" field
+            // Modify the aggregation query to target only the "username" field and ensure case-insensitive matching
             AggregateIterable<Document> results = collection.aggregate(Arrays.asList(
-                    new Document("$search",
-                            new Document("index", "username") // Atlas Search Index name
-                                    .append("text", new Document("query", searchQuery)
-                                            .append("path", "username") // Explicitly search in the "username" field
-                                    )
+                    new Document("$match",
+                            new Document("username",
+                                    new Document("$regex", searchQuery) // Regular expression for case-insensitive search
+                                            .append("$options", "i") // "i" for case-insensitive search
+                            )
                     )
             ));
 
-            System.out.println("Documents matching the query '" + searchQuery + "':");
+            // If a matching document is found, process it
             for (Document doc : results) {
-                System.out.println(doc.toJson());
+                // Extract fields from the document
+                String username = doc.getString("username");
+                String password = doc.getString("password");
+                String mail = doc.getString("mail");
+                int id = doc.getInteger("id", 0); // Default to 0 if no id is found
+                ArrayList<Document> friendsDocs = (ArrayList<Document>) doc.get("friends");
+                ArrayList<Document> favouriteSongsDocs = (ArrayList<Document>) doc.get("favouriteSongs");
+
+                // Convert friends from Document list to ArrayList<TuneUser>
+                ArrayList<TuneUser> friends = new ArrayList<>();
+                for (Document friendDoc : friendsDocs) {
+                    String friendUsername = friendDoc.getString("username");
+                    String friendPassword = friendDoc.getString("password");
+                    String friendMail = friendDoc.getString("mail");
+                    int friendId = friendDoc.getInteger("id", 0);
+                    // Add each friend as a new TuneUser to the list
+                    friends.add(new TuneUser(friendUsername, friendPassword, friendMail, friendId, new ArrayList<TuneUser>(), new ArrayList<Song>()));
+                }
+
+                // Convert favouriteSongs from Document list to ArrayList<Song>
+                ArrayList<Song> favouriteSongs = new ArrayList<>();
+                for (Document songDoc : favouriteSongsDocs) {
+                    String trackID = songDoc.getString("trackID");
+                    String name = songDoc.getString("name");
+                    String artist = songDoc.getString("artist");
+                    String language = songDoc.getString("language");
+                    int year = songDoc.getInteger("year", 0);
+                    String genre = songDoc.getString("genre");
+                    String mood = songDoc.getString("mood");
+                    String imageUrl = songDoc.getString("imageUrl");
+                    int duration = songDoc.getInteger("duration", 0); // In milliseconds
+
+                    // Create Song object using the updated constructor and add to the list
+                    favouriteSongs.add(new Song(trackID, name, artist, language, year, genre, mood, imageUrl, duration));
+                }
+
+                // Construct the TuneUser object
+                TuneUser user = new TuneUser(username, password, mail, id, friends, favouriteSongs);
+
+                // Return the user directly
+                return user;
             }
+
+            // If no user matches the search query, return null
+            return null;
+
         } catch (MongoException e) {
             System.err.println("Error performing search: " + e.getMessage());
+            return null; // Return null in case of an error
         }
     }
+
+
+
 
     public void removeFriendFromDatabase(String username, String friendToRemove) {
         MongoCollection<Document> collection = database.getCollection("Users");
@@ -358,6 +407,79 @@ public class Database {
             return false;
         }
     }
+
+    //add Song To Database
+    public void addSongToDatabase(String trackId, String songName, String artist, String language, int year, String genre, String mood, String imageUrl, int duration) {
+        MongoCollection<Document> collection = database.getCollection("Songs");
+        try {
+            Document newSong = new Document("name", songName)
+                    .append("artist", artist)
+                    .append("trackId", trackId)
+                    .append("language", language)
+                    .append("year", year)
+                    .append("genre", genre)
+                    .append("mood", mood)
+                    .append("imageUrl", imageUrl)
+                    .append("duration", duration);
+
+            collection.insertOne(newSong);
+            System.out.println("Song '" + songName + "' added successfully.");
+        } catch (MongoException e) {
+            System.err.println("Error adding song: " + e.getMessage());
+        }
+    }
+
+    public void removeSongFromFavoritesFromDatabase(String username, String songName){
+        MongoCollection<Document> collection = database.getCollection("Users");
+
+        try {
+            // Remove the song from the favouriteSongs list
+            UpdateResult result = collection.updateOne(
+                    new Document("username", username),  // Find the user by their username
+                    new Document("$pull", new Document("favouriteSongs", songName)) // Remove song from favourites
+            );
+
+            // Check if the update was successful
+            if (result.getModifiedCount() > 0) {
+                System.out.println("Song '" + songName + "' removed from '" + username + "'s favourites.");
+            } else {
+                System.out.println("Error: User not found or song not in favourites.");
+            }
+
+        } catch (MongoException e) {
+            System.err.println("Error removing song from favourites: " + e.getMessage());
+        }
+    }
+
+    public void addSongToFavoritesInDatabase(String username, String songName){
+        MongoCollection<Document> collection = database.getCollection("Users");
+
+        try {
+            // Add the song to the favouriteSongs list
+            UpdateResult result = collection.updateOne(
+                    new Document("username", username),  // Find the user by their username
+                    new Document("$addToSet", new Document("favouriteSongs", songName)) // Add song to favourites (without duplicates)
+            );
+
+            // Check if the update was successful
+            if (result.getModifiedCount() > 0) {
+                System.out.println("Song '" + songName + "' added to '" + username + "'s favourites.");
+            } else {
+                System.out.println("Error: User not found or song already in favourites.");
+            }
+
+        } catch (MongoException e) {
+            System.err.println("Error adding song to favourites: " + e.getMessage());
+        }
+    }
+
+    /*
+    DOES NOT WORK !!!
+    public Song searchSongInDatabase(String searchQuery) {
+    }
+    */
+
+
 }
 
 //import java.util.ArrayList;
@@ -414,11 +536,11 @@ public class Database {
 //        return new TuneUser();
 //    }
 //
-//    public void addSongToFavoritesInDatabase(String username, String songName) {
+//    public void addSongToFavoritesInDatabase(String username, String songName) { // DONE
 //
 //    }
 //
-//    public void removeSongFromFavoritesFromDatabase(String username, String songName) {
+//    public void removeSongFromFavoritesFromDatabase(String username, String songName) { // DONE
 //
 //    }
 //
