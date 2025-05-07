@@ -476,6 +476,28 @@ public class Database {
         }
     }
 
+    public void updateSongCurrentPositionMS(String songName, int currentPositionMS) {
+        MongoCollection<Document> collection = database.getCollection("Songs");
+
+        try {
+            // Update the current position of the song
+            UpdateResult result = collection.updateOne(
+                    new Document("name", songName),  // Find the song by its name
+                    new Document("$set", new Document("currentPositionMS", currentPositionMS)) // Set the new current position
+            );
+
+            // Check if the update was successful
+            if (result.getModifiedCount() > 0) {
+                System.out.println("Current position of song '" + songName + "' updated successfully.");
+            } else {
+                System.out.println("Error: Song not found or current position is the same.");
+            }
+
+        } catch (MongoException e) {
+            System.err.println("Error updating song current position: " + e.getMessage());
+        }
+    }
+
     /*
     DOES NOT WORK !!!
     public Song searchSongInDatabase(String searchQuery) {
