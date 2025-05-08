@@ -12,6 +12,7 @@ import org.bson.Document;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.regex.Pattern;
 
 public class Database {
 
@@ -83,73 +84,9 @@ public class Database {
     }
 
     // Perform a wildcard search on the "Users" collection for a specific query
-    public TuneUser searchUserInDatabase(String searchQuery) {
-        MongoCollection<Document> collection = database.getCollection("Users");
+    /*public TuneUser searchTuneUserInDatabase(String username) {
 
-        try {
-            // Modify the aggregation query to target only the "username" field and ensure case-insensitive matching
-            AggregateIterable<Document> results = collection.aggregate(Arrays.asList(
-                    new Document("$match",
-                            new Document("username",
-                                    new Document("$regex", searchQuery) // Regular expression for case-insensitive search
-                                            .append("$options", "i") // "i" for case-insensitive search
-                            )
-                    )
-            ));
-
-            // If a matching document is found, process it
-            for (Document doc : results) {
-                // Extract fields from the document
-                String username = doc.getString("username");
-                String password = doc.getString("password");
-                String mail = doc.getString("mail");
-                int id = doc.getInteger("id", 0); // Default to 0 if no id is found
-                ArrayList<Document> friendsDocs = (ArrayList<Document>) doc.get("friends"); //TODO forbidden cast
-                ArrayList<Document> favouriteSongsDocs = (ArrayList<Document>) doc.get("favouriteSongs");
-
-                // Convert friends from Document list to ArrayList<TuneUser>
-                ArrayList<TuneUser> friends = new ArrayList<>();
-                for (Document friendDoc : friendsDocs) { // TODO: getting error "class java.lang.String cannot be cast to class org.bson.Document"
-                    String friendUsername = friendDoc.getString("username");
-                    String friendPassword = friendDoc.getString("password");
-                    String friendMail = friendDoc.getString("mail");
-                    int friendId = friendDoc.getInteger("id", 0);
-                    // Add each friend as a new TuneUser to the list
-                    friends.add(new TuneUser(friendUsername, friendPassword, friendMail, friendId, new ArrayList<TuneUser>(), new ArrayList<Song>(), this));
-                }
-
-                // Convert favouriteSongs from Document list to ArrayList<Song>
-                ArrayList<Song> favouriteSongs = new ArrayList<>();
-                for (Document songDoc : favouriteSongsDocs) {
-                    String trackID = songDoc.getString("trackID");
-                    String name = songDoc.getString("name");
-                    String artist = songDoc.getString("artist");
-                    String language = songDoc.getString("language");
-                    int year = songDoc.getInteger("year", 0);
-                    String genre = songDoc.getString("genre");
-                    String mood = songDoc.getString("mood");
-                    String imageUrl = songDoc.getString("imageUrl");
-                    int duration = songDoc.getInteger("duration", 0); // In milliseconds
-
-                    // Create Song object using the updated constructor and add to the list
-                    favouriteSongs.add(new Song(trackID, name, artist, language, year, genre, mood, imageUrl, duration));
-                }
-
-                // Construct the TuneUser object
-                TuneUser user = new TuneUser(username, password, mail, id, friends, favouriteSongs, this);
-
-                // Return the user directly
-                return user;
-            }
-
-            // If no user matches the search query, return null
-            return null;
-
-        } catch (MongoException e) {
-            System.err.println("Error performing search: " + e.getMessage());
-            return null; // Return null in case of an error
-        }
-    }
+    }*/
 
 
 
@@ -408,6 +345,175 @@ public class Database {
         }
     }
 
+    public void increaseNumbOfTunedSongsWithFriendsInDatabase(String username) {
+        MongoCollection<Document> collection = database.getCollection("Users");
+
+        try {
+            // Increment the number of tuned songs with friends
+            UpdateResult result = collection.updateOne(
+                    new Document("username", username),  // Find the user by their username
+                    new Document("$inc", new Document("numbOfTunedSongsWithFriends", 1)) // Increment by 1
+            );
+
+            // Check if the update was successful
+            if (result.getModifiedCount() > 0) {
+                System.out.println("Number of tuned songs with friends updated successfully.");
+            } else {
+                System.out.println("Error: User not found or number is already at maximum.");
+            }
+
+        } catch (MongoException e) {
+            System.err.println("Error updating number of tuned songs with friends: " + e.getMessage());
+        }
+    }
+
+    public int getNumbOfTunedSongsWithFriendsFromDatabase(String username) {
+        MongoCollection<Document> collection = database.getCollection("Users");
+        int number = 0;
+
+        try {
+            // Find the user by their username
+            Document user = collection.find(new Document("username", username)).first();
+
+            if (user != null) {
+                // Get the number of tuned songs with friends
+                number = user.getInteger("numbOfTunedSongsWithFriends", 0);
+            } else {
+                System.out.println("Error: User not found.");
+            }
+
+        } catch (MongoException e) {
+            System.err.println("Error retrieving number of tuned songs with friends: " + e.getMessage());
+        }
+
+        return number;
+    }
+
+
+    public void setUserTuneInDatabase(String username, Song tuneSong, String tuneNote) {
+        MongoCollection<Document> collection = database.getCollection("Users");
+
+        try {
+            // Update the user's tune
+            UpdateResult result = collection.updateOne(
+                    new Document("username", username),  // Find the user by their username
+                    new Document("$set", new Document("userTune", tuneSong)) // Set the new tune
+                            .append("tuneNote", tuneNote)
+            );
+
+            // Check if the update was successful
+            if (result.getModifiedCount() > 0) {
+                System.out.println("User's tune updated successfully.");
+            } else {
+                System.out.println("Error: User not found or tune is the same.");
+            }
+
+        } catch (MongoException e) {
+            System.err.println("Error updating user's tune: " + e.getMessage());
+        }
+    }
+
+    public String getUserTuneFromDatabase(String username) {
+        MongoCollection<Document> collection = database.getCollection("Users");
+        String tune = "";
+
+        try {
+            // Find the user by their username
+            Document user = collection.find(new Document("username", username)).first();
+
+            if (user != null) {
+                // Get the user's tune
+                tune = user.getString("userTune");
+            } else {
+                System.out.println("Error: User not found.");
+            }
+
+        } catch (MongoException e) {
+            System.err.println("Error retrieving user's tune: " + e.getMessage());
+        }
+
+        return tune;
+    }
+
+    public String getTuneNoteFromDatabase(String username){
+        MongoCollection<Document> collection = database.getCollection("Users");
+        String tuneNote = "";
+
+        try {
+            // Find the user by their username
+            Document user = collection.find(new Document("username", username)).first();
+
+            if (user != null) {
+                // Get the user's tune note
+                tuneNote = user.getString("tuneNote");
+            } else {
+                System.out.println("Error: User not found.");
+            }
+
+        } catch (MongoException e) {
+            System.err.println("Error retrieving user's tune note: " + e.getMessage());
+        }
+
+        return tuneNote;
+    }
+
+    //add a song name to tuneSongs in database
+    public void addSongToTunedSongsInDatabase(String username, String songName) {
+        MongoCollection<Document> collection = database.getCollection("Users");
+
+        try {
+            // Add the song to the tuneSongs list
+            UpdateResult result = collection.updateOne(
+                    new Document("username", username),  // Find the user by their username
+                    new Document("$addToSet", new Document("tuneSongs", songName)) // Add song to tuneSongs (without duplicates)
+            );
+
+            // Check if the update was successful
+            if (result.getModifiedCount() > 0) {
+                System.out.println("Song '" + songName + "' added to '" + username + "'s tune songs.");
+            } else {
+                System.out.println("Error: User not found or song already in tune songs.");
+            }
+
+        } catch (MongoException e) {
+            System.err.println("Error adding song to tune songs: " + e.getMessage());
+        }
+    }
+
+    //get tunedSongs from database return Song arraylist
+    public ArrayList<Song> getTunedSongsFromDatabase(String username) {
+        MongoCollection<Document> collection = database.getCollection("Users");
+        ArrayList<Song> tunedSongs = new ArrayList<>();
+
+        try {
+            // Find the user by their username
+            Document user = collection.find(new Document("username", username)).first();
+
+            if (user != null) {
+                // Get the user's tuned songs
+                List<String> tuneSongs = user.getList("tuneSongs", String.class);
+                for (String songName : tuneSongs) {
+                    Song song = searchSongInDatabase(songName);
+                    if (song != null) {
+                        tunedSongs.add(song);
+                    }
+                }
+            } else {
+                System.out.println("Error: User not found.");
+            }
+
+        } catch (MongoException e) {
+            System.err.println("Error retrieving user's tuned songs: " + e.getMessage());
+        }
+
+        return tunedSongs;
+    }
+
+
+
+
+
+
     //add Song To Database
     public void addSongToDatabase(String trackId, String songName, String artist, String language, int year, String genre, String mood, String imageUrl, int duration, String parameters) {
         MongoCollection<Document> collection = database.getCollection("Songs");
@@ -421,7 +527,7 @@ public class Database {
                     .append("mood", mood)
                     .append("imageUrl", imageUrl)
                     .append("duration", duration)
-                    .append("parameters", parameters)
+                    .append("parameters", mood+" "+ genre +" "+ language + " "+year)
                     .append("currentPositionMS", 0);
 
 
@@ -498,11 +604,56 @@ public class Database {
         }
     }
 
-    /*
-    DOES NOT WORK !!!
     public Song searchSongInDatabase(String searchQuery) {
+        MongoCollection<Document> collection = database.getCollection("Songs");
+        Song song = null;
+
+        try {
+            // Case-insensitive regex pattern to match any part of the song name
+            String pattern = ".*" + Pattern.quote(searchQuery) + ".*";
+            Document foundSong = collection.find(
+                    new Document("name", new Document("$regex", pattern).append("$options", "i"))
+            ).first();
+
+            if (foundSong != null) {
+                // Safely extract number fields
+                Number yearNum = foundSong.get("year", Number.class);
+                int year = (yearNum != null) ? yearNum.intValue() : 0;
+
+                Number durationNum = foundSong.get("duration", Number.class);
+                int duration = (durationNum != null) ? durationNum.intValue() : 0;
+
+                // Handle null or blank imageUrl
+                String imageUrl = foundSong.getString("imageUrl");
+                if (imageUrl == null || imageUrl.isBlank()) {
+                    imageUrl = "https://example.com/default-image.png"; // Replace with a valid fallback image
+                }
+
+                // Construct the Song object
+                song = new Song(
+                        foundSong.getString("trackId"),
+                        foundSong.getString("name"),
+                        foundSong.getString("artist"),
+                        foundSong.getString("language"),
+                        year,
+                        foundSong.getString("genre"),
+                        foundSong.getString("mood"),
+                        imageUrl,
+                        duration
+                );
+            } else {
+                System.out.println("No song found with the name: " + searchQuery);
+            }
+
+        } catch (MongoException e) {
+            System.err.println("Error searching for song: " + e.getMessage());
+            e.printStackTrace();
+        }
+
+        return song;
     }
-    */
+
+
 
 
 }
