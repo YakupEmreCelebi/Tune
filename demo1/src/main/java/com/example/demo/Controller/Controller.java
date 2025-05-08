@@ -59,14 +59,14 @@ public class Controller {
         this.mainStage = stage;
 
         // For testing
-        TuneUser friend1 = new TuneUser("friend1", "Test123", "test@mail.com", 0, null, null);
-        TuneUser friend2 = new TuneUser("friend2", "Test123", "test@mail.com", 0, null, null);
-        TuneUser friend3 = new TuneUser("friend1", "Test123", "test@mail.com", 0, null, null);
-        TuneUser friend4 = new TuneUser("friend2", "Test123", "test@mail.com", 0, null, null);
-        TuneUser friend5 = new TuneUser("friend1", "Test123", "test@mail.com", 0, null, null);
-        TuneUser friend6 = new TuneUser("friend2", "Test123", "test@mail.com", 0, null, null);
-        TuneUser friend7 = new TuneUser("friend1", "Test123", "test@mail.com", 0, null, null);
-        TuneUser friend8 = new TuneUser("friend2", "Test123", "test@mail.com", 0, null, null);
+        TuneUser friend1 = new TuneUser("friend1", "Test123", "test@mail.com", 0, null, null, database);
+        TuneUser friend2 = new TuneUser("friend2", "Test123", "test@mail.com", 0, null, null, database);
+        TuneUser friend3 = new TuneUser("friend1", "Test123", "test@mail.com", 0, null, null, database);
+        TuneUser friend4 = new TuneUser("friend2", "Test123", "test@mail.com", 0, null, null, database);
+        TuneUser friend5 = new TuneUser("friend1", "Test123", "test@mail.com", 0, null, null, database);
+        TuneUser friend6 = new TuneUser("friend2", "Test123", "test@mail.com", 0, null, null, database);
+        TuneUser friend7 = new TuneUser("friend1", "Test123", "test@mail.com", 0, null, null, database);
+        TuneUser friend8 = new TuneUser("friend2", "Test123", "test@mail.com", 0, null, null, database);
 
 
         ArrayList<TuneUser> testFriends = new ArrayList<TuneUser>();
@@ -99,8 +99,8 @@ public class Controller {
         randomSongs.add(testSong6);
         randomSongs.add(testSong7);
         randomSongs.add(testSong8);
-
-        currentUser = new TuneUser("Test", "Test123", "test@mail.com", 0, testFriends, randomSongs);
+//
+        currentUser = new TuneUser("Test", "Test123", "test@mail.com", 0, testFriends, randomSongs, database); // waiting to be changed
         for (Song aSong : randomSongs) currentUser.addSongToLastTunedSongs(aSong);
         currentSong = new Song("7KtPUqnxtCkfFfvot80yPM","Seattle", "eamon mo", "EN", 2024, "don't know", "relax", "https://media-hosting.imagekit.io/7d3c90f6e4e943b5/download.jpg?Expires=1841058444&Key-Pair-Id=K2ZIVPTIP2VGHC&Signature=Z0sv5NAwrgSZJiRumKf~2McaQoyh-Xlc513BiPIp88W~WiERxe8X6XADOAt272ykz88faEvAfUinnWLUS64cqSSkk39KdwVYeHT4RszLruiDjL77MBkkuaYHAJWTQ3qJ6to48BSEeYkkNv069UxtOAUHplneTdyySUh2t9a2s7ZqE089CtmU9TMN-UYXw6JurfMOZ9qUXzw8Ktf-YCuiDUYssQlSQg-1MXcdLclbWfuaNPHcHjM6SNUe3G4nlMh0JWACCHWw8jovKuH~HL2O7l8X5ZHL0Q1k-gdHAd1DHX8DtbCgILEfT9uxSNwX4zeAesKZbpgmPDp5oTjL129jCw__", 4);
 
@@ -118,6 +118,7 @@ public class Controller {
         profileFrame = new ProfileFrame(currentUser);
         tuneFrame = new TuneFrame(currentUser);
         settingsFrame = new SettingsFrame(currentUser);
+
 
         popUpStage = new PopUpStage();
 
@@ -307,8 +308,7 @@ public class Controller {
         if(database.checkIfUserUnique(signUpFrame.getUsernameTextFieldText(), signUpFrame.getEmailTextFieldText()))
         {
             database.addUserToDatabase(signUpFrame.getUsernameTextFieldText(), signUpFrame.getEmailTextFieldText(), signUpFrame.getPasswordTextFieldText());
-            TuneUser newUser  = new TuneUser(signUpFrame.getUsernameTextFieldText(), signUpFrame.getPasswordTextFieldText() , signUpFrame.getEmailTextFieldText(),1, new ArrayList<>(), new ArrayList<>() );
-            currentUser = newUser;
+            TuneUser newUser  = new TuneUser(signUpFrame.getUsernameTextFieldText(), signUpFrame.getPasswordTextFieldText() , signUpFrame.getEmailTextFieldText(),1, new ArrayList<>(), new ArrayList<>(), database);
             showLoginFrame();
         }
         else
@@ -331,6 +331,7 @@ public class Controller {
         {
             showHomeFrame();
             System.out.println("successfully logged in");
+            currentUser = database.searchUserInDatabase(loginFrame.getUsernameTextFieldText());
         }
         else
         {
@@ -423,7 +424,9 @@ public class Controller {
         popUpStage.show();
         for(int i=0; i<popUpProfileImageSelection.getButtons().size(); i++){
             int finalI = i;
-            popUpProfileImageSelection.getButtons().get(i).setOnAction(actionEvent -> {currentUser.setImageWithIndex(finalI); profileFrame.constructImageContainer(); closePopUpStage();});
+            popUpProfileImageSelection.getButtons().get(i).setOnAction(actionEvent -> {
+                currentUser.updateProfileImg(finalI); currentUser.setImageWithIndex(); profileFrame.constructImageContainer(); closePopUpStage();
+            });
         }
 
     }
@@ -611,6 +614,5 @@ public class Controller {
 //    private void playTunedSong(Song tunedSong) {
 //        api.startTrackFromRandomPos(tunedSong);
 //    }
-
 
 }

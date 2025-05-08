@@ -104,18 +104,18 @@ public class Database {
                 String password = doc.getString("password");
                 String mail = doc.getString("mail");
                 int id = doc.getInteger("id", 0); // Default to 0 if no id is found
-                ArrayList<Document> friendsDocs = (ArrayList<Document>) doc.get("friends");
+                ArrayList<Document> friendsDocs = (ArrayList<Document>) doc.get("friends"); //TODO forbidden cast
                 ArrayList<Document> favouriteSongsDocs = (ArrayList<Document>) doc.get("favouriteSongs");
 
                 // Convert friends from Document list to ArrayList<TuneUser>
                 ArrayList<TuneUser> friends = new ArrayList<>();
-                for (Document friendDoc : friendsDocs) {
+                for (Document friendDoc : friendsDocs) { // TODO: getting error "class java.lang.String cannot be cast to class org.bson.Document"
                     String friendUsername = friendDoc.getString("username");
                     String friendPassword = friendDoc.getString("password");
                     String friendMail = friendDoc.getString("mail");
                     int friendId = friendDoc.getInteger("id", 0);
                     // Add each friend as a new TuneUser to the list
-                    friends.add(new TuneUser(friendUsername, friendPassword, friendMail, friendId, new ArrayList<TuneUser>(), new ArrayList<Song>()));
+                    friends.add(new TuneUser(friendUsername, friendPassword, friendMail, friendId, new ArrayList<TuneUser>(), new ArrayList<Song>(), this));
                 }
 
                 // Convert favouriteSongs from Document list to ArrayList<Song>
@@ -136,7 +136,7 @@ public class Database {
                 }
 
                 // Construct the TuneUser object
-                TuneUser user = new TuneUser(username, password, mail, id, friends, favouriteSongs);
+                TuneUser user = new TuneUser(username, password, mail, id, friends, favouriteSongs, this);
 
                 // Return the user directly
                 return user;
@@ -497,7 +497,7 @@ public class Database {
 //
 //    public void addUserToDatabase(String username, String email, String password) { // DONE
 //
-//    }
+//    }z
 //
 //    public void setUserTuneInDatabase(String username, boolean checkTuneExistence, Song tuneSong, String tuneNote) {
 //
