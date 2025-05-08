@@ -409,7 +409,7 @@ public class Database {
     }
 
     //add Song To Database
-    public void addSongToDatabase(String trackId, String songName, String artist, String language, int year, String genre, String mood, String imageUrl, int duration) {
+    public void addSongToDatabase(String trackId, String songName, String artist, String language, int year, String genre, String mood, String imageUrl, int duration, String parameters) {
         MongoCollection<Document> collection = database.getCollection("Songs");
         try {
             Document newSong = new Document("name", songName)
@@ -420,7 +420,10 @@ public class Database {
                     .append("genre", genre)
                     .append("mood", mood)
                     .append("imageUrl", imageUrl)
-                    .append("duration", duration);
+                    .append("duration", duration)
+                    .append("parameters", parameters)
+                    .append("currentPositionMS", 0);
+
 
             collection.insertOne(newSong);
             System.out.println("Song '" + songName + "' added successfully.");
@@ -470,6 +473,28 @@ public class Database {
 
         } catch (MongoException e) {
             System.err.println("Error adding song to favourites: " + e.getMessage());
+        }
+    }
+
+    public void updateSongCurrentPositionMS(String songName, int currentPositionMS) {
+        MongoCollection<Document> collection = database.getCollection("Songs");
+
+        try {
+            // Update the current position of the song
+            UpdateResult result = collection.updateOne(
+                    new Document("name", songName),  // Find the song by its name
+                    new Document("$set", new Document("currentPositionMS", currentPositionMS)) // Set the new current position
+            );
+
+            // Check if the update was successful
+            if (result.getModifiedCount() > 0) {
+                System.out.println("Current position of song '" + songName + "' updated successfully.");
+            } else {
+                System.out.println("Error: Song not found or current position is the same.");
+            }
+
+        } catch (MongoException e) {
+            System.err.println("Error updating song current position: " + e.getMessage());
         }
     }
 
