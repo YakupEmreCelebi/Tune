@@ -59,7 +59,11 @@ public class Database {
                     .append("friends", List.of()) // empty list
                     .append("favouriteSongs", List.of()) // empty list
                     .append("userTune","") // empty string
-                    .append("profileImageNo","0"); // empty string
+                    .append("profileImageNo","0")
+                    .append("numbOfTunedSongsWithFriends",0)
+                    .append("tunedSongs", List.of())
+                    .append("tuneNote",""); // empty string
+                    // empty string
 
 
             collection.insertOne(newUser);
@@ -83,7 +87,7 @@ public class Database {
         }
     }
 
-    // Perform a wildcard search on the "Users" collection for a specific query
+    // Search for a user in the database and return a TuneUser object and their friends are also Users but friends of friends string
     /*public TuneUser searchTuneUserInDatabase(String username) {
 
     }*/
