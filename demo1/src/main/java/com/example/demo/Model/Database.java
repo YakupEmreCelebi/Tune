@@ -511,11 +511,8 @@ public class Database {
 
 
 
-
-
-
     //add Song To Database
-    public void addSongToDatabase(String trackId, String songName, String artist, String language, int year, String genre, String mood, String imageUrl, int durationMS, String parameters) {
+    public void addSongToDatabase(String trackId, String songName, String artist, String language, int year, String genre, String mood, String imageUrl, int durationMS) {
         MongoCollection<Document> collection = database.getCollection("Songs");
         try {
             Document newSong = new Document("name", songName)
