@@ -515,7 +515,7 @@ public class Database {
 
 
     //add Song To Database
-    public void addSongToDatabase(String trackId, String songName, String artist, String language, int year, String genre, String mood, String imageUrl, int duration, String parameters) {
+    public void addSongToDatabase(String trackId, String songName, String artist, String language, int year, String genre, String mood, String imageUrl, int durationMS, String parameters) {
         MongoCollection<Document> collection = database.getCollection("Songs");
         try {
             Document newSong = new Document("name", songName)
@@ -526,7 +526,7 @@ public class Database {
                     .append("genre", genre)
                     .append("mood", mood)
                     .append("imageUrl", imageUrl)
-                    .append("duration", duration)
+                    .append("durationMS", durationMS)
                     .append("parameters", mood+" "+ genre +" "+ language + " "+year)
                     .append("currentPositionMS", 0);
 
@@ -620,8 +620,8 @@ public class Database {
                 Number yearNum = foundSong.get("year", Number.class);
                 int year = (yearNum != null) ? yearNum.intValue() : 0;
 
-                Number durationNum = foundSong.get("duration", Number.class);
-                int duration = (durationNum != null) ? durationNum.intValue() : 0;
+                Number durationNum = foundSong.get("durationMS", Number.class);
+                int durationMS = (durationNum != null) ? durationNum.intValue() : 0;
 
                 // Handle null or blank imageUrl
                 String imageUrl = foundSong.getString("imageUrl");
@@ -639,7 +639,7 @@ public class Database {
                         foundSong.getString("genre"),
                         foundSong.getString("mood"),
                         imageUrl,
-                        duration
+                        durationMS
                 );
             } else {
                 System.out.println("No song found with the name: " + searchQuery);

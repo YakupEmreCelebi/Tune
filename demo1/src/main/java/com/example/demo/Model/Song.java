@@ -17,7 +17,7 @@ public class Song {
 
 
 
-    public Song(String trackID, String name, String artist, String language, int year, String genre, String mood, String imageUrl, int duration) {
+    public Song(String trackID, String name, String artist, String language, int year, String genre, String mood, String imageUrl, int durationMS) {
         this.trackID = trackID;
         this.name = name;
         this.artist = artist;
@@ -26,7 +26,7 @@ public class Song {
         this.genre = genre;
         this.mood = mood;
         this.image = new Image(imageUrl);
-        this.durationMS = duration;
+        this.durationMS = durationMS;
         this.currentPositionMS = 0;
     }
 
