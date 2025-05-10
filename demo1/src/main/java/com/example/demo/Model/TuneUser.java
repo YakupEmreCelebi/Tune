@@ -21,14 +21,14 @@ public class TuneUser {
     private Image profileImage;
     Database database;
 
-    public TuneUser(String username, String password, String mail ,int id, ArrayList<TuneUser> friends, ArrayList<Song> favouriteSongs, int imageIndex) {
+    public TuneUser(String username, String password, String mail ,int id, ArrayList<TuneUser> friends, ArrayList<Song> favouriteSongs, ArrayList<Song> tunedSongs,  int imageIndex) {
         this.username = username;
         this.password = password;
         this.friends = friends;
         this.favouriteSongs = favouriteSongs;
-        this.tunedSongs = new ArrayList<Song>();
         this.tuneExistence = false;
         this.database = Controller.database;
+        this.tunedSongs = tunedSongs;
         setImageWithIndex(imageIndex);
 
 

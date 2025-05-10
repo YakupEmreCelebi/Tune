@@ -103,10 +103,16 @@ public class Database {
             if (foundUser != null) {
                 ArrayList<TuneUser> friends = new ArrayList<TuneUser>();
                 ArrayList<Song> favSongs = new ArrayList<Song>();
+                ArrayList<Song> tunedSongs = new ArrayList<Song>();
 
                 ArrayList<String> songNames = (ArrayList<String>) foundUser.getList("favouriteSongs", String.class);
                 for (String songName : songNames) {
                     favSongs.add(searchSongInDatabase(songName));
+                }
+
+                ArrayList<String> tunedSongNames = (ArrayList<String>) foundUser.getList("tunedSongs", String.class);
+                for (String songName : tunedSongNames) {
+                    tunedSongs.add(searchSongInDatabase(songName));
                 }
 
                 ArrayList<String> friendNames = (ArrayList<String>) foundUser.getList("friends", String.class);
@@ -116,7 +122,7 @@ public class Database {
                     Document foundFriend = collection.find(
                             new Document("username", new Document("$regex", patternTwo).append("$options", "i"))
                     ).first();
-                    TuneUser aFriend = new TuneUser(foundFriend.getString("username"), "", "", 0, new ArrayList<TuneUser>(), new ArrayList<Song>(), Integer.parseInt(foundFriend.getString("profileImageNo")));
+                    TuneUser aFriend = new TuneUser(foundFriend.getString("username"), "", "", 0, new ArrayList<TuneUser>(), new ArrayList<Song>(), new ArrayList<Song>(), Integer.parseInt(foundFriend.getString("profileImageNo")));
 
                     friends.add(aFriend);
                 }
@@ -129,6 +135,7 @@ public class Database {
                         112,
                         friends,
                         favSongs,
+                        tunedSongs,
                         Integer.parseInt(foundUser.getString("profileImageNo"))
                 );
             } else {

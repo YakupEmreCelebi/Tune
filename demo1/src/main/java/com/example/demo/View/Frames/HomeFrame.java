@@ -88,7 +88,7 @@ public class HomeFrame extends Scene {
         songNodeScroller = new NodeScroller("Songs", songNodes, 600);
 
         for (TuneUser friend : currentUser.getFriends()) {
-            FriendNode friendBox = new FriendNode(friend);
+            FriendNode friendBox = new FriendNode(friend, true);
             friendTuneNodes.add(friendBox);
         }
 

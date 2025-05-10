@@ -23,7 +23,7 @@ public class FriendNode extends VBox {
 
     private TuneUser friend;
 
-    public FriendNode(TuneUser friend) {
+    public FriendNode(TuneUser friend, boolean effects) {
         super(10);
 
         this.friend = friend;
@@ -55,7 +55,7 @@ public class FriendNode extends VBox {
 
         this.getChildren().addAll(friendProfileImageView, friendName);
 
-        createEffects();
+        if (effects) createEffects();
 
     }
 
