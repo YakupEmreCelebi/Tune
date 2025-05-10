@@ -122,9 +122,11 @@ public class Database {
                     Document foundFriend = collection.find(
                             new Document("username", new Document("$regex", patternTwo).append("$options", "i"))
                     ).first();
-                    TuneUser aFriend = new TuneUser(foundFriend.getString("username"), "", "", 0, new ArrayList<TuneUser>(), new ArrayList<Song>(), new ArrayList<Song>(), Integer.parseInt(foundFriend.getString("profileImageNo")));
+                    if (foundFriend != null) {
+                        TuneUser aFriend = new TuneUser(foundFriend.getString("username"), "", "", 0, new ArrayList<TuneUser>(), new ArrayList<Song>(), new ArrayList<Song>(), Integer.parseInt(foundFriend.getString("profileImageNo")));
 
-                    friends.add(aFriend);
+                        friends.add(aFriend);
+                    }
                 }
 
                 // Construct the Song object
@@ -139,11 +141,11 @@ public class Database {
                         Integer.parseInt(foundUser.getString("profileImageNo"))
                 );
             } else {
-                System.out.println("No song found with the name: " + username);
+                System.out.println("No user found with the name: " + username);
             }
 
         } catch (MongoException e) {
-            System.err.println("Error searching for song: " + e.getMessage());
+            System.err.println("Error searching for user: " + e.getMessage());
             e.printStackTrace();
         }
 

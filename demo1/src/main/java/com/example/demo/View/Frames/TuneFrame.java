@@ -1,5 +1,6 @@
 package com.example.demo.View.Frames;
 
+import com.example.demo.Model.Song;
 import com.example.demo.Model.TuneUser;
 import com.example.demo.View.SpecialNodes.NavigateBar;
 import com.example.demo.View.SpecialNodes.SongNode;
@@ -212,8 +213,13 @@ public class TuneFrame extends Scene {
 
     public void constructImageVBox() {
         lastTunedSongVBox.getChildren().clear();
-        SongNode songNode = new SongNode(currentUser.getFavouriteSongs().get(0), 150, 150, true); // song parameter will change
-        lastTunedSongVBox.getChildren().addAll(lastTunedSongLabel, songNode);
+        if (currentUser.getTunedSongs().size() > 0) {
+            SongNode songNode = new SongNode(currentUser.getTunedSongs().get(0), 150, 150, true); // song parameter will change
+            lastTunedSongVBox.getChildren().addAll(lastTunedSongLabel, songNode);
+        } else {
+            lastTunedSongLabel.setText("You haven't tuned any song so far!");
+            lastTunedSongVBox.getChildren().addAll(lastTunedSongLabel);
+        }
     }
 
     public void constructTuneWithFriendsVBox() {

@@ -196,8 +196,13 @@ public class Controller {
                         addFriend.getUpdateButton().setOnAction(new EventHandler<ActionEvent>() {
                             @Override
                             public void handle(ActionEvent actionEvent) {
-                                currentUser.addFriend(addFriend.getStringToUpdate());
-                                System.out.println(addFriend.getStringToUpdate());
+                                if (currentUser.addFriend(addFriend.getStringToUpdate())) {
+                                    System.out.println(addFriend.getStringToUpdate());
+                                    profileFrame.resetUser(currentUser);
+                                    closePopUpStage();
+                                } else {
+                                    System.out.println("no user");
+                                }
                             }
                         });
                     }
@@ -307,7 +312,7 @@ public class Controller {
         {
             System.out.println("successfully logged in");
             currentUser = database.searchTuneUserInDatabase(loginFrame.getUsernameTextFieldText());
-            currentSong = currentUser.getTunedSongs().get(0);
+            currentSong = database.searchSongInDatabase("Until I Found You");
             for (TuneUser friend : currentUser.getFriends()) {
                 System.out.println(friend.getUsername());
             }
@@ -410,7 +415,7 @@ public class Controller {
         popUpStage.setScene(popUp);
         popUpStage.setTitle(title);
         popUpStage.show();
-        popUpUpdate.getUpdateButton().setOnAction(new closePopUp());
+
     }
 
     public void showPopUpShowFriendTune(TuneUser aFriend){

@@ -37,6 +37,7 @@ public class ProfileFrame extends Scene {
     private ImageView profileImageView;
     private TuneUser currentUser;
     private Image profileImage;
+    private HBox layout;
 
     public ProfileFrame(TuneUser tuneUser) {
         super(new HBox(40), getScreenWidth() , getScreenHeight());
@@ -65,11 +66,10 @@ public class ProfileFrame extends Scene {
 
         System.out.println(getScreenWidth());
 
-
         createNodeScrollers();
 
         // Layout
-        HBox layout = (HBox) getRoot();
+        layout = (HBox) getRoot();
         layout.getChildren().addAll(navigateBar, profileVBox, nodeScrollersVBox);
 
         // Alignments
@@ -87,10 +87,27 @@ public class ProfileFrame extends Scene {
         profileVBox.getChildren().clear();
         createImage();
         profileVBox.getChildren().addAll(profileImageView, editProfileButton);
-
     }
 
-    private void createNodeScrollers() {
+    public void resetUser(TuneUser user) { //TODO: solve it
+        currentUser = user;
+
+        for (int i = 0; i < currentUser.getFriends().size(); i++) {
+            TuneUser friend = currentUser.getFriends().get(i);
+            if (i != friendNodes.size() - 1) {
+                FriendNode friendNode = (FriendNode) friendNodes.get(i);
+                if (friendNode.getFriend().getUsername().equals(friend.getUsername())) {
+                    FriendNode friendBox = new FriendNode(friend, true);
+                    friendNodes.add(i, friendBox);
+                }
+            }
+        }
+
+        friendScroller.setScrollPane(friendNodes);
+        nodeScrollersVBox.getChildren().set(0, friendScroller);
+    }
+
+    public void createNodeScrollers() {
         for (TuneUser friend : currentUser.getFriends()) {
             FriendNode friendBox = new FriendNode(friend, true);
             friendNodes.add(friendBox);

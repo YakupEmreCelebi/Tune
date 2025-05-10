@@ -55,9 +55,13 @@ public class TuneUser {
             if (aFriend.getUsername().equals(friendUsername)) friends.remove(aFriend);
     }
 
-    public void addFriend(String friendUsername) {
-        database.addFriendToDatabase(username, friendUsername);
-        //friends.add(database.searchUserInDatabase(friendUsername));
+    public boolean addFriend(String friendUsername) {
+        TuneUser friend = database.searchTuneUserInDatabase(friendUsername);
+        if (friend != null) {
+            database.addFriendToDatabase(username, friend.getUsername());
+            return true;
+        }
+        return false;
     }
 
     public void updateMail(String newMail) {

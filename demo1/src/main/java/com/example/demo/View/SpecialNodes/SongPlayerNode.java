@@ -102,9 +102,6 @@ public class SongPlayerNode extends HBox {
 
         buttonsHBox.getChildren().set(1, playButton);
 
-//        playerVBox.getChildren().set(2, buttonsHBox);
-//
-//        getChildren().set(1, playerVBox);
     }
 
     public void createButtons() {
