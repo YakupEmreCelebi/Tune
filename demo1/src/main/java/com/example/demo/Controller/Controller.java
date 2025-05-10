@@ -61,14 +61,14 @@ public class Controller {
 
 
         // For testing
-        TuneUser friend1 = new TuneUser("friend1", "Test123", "test@mail.com", 0, null, null);
-        TuneUser friend2 = new TuneUser("friend2", "Test123", "test@mail.com", 0, null, null);
-        TuneUser friend3 = new TuneUser("friend1", "Test123", "test@mail.com", 0, null, null);
-        TuneUser friend4 = new TuneUser("friend2", "Test123", "test@mail.com", 0, null, null);
-        TuneUser friend5 = new TuneUser("friend1", "Test123", "test@mail.com", 0, null, null);
-        TuneUser friend6 = new TuneUser("friend2", "Test123", "test@mail.com", 0, null, null);
-        TuneUser friend7 = new TuneUser("friend1", "Test123", "test@mail.com", 0, null, null);
-        TuneUser friend8 = new TuneUser("friend2", "Test123", "test@mail.com", 0, null, null);
+        TuneUser friend1 = new TuneUser("friend1", "Test123", "test@mail.com", 0, null, null, 1);
+        TuneUser friend2 = new TuneUser("friend2", "Test123", "test@mail.com", 0, null, null, 1);
+        TuneUser friend3 = new TuneUser("friend1", "Test123", "test@mail.com", 0, null, null, 1);
+        TuneUser friend4 = new TuneUser("friend2", "Test123", "test@mail.com", 0, null, null, 1);
+        TuneUser friend5 = new TuneUser("friend1", "Test123", "test@mail.com", 0, null, null, 1);
+        TuneUser friend6 = new TuneUser("friend2", "Test123", "test@mail.com", 0, null, null, 1);
+        TuneUser friend7 = new TuneUser("friend1", "Test123", "test@mail.com", 0, null, null, 1);
+        TuneUser friend8 = new TuneUser("friend2", "Test123", "test@mail.com", 0, null, null, 1);
 
 
         ArrayList<TuneUser> testFriends = new ArrayList<TuneUser>();
@@ -85,7 +85,7 @@ public class Controller {
         randomSongs = new ArrayList<Song>();
 
         Song testSong1 = database.searchSongInDatabase("Video Killed The Radio Star");
-        Song testSong2 = new Song("3MTKD1H6Kt1ocmgnXBhGNl","Tövbe", "Duman", "TR", 2009, "Rock", "relax", "https://media-hosting.imagekit.io/d858cf1dac2c41d1/download.jpg?Expires=1841061704&Key-Pair-Id=K2ZIVPTIP2VGHC&Signature=FecJ0V-nz1JBydY~XJa1yHq4D36ozTsTxf5-QZZmO3Pbp2ncHBiV4HoB6wQ8ODSqlk5h5d9b8xlI2lQuGyewI5mlXqBOJxEjG9bgTEezjjf8~gQajGCR8M6BjtHK2AoS1PaWzmrU4lQQIni~mRZiZfj47PSnU1LBQ~eHR59rJmWH6NeYgYygZkORcwVjTy7SnCGXPmADdJX~bA2Ez0kkAXzaZfe-PhHRU5s0J3sMSlxkO~ytUKo42Yz2FfRwedy9ys7D6mYqR7FNKSlWPueBjPmFg2n70X6Hk0tvBWACPw8BDmKXhsF3ImAFg~nOPac7-yD6HLJ8ld55uQdSsjT~zw__", 5);
+        Song testSong2 = database.searchSongInDatabase("Video Killed The Radio Star");
         Song testSong3 = new Song("6K4t31amVTZDgR3sKmwUJJ","The Less I Know The Better", "Tame Impala", "EN", 2015, "don't know", "relax", "https://media-hosting.imagekit.io/0a4c6d67be9e4ab2/download.jpg?Expires=1841061730&Key-Pair-Id=K2ZIVPTIP2VGHC&Signature=i5qYNIdRzYGeJeQrBQLYv-v2vrw-ZzSyBp8P5ggdprSk2Lcnf~7Dsajr7jHn8yrJm-03NMbRNTKbZgg2dLU9PKLzhYefsu-XGJOEk7fwlhH3ZylD7FfhT-K4h0wvQ5SfUZTrSPG2JM4XAQmDfw3BEkd5woguwV9Cl7ocFq-2KF8Z2C6e0nKfdFvYlEK1KIDBSsw~KQTLPDwPdSrpU7yXBthBmY7qBvOvXHywcy0AWfJPZvrPPUAA7TI~7UsUn7bBJvrtkj6sexeassE6cQaDFjW3uUZxzKofqxlLCQ0NriTDr-D8kWeCUTgGa6GxyRKZ18DtXL71mF6jJ2MJRlltbw__", 4);
         Song testSong4 = new Song("6AU0mbi9zlNn8mYkam3PRR","Fish Maan", "Hotel Ugly", "EN", 2023, "don't know", "relax", "https://media-hosting.imagekit.io/d83e3bc3fe9b478f/download.jpg?Expires=1841061858&Key-Pair-Id=K2ZIVPTIP2VGHC&Signature=Fim2TOslQbw5Bg129HLDMNrnviYW-geOnH6PrN7wlzFO3HlLXP-M8NUnfI1F-QVVc1pcaHhzbN7rPskQe4~YA0sheXBb7MZchL6iQ6-QFx84-PRFAIcqHpSW3P0POTYw4FW8EzdANp4JnoS~N36Ga~L1JrVLTTW~9b7wMBAJ1Co-uIk~9mWhOzikyW4u6UudIlcAxvr1XfYQm6CPRncr1mT9R3Yk8qQHUmobbtQ~OPWPLz45C7QSDd-gD11I6kNSYJZ3P8wgGu~idOBMrolFmlMJ--Av4BeQdukxd1aKZRlmzDTgaq7mjAcZi1tLnmVZBBlR-gvp5s4q3iqZm0IUKg__", 4);
         Song testSong5 = new Song("7o7E1nrHWncYY7PY94gCiX","Video Killed The Radio Star", "The Buggles", "EN", 1980, "don't know", "good", "https://media-hosting.imagekit.io/bf502f9321f14090/download.jpg?Expires=1841062015&Key-Pair-Id=K2ZIVPTIP2VGHC&Signature=bEQ4F9vrw56SrAMqMv1YPv6pVCxf6ULbGIhLB~ZHJ8BEq48pt3tubOBmd7Ki8ZXL6afyrLsJ2DMmd7V5~D9KRE8y2Gw0lK7P7ExyQi2VH7GWia8N2R9VpmgKz-pbkcvO9hkY35eWQsRu5Nm6~0ZMl-4yAEll7B2g5fSmdIXp0FBf6nY6dnkWicJ9dHTGgw~JBqJYngu48cmZDUOMVGqmcbssGY3brQ7wbpMkkCpYgwvghgPJZeOZydW-67NSNx1dcUqSVGecID8rbr5dvmqfGEeclLX0wIVwNCcCTCbKY7dA5vVhOGRG-QF9ZdKQubuM76SeURK1FtyvKsPFhUIOig__", 4);
@@ -102,7 +102,7 @@ public class Controller {
         randomSongs.add(testSong7);
         randomSongs.add(testSong8);
 //
-        currentUser = new TuneUser("Test", "Test123", "test@mail.com", 0, testFriends, randomSongs); // waiting to be changed
+        currentUser = new TuneUser("Test", "Test123", "test@mail.com", 0, testFriends, randomSongs, 1); // waiting to be changed
         for (Song aSong : randomSongs) currentUser.addSongToLastTunedSongs(aSong);
         currentSong = new Song("7KtPUqnxtCkfFfvot80yPM","Seattle", "eamon mo", "EN", 2024, "don't know", "relax", "https://media-hosting.imagekit.io/7d3c90f6e4e943b5/download.jpg?Expires=1841058444&Key-Pair-Id=K2ZIVPTIP2VGHC&Signature=Z0sv5NAwrgSZJiRumKf~2McaQoyh-Xlc513BiPIp88W~WiERxe8X6XADOAt272ykz88faEvAfUinnWLUS64cqSSkk39KdwVYeHT4RszLruiDjL77MBkkuaYHAJWTQ3qJ6to48BSEeYkkNv069UxtOAUHplneTdyySUh2t9a2s7ZqE089CtmU9TMN-UYXw6JurfMOZ9qUXzw8Ktf-YCuiDUYssQlSQg-1MXcdLclbWfuaNPHcHjM6SNUe3G4nlMh0JWACCHWw8jovKuH~HL2O7l8X5ZHL0Q1k-gdHAd1DHX8DtbCgILEfT9uxSNwX4zeAesKZbpgmPDp5oTjL129jCw__", 4);
 
@@ -116,10 +116,7 @@ public class Controller {
         welcomeFrame = new WelcomeFrame();
         loginFrame = new LoginFrame();
         signUpFrame = new SignUpFrame();
-        homeFrame = new HomeFrame(currentUser, currentSong, randomSongs);
-        profileFrame = new ProfileFrame(currentUser);
-        tuneFrame = new TuneFrame(currentUser);
-        settingsFrame = new SettingsFrame(currentUser);
+
 
 
         popUpStage = new PopUpStage();
@@ -132,40 +129,7 @@ public class Controller {
 
         signUpFrame.getSignupButton().setOnAction(new signUpFrameController());
 
-        homeFrame.getNavigateBar().getProfileButton().setOnAction(new goToProfileFrame());
-        homeFrame.getNavigateBar().getHomeButton().setOnAction(new loginFrameController());
-        homeFrame.getNavigateBar().getTuneButton().setOnAction(new goToTuneFrame());
-        homeFrame.getNavigateBar().getSettingsButton().setOnAction(new goToSettingsFrame());
-        homeFrame.getNavigateBar().getAddTuneButton().setOnAction(new goToPopUpAddTune());
 
-
-
-        profileFrame.getNavigateBar().getProfileButton().setOnAction(new goToProfileFrame());
-        profileFrame.getNavigateBar().getHomeButton().setOnAction(new loginFrameController());
-        profileFrame.getNavigateBar().getTuneButton().setOnAction(new goToTuneFrame());
-        profileFrame.getNavigateBar().getSettingsButton().setOnAction(new goToSettingsFrame());
-        profileFrame.getNavigateBar().getAddTuneButton().setOnAction(new goToPopUpAddTune());
-        profileFrame.getEditProfileButton().setOnAction(new goToPopProfileImageSelection());
-
-        tuneFrame.getNavigateBar().getProfileButton().setOnAction(new goToProfileFrame());
-        tuneFrame.getNavigateBar().getHomeButton().setOnAction(new loginFrameController());
-        tuneFrame.getNavigateBar().getTuneButton().setOnAction(new goToTuneFrame());
-        tuneFrame.getNavigateBar().getSettingsButton().setOnAction(new goToSettingsFrame());
-        tuneFrame.getNavigateBar().getAddTuneButton().setOnAction(new goToPopUpAddTune());
-
-        tuneFrame.getDetailedTuneButton().setOnAction(actionEvent -> showPopUpQuestion());
-
-        settingsFrame.getNavigateBar().getProfileButton().setOnAction(new goToProfileFrame());
-        settingsFrame.getNavigateBar().getHomeButton().setOnAction(new loginFrameController());
-        settingsFrame.getNavigateBar().getTuneButton().setOnAction(new goToTuneFrame());
-        settingsFrame.getNavigateBar().getSettingsButton().setOnAction(new goToSettingsFrame());
-        settingsFrame.getNavigateBar().getAddTuneButton().setOnAction(new goToPopUpAddTune());
-
-        settingsFrame.getEmailButton().setOnAction(new goToPopUpUpdate("Email" , "Email", "Email"));
-        settingsFrame.getPasswordButton().setOnAction(new goToPopUpUpdate("Password" , "Password", "Password"));
-        settingsFrame.getRemoveButton().setOnAction(new goToPopUpRemoveAccount());
-
-        setOtherActions();
     }
 
 
@@ -310,7 +274,7 @@ public class Controller {
         if(database.checkIfUserUnique(signUpFrame.getUsernameTextFieldText(), signUpFrame.getEmailTextFieldText()))
         {
             database.addUserToDatabase(signUpFrame.getUsernameTextFieldText(), signUpFrame.getEmailTextFieldText(), signUpFrame.getPasswordTextFieldText());
-            TuneUser newUser  = new TuneUser(signUpFrame.getUsernameTextFieldText(), signUpFrame.getPasswordTextFieldText() , signUpFrame.getEmailTextFieldText(),1, new ArrayList<>(), new ArrayList<>());
+            TuneUser newUser  = new TuneUser(signUpFrame.getUsernameTextFieldText(), signUpFrame.getPasswordTextFieldText() , signUpFrame.getEmailTextFieldText(),1, new ArrayList<>(), new ArrayList<>(), 0);
             showLoginFrame();
         }
         else
@@ -331,9 +295,51 @@ public class Controller {
 
         if(database.checkUserExistInDatabase(loginFrame.getUsernameTextFieldText(), loginFrame.getPasswordTextFieldText()))
         {
-            showHomeFrame();
             System.out.println("successfully logged in");
-            //currentUser = database.searchUserInDatabase(loginFrame.getUsernameTextFieldText());
+            currentUser = database.searchTuneUserInDatabase(loginFrame.getUsernameTextFieldText());
+            for (TuneUser friend : currentUser.getFriends()) {
+                System.out.println(friend.getUsername());
+            }
+
+            homeFrame = new HomeFrame(currentUser, currentSong, randomSongs);
+            profileFrame = new ProfileFrame(currentUser);
+            tuneFrame = new TuneFrame(currentUser);
+            settingsFrame = new SettingsFrame(currentUser);
+
+            homeFrame.getNavigateBar().getProfileButton().setOnAction(new goToProfileFrame());
+            homeFrame.getNavigateBar().getHomeButton().setOnAction(new goToHomeFrame());
+            homeFrame.getNavigateBar().getTuneButton().setOnAction(new goToTuneFrame());
+            homeFrame.getNavigateBar().getSettingsButton().setOnAction(new goToSettingsFrame());
+            homeFrame.getNavigateBar().getAddTuneButton().setOnAction(new goToPopUpAddTune());
+
+            profileFrame.getNavigateBar().getProfileButton().setOnAction(new goToProfileFrame());
+            profileFrame.getNavigateBar().getHomeButton().setOnAction(new goToHomeFrame());
+            profileFrame.getNavigateBar().getTuneButton().setOnAction(new goToTuneFrame());
+            profileFrame.getNavigateBar().getSettingsButton().setOnAction(new goToSettingsFrame());
+            profileFrame.getNavigateBar().getAddTuneButton().setOnAction(new goToPopUpAddTune());
+            profileFrame.getEditProfileButton().setOnAction(new goToPopProfileImageSelection());
+
+            tuneFrame.getNavigateBar().getProfileButton().setOnAction(new goToProfileFrame());
+            tuneFrame.getNavigateBar().getHomeButton().setOnAction(new goToHomeFrame());
+            tuneFrame.getNavigateBar().getTuneButton().setOnAction(new goToTuneFrame());
+            tuneFrame.getNavigateBar().getSettingsButton().setOnAction(new goToSettingsFrame());
+            tuneFrame.getNavigateBar().getAddTuneButton().setOnAction(new goToPopUpAddTune());
+
+            tuneFrame.getDetailedTuneButton().setOnAction(actionEvent -> showPopUpQuestion());
+
+            settingsFrame.getNavigateBar().getProfileButton().setOnAction(new goToProfileFrame());
+            settingsFrame.getNavigateBar().getHomeButton().setOnAction(new goToHomeFrame());
+            settingsFrame.getNavigateBar().getTuneButton().setOnAction(new goToTuneFrame());
+            settingsFrame.getNavigateBar().getSettingsButton().setOnAction(new goToSettingsFrame());
+            settingsFrame.getNavigateBar().getAddTuneButton().setOnAction(new goToPopUpAddTune());
+
+            settingsFrame.getEmailButton().setOnAction(new goToPopUpUpdate("Email" , "Email", "Email"));
+            settingsFrame.getPasswordButton().setOnAction(new goToPopUpUpdate("Password" , "Password", "Password"));
+            settingsFrame.getRemoveButton().setOnAction(new goToPopUpRemoveAccount());
+
+            setOtherActions();
+
+            showHomeFrame();
         }
         else
         {
@@ -427,7 +433,10 @@ public class Controller {
         for(int i=0; i<popUpProfileImageSelection.getButtons().size(); i++){
             int finalI = i;
             popUpProfileImageSelection.getButtons().get(i).setOnAction(actionEvent -> {
-                currentUser.updateProfileImg(finalI); currentUser.setImageWithIndex(); profileFrame.constructImageContainer(); closePopUpStage();
+                currentUser.updateProfileImg(finalI);
+                currentUser.setImageWithIndex(finalI);
+                profileFrame.constructImageContainer();
+                closePopUpStage();
             });
         }
 
@@ -479,6 +488,17 @@ public class Controller {
         @Override
         public void handle(ActionEvent event) {
             loginFrameOperations();
+        }
+    }
+
+    private class goToHomeFrame implements EventHandler<ActionEvent> {
+
+        @Override
+        public void handle(ActionEvent actionEvent) {
+
+            showHomeFrame();
+            profileFrame.getNavigateBar().setCurrentFrame("Home");
+            profileFrame.getNavigateBar().getHomeButton().setStyle("-fx-background-color: #dadada; -fx-border-radius: 10; -fx-background-radius: 10");
         }
     }
 

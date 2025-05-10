@@ -88,9 +88,61 @@ public class Database {
     }
 
     // Search for a user in the database and return a TuneUser object and their friends are also Users but friends of friends string
-    /*public TuneUser searchTuneUserInDatabase(String username) {
+    public TuneUser searchTuneUserInDatabase(String username) {
+        MongoCollection<Document> collection = database.getCollection("Users");
+        TuneUser user = null;
 
-    }*/
+        try {
+            // Case-insensitive regex pattern to match any part of the song name
+            String pattern = ".*" + Pattern.quote(username) + ".*";
+            Document foundUser = collection.find(
+                    new Document("username", new Document("$regex", pattern).append("$options", "i"))
+            ).first();
+
+
+            if (foundUser != null) {
+                ArrayList<TuneUser> friends = new ArrayList<TuneUser>();
+                ArrayList<Song> favSongs = new ArrayList<Song>();
+
+                ArrayList<String> songNames = (ArrayList<String>) foundUser.getList("favouriteSongs", String.class);
+                for (String songName : songNames) {
+                    favSongs.add(searchSongInDatabase(songName));
+                }
+
+                ArrayList<String> friendNames = (ArrayList<String>) foundUser.getList("friends", String.class);
+
+                for(String friendName : friendNames) {
+                    String patternTwo = ".*" + Pattern.quote(friendName) + ".*";
+                    Document foundFriend = collection.find(
+                            new Document("username", new Document("$regex", patternTwo).append("$options", "i"))
+                    ).first();
+                    TuneUser aFriend = new TuneUser(foundFriend.getString("username"), "", "", 0, new ArrayList<TuneUser>(), new ArrayList<Song>(), Integer.parseInt(foundFriend.getString("profileImageNo")));
+
+                    friends.add(aFriend);
+                }
+
+                // Construct the Song object
+                user = new TuneUser(
+                        foundUser.getString("username"),
+                        foundUser.getString("password"),
+                        foundUser.getString("email"),
+                        112,
+                        friends,
+                        favSongs,
+                        Integer.parseInt(foundUser.getString("profileImageNo"))
+                );
+            } else {
+                System.out.println("No song found with the name: " + username);
+            }
+
+        } catch (MongoException e) {
+            System.err.println("Error searching for song: " + e.getMessage());
+            e.printStackTrace();
+        }
+
+        return user;
+
+    }
 
 
 

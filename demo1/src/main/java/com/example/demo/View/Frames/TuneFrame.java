@@ -210,13 +210,13 @@ public class TuneFrame extends Scene {
         recentTunedSongsVBox.getChildren().addAll(noOfTunedSongsLabel, songYouDiscoveredByTuningLabel, seeRecentTunedSongsButton);
     }
 
-    public void constructImageVBox(){
+    public void constructImageVBox() {
         lastTunedSongVBox.getChildren().clear();
-        SongNode songNode = new SongNode(currentUser.getTunedSongs().getLast(), 150, 150, true);
+        SongNode songNode = new SongNode(currentUser.getFavouriteSongs().get(0), 150, 150, true); // song parameter will change
         lastTunedSongVBox.getChildren().addAll(lastTunedSongLabel, songNode);
     }
 
-    public void constructTuneWithFriendsVBox(){
+    public void constructTuneWithFriendsVBox() {
         tuneWithFriendsVBox.getChildren().clear();
         noOfTuneWithFriends = String.valueOf(currentUser.getNumbOfTunedSongsWithFriends());
         noOfTuneWithFriendsLabel = new Label(noOfTuneWithFriends);

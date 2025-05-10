@@ -21,20 +21,20 @@ public class TuneUser {
     private Image profileImage;
     Database database;
 
-    public TuneUser(String username, String password, String mail ,int id, ArrayList<TuneUser> friends, ArrayList<Song> favouriteSongs) {
+    public TuneUser(String username, String password, String mail ,int id, ArrayList<TuneUser> friends, ArrayList<Song> favouriteSongs, int imageIndex) {
         this.username = username;
         this.password = password;
         this.friends = friends;
         this.favouriteSongs = favouriteSongs;
         this.tunedSongs = new ArrayList<Song>();
-        this.tuneExistence = true;
+        this.tuneExistence = false;
         this.database = Controller.database;
+        setImageWithIndex(imageIndex);
 
 
         // For testing
-        userTune = new Song("7KtPUqnxtCkfFfvot80yPM","Seattle", "eamon mo", "EN", 2024, "don't know", "relax", "https://media-hosting.imagekit.io/7d3c90f6e4e943b5/download.jpg?Expires=1841058444&Key-Pair-Id=K2ZIVPTIP2VGHC&Signature=Z0sv5NAwrgSZJiRumKf~2McaQoyh-Xlc513BiPIp88W~WiERxe8X6XADOAt272ykz88faEvAfUinnWLUS64cqSSkk39KdwVYeHT4RszLruiDjL77MBkkuaYHAJWTQ3qJ6to48BSEeYkkNv069UxtOAUHplneTdyySUh2t9a2s7ZqE089CtmU9TMN-UYXw6JurfMOZ9qUXzw8Ktf-YCuiDUYssQlSQg-1MXcdLclbWfuaNPHcHjM6SNUe3G4nlMh0JWACCHWw8jovKuH~HL2O7l8X5ZHL0Q1k-gdHAd1DHX8DtbCgILEfT9uxSNwX4zeAesKZbpgmPDp5oTjL129jCw__", 4);
-        tuneNote = "I feel tremendous.";
-        profileImgIndex = 0;
+        //userTune = new Song("7KtPUqnxtCkfFfvot80yPM","Seattle", "eamon mo", "EN", 2024, "don't know", "relax", "https://media-hosting.imagekit.io/7d3c90f6e4e943b5/download.jpg?Expires=1841058444&Key-Pair-Id=K2ZIVPTIP2VGHC&Signature=Z0sv5NAwrgSZJiRumKf~2McaQoyh-Xlc513BiPIp88W~WiERxe8X6XADOAt272ykz88faEvAfUinnWLUS64cqSSkk39KdwVYeHT4RszLruiDjL77MBkkuaYHAJWTQ3qJ6to48BSEeYkkNv069UxtOAUHplneTdyySUh2t9a2s7ZqE089CtmU9TMN-UYXw6JurfMOZ9qUXzw8Ktf-YCuiDUYssQlSQg-1MXcdLclbWfuaNPHcHjM6SNUe3G4nlMh0JWACCHWw8jovKuH~HL2O7l8X5ZHL0Q1k-gdHAd1DHX8DtbCgILEfT9uxSNwX4zeAesKZbpgmPDp5oTjL129jCw__", 4);
+        //tuneNote = "I feel tremendous.";
     }
 
 
@@ -78,6 +78,7 @@ public class TuneUser {
     public void updateProfileImg(int selectedProfileImg) {
         profileImgIndex = selectedProfileImg;
         database.updateProfileImagoNoInDatabase(username, selectedProfileImg + "");
+
         //TODO: change profileImage
     }
 
@@ -134,7 +135,8 @@ public class TuneUser {
         return tuneExistence;
     }
 
-    public void setImageWithIndex() {
+    public void setImageWithIndex(int index) {
+        profileImgIndex = index;
         if(profileImgIndex == 0)
         {
             profileImage = new Image(getClass().getResourceAsStream("/com/example/demo/duman_ico.jpg"));
