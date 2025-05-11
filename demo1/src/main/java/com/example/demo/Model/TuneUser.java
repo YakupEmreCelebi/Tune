@@ -64,6 +64,7 @@ public class TuneUser {
         TuneUser friend = database.searchTuneUserInDatabase(friendUsername);
         if (friend != null) {
             database.addFriendToDatabase(username, friend.getUsername());
+            database.addFriendToDatabase(friend.getUsername(), username);
             friends.add(friend);
             return true;
         }
