@@ -944,6 +944,57 @@ public class Database {
         return songs.get(random.nextInt(songs.size()));
     }
 
+    public ArrayList<Song> suggestSearchBarTunesFromDatabase(String songName) {
+        MongoCollection<Document> collection = database.getCollection("Songs");
+        ArrayList<Song> songs = new ArrayList<>();
+
+        try {
+            String pattern = "^" + Pattern.quote(songName);
+
+            FindIterable<Document> results = collection.find(
+                    new Document("name", new Document("$regex", pattern).append("$options", "i"))
+            ).limit(5); // En fazla 5 sonuç döndür
+
+            for (Document doc : results) {
+
+                Number yearNum = doc.get("year", Number.class);
+                int year = (yearNum != null) ? yearNum.intValue() : 0;
+
+                Number durationNum = doc.get("durationMS", Number.class);
+                int durationMS = (durationNum != null) ? durationNum.intValue() : 0;
+
+
+                String imageUrl = doc.getString("imageUrl");
+                if (imageUrl == null || imageUrl.isBlank()) {
+                    imageUrl = "https://example.com/default-image.png";
+                }
+
+                // Construct the Song object
+                Song song = new Song(
+                        doc.getString("trackId"),
+                        doc.getString("name"),
+                        doc.getString("artist"),
+                        doc.getString("language"),
+                        year,
+                        doc.getString("genre"),
+                        doc.getString("mood"),
+                        imageUrl,
+                        durationMS
+                );
+                songs.add(song);
+            }
+
+            if (songs.isEmpty()) {
+                System.out.println("No songs found containing: " + songName);
+            }
+
+        } catch (MongoException e) {
+            System.err.println("Error searching for songs: " + e.getMessage());
+        }
+
+        return songs;
+    }
+
 
 
 
