@@ -1,9 +1,13 @@
 package com.example.demo.Model;
 import com.mongodb.*;
 import com.mongodb.client.*;
+import com.mongodb.client.model.Filters;
+import com.mongodb.client.model.Projections;
+import com.mongodb.client.model.Sorts;
 import com.mongodb.client.result.DeleteResult;
 import com.mongodb.client.result.UpdateResult;
 import org.bson.Document;
+import org.bson.conversions.Bson;
 
 import java.util.*;
 import java.util.regex.Pattern;
@@ -889,7 +893,7 @@ public class Database {
         }
     }
 
-    private Song buildSongFromDocument(Document doc) {
+    public Song buildSongFromDocument(Document doc) {
         int year = doc.get("year", Number.class) != null ? doc.get("year", Number.class).intValue() : 0;
         int durationMS = doc.get("durationMS", Number.class) != null ? doc.get("durationMS", Number.class).intValue() : 0;
         String imageUrl = doc.getString("imageUrl");
@@ -909,6 +913,40 @@ public class Database {
                 durationMS
         );
     }
+
+    //returns random if all parameters are together or returns null
+    public Song suggestDetailedTuneFromDatabase(String answerText) {
+        MongoCollection<Document> collection = database.getCollection("Songs");
+        List<Song> songs = new ArrayList<>();
+
+        try {
+
+            Bson regexFilter = Filters.regex("parameters", Pattern.compile(".*" + Pattern.quote(answerText) + ".*", Pattern.CASE_INSENSITIVE));
+
+            FindIterable<Document> foundSongs = collection.find(regexFilter);
+
+            for (Document foundSong : foundSongs) {
+                Song song = buildSongFromDocument(foundSong);
+                songs.add(song);
+            }
+
+            if (songs.isEmpty()) {
+                System.out.println("No songs found matching the criteria.");
+                return null;
+            }
+
+        } catch (MongoException e) {
+            System.err.println("Error suggesting random tune: " + e.getMessage());
+            return null;
+        }
+
+        Random random = new Random();
+        return songs.get(random.nextInt(songs.size()));
+    }
+
+
+
+
 
 
 
