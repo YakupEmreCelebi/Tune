@@ -9,9 +9,7 @@ import com.mongodb.client.result.DeleteResult;
 import com.mongodb.client.result.UpdateResult;
 import org.bson.Document;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
+import java.util.*;
 import java.util.regex.Pattern;
 
 public class Database {
@@ -820,6 +818,87 @@ public class Database {
 
         return song;
     }
+
+    public Song tuneWithFriend(String username, String friendName) {
+        MongoCollection<Document> usersCollection = database.getCollection("Users");
+        MongoCollection<Document> songsCollection = database.getCollection("Songs");
+
+        try {
+            Document user1 = usersCollection.find(new Document("username", username)).first();
+            Document user2 = usersCollection.find(new Document("username", friendName)).first();
+
+            if (user1 == null || user2 == null) {
+                System.out.println("Error: One or both users not found.");
+                return null;
+            }
+
+            List<String> favSongs1 = user1.getList("favouriteSongs", String.class);
+            List<String> favSongs2 = user2.getList("favouriteSongs", String.class);
+            if (favSongs1 == null) favSongs1 = new ArrayList<>();
+            if (favSongs2 == null) favSongs2 = new ArrayList<>();
+
+            Set<String> combinedFavourites = new HashSet<>(favSongs1);
+            combinedFavourites.addAll(favSongs2);
+
+            Map<String, Integer> genreCount = new HashMap<>();
+
+            for (String songName : combinedFavourites) {
+                Document songDoc = songsCollection.find(new Document("name", songName)).first();
+                if (songDoc != null) {
+                    String genre = songDoc.getString("genre");
+                    if (genre != null) {
+                        genreCount.put(genre, genreCount.getOrDefault(genre, 0) + 1);
+                    }
+                }
+            }
+
+            if (genreCount.isEmpty()) {
+                System.out.println("No genres found in users' favourite songs.");
+                return null;
+            }
+
+            String mostPopularGenre = Collections.max(genreCount.entrySet(), Map.Entry.comparingByValue()).getKey();
+            System.out.println("Most popular genre: " + mostPopularGenre);
+            Document suggestedSongDoc = songsCollection.aggregate(Arrays.asList(
+                    new Document("$match", new Document("genre", mostPopularGenre)
+                            .append("name", new Document("$nin", new ArrayList<>(combinedFavourites)))),
+                    new Document("$sample", new Document("size", 1))
+            )).first();
+
+            if (suggestedSongDoc != null) {
+                return buildSongFromDocument(suggestedSongDoc);
+            } else {
+                System.out.println("No song found in genre '" + mostPopularGenre + "' excluding favourites.");
+                return null;
+            }
+
+        } catch (MongoException e) {
+            System.err.println("Error suggesting genre-based song: " + e.getMessage());
+            return null;
+        }
+    }
+
+    private Song buildSongFromDocument(Document doc) {
+        int year = doc.get("year", Number.class) != null ? doc.get("year", Number.class).intValue() : 0;
+        int durationMS = doc.get("durationMS", Number.class) != null ? doc.get("durationMS", Number.class).intValue() : 0;
+        String imageUrl = doc.getString("imageUrl");
+        if (imageUrl == null || imageUrl.isBlank()) {
+            imageUrl = "https://example.com/default-image.png";
+        }
+
+        return new Song(
+                doc.getString("trackId"),
+                doc.getString("name"),
+                doc.getString("artist"),
+                doc.getString("language"),
+                year,
+                doc.getString("genre"),
+                doc.getString("mood"),
+                imageUrl,
+                durationMS
+        );
+    }
+
 
 
 }
