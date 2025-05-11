@@ -715,7 +715,111 @@ public class Database {
         return song;
     }
 
+    public ArrayList<Song> getAllSongsInDatabase(){
+        MongoCollection<Document> collection = database.getCollection("Songs");
+        ArrayList<Song> songs = new ArrayList<>();
 
+        try (MongoCursor<Document> cursor = collection.find().iterator()) {
+            while (cursor.hasNext()) {
+                Document doc = cursor.next();
+                // Safely extract number fields
+                Number yearNum = doc.get("year", Number.class);
+                int year = (yearNum != null) ? yearNum.intValue() : 0;
+
+                Number durationNum = doc.get("durationMS", Number.class);
+                int durationMS = (durationNum != null) ? durationNum.intValue() : 0;
+
+                // Handle null or blank imageUrl
+                String imageUrl = doc.getString("imageUrl");
+                if (imageUrl == null || imageUrl.isBlank()) {
+                    imageUrl = "https://example.com/default-image.png"; // Replace with a valid fallback image
+                }
+
+                // Construct the Song object
+                Song song = new Song(
+                        doc.getString("trackId"),
+                        doc.getString("name"),
+                        doc.getString("artist"),
+                        doc.getString("language"),
+                        year,
+                        doc.getString("genre"),
+                        doc.getString("mood"),
+                        imageUrl,
+                        durationMS
+                );
+                songs.add(song);
+            }
+        } catch (MongoException e) {
+            System.err.println("Error retrieving all songs: " + e.getMessage());
+        }
+
+        return songs;
+    }
+
+
+
+    //suggest random song that is not in favourites og user
+    public Song suggestInstantTuneFromDatabase(String username) {
+        MongoCollection<Document> usersCollection = database.getCollection("Users");
+        MongoCollection<Document> songsCollection = database.getCollection("Songs");
+        Song song = null;
+
+        try {
+            // Find the user by their username
+            Document user = usersCollection.find(new Document("username", username)).first();
+
+            if (user != null) {
+                // Get the user's favourite song trackIds
+                List<String> favouriteSongs = user.getList("favouriteSongs", String.class);
+                if (favouriteSongs == null) {
+                    favouriteSongs = new ArrayList<>();
+                }
+
+                // Find a random song that is not in the user's favourites
+                Document randomSong = songsCollection.aggregate(Arrays.asList(
+                        new Document("$match", new Document("trackId", new Document("$nin", favouriteSongs))),
+                        new Document("$sample", new Document("size", 1))
+                )).first();
+
+                if (randomSong != null) {
+                    // Safely extract number fields
+                    Number yearNum = randomSong.get("year", Number.class);
+                    int year = (yearNum != null) ? yearNum.intValue() : 0;
+
+                    Number durationNum = randomSong.get("durationMS", Number.class);
+                    int durationMS = (durationNum != null) ? durationNum.intValue() : 0;
+
+                    // Handle null or blank imageUrl
+                    String imageUrl = randomSong.getString("imageUrl");
+                    if (imageUrl == null || imageUrl.isBlank()) {
+                        imageUrl = "https://example.com/default-image.png"; // Replace with a valid fallback image
+                    }
+
+                    // Construct the Song object
+                    song = new Song(
+                            randomSong.getString("trackId"),
+                            randomSong.getString("name"),
+                            randomSong.getString("artist"),
+                            randomSong.getString("language"),
+                            year,
+                            randomSong.getString("genre"),
+                            randomSong.getString("mood"),
+                            imageUrl,
+                            durationMS
+                    );
+                } else {
+                    System.out.println("No suitable song found for suggestion.");
+                }
+            } else {
+                System.out.println("Error: User not found.");
+            }
+
+        } catch (MongoException e) {
+            System.err.println("Error suggesting instant tune: " + e.getMessage());
+        }
+
+        return song;
+    }
 
 
 }
