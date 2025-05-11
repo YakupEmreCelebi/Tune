@@ -89,22 +89,40 @@ public class ProfileFrame extends Scene {
         profileVBox.getChildren().addAll(profileImageView, editProfileButton);
     }
 
-    public void resetUser(TuneUser user) { //TODO: solve it
-        currentUser = user;
-
+    public void resetUserFriends(TuneUser user) {
         for (int i = 0; i < currentUser.getFriends().size(); i++) {
             TuneUser friend = currentUser.getFriends().get(i);
-            if (i != friendNodes.size() - 1) {
-                FriendNode friendNode = (FriendNode) friendNodes.get(i);
-                if (friendNode.getFriend().getUsername().equals(friend.getUsername())) {
-                    FriendNode friendBox = new FriendNode(friend, true);
-                    friendNodes.add(i, friendBox);
-                }
+            if (i > friendNodes.size() - 2) {
+                FriendNode friendBox = new FriendNode(friend, true);
+                friendNodes.add(i, friendBox);
             }
         }
-
         friendScroller.setScrollPane(friendNodes);
         nodeScrollersVBox.getChildren().set(0, friendScroller);
+    }
+
+    public void resetUserFavSongs(TuneUser user) {
+        for (int i = 0; i < currentUser.getFavouriteSongs().size(); i++) {
+            Song song = currentUser.getFavouriteSongs().get(i);
+            if (i > favSongNodes.size() - 2) {
+                SongNode songNode = new SongNode(song, 120, 120, true);
+                favSongNodes.add(i, songNode);
+            }
+        }
+        favSongScroller.setScrollPane(favSongNodes);
+        nodeScrollersVBox.getChildren().set(1, favSongScroller);
+    }
+
+    public void resetUserTunedSongs(TuneUser user) {
+        for (int i = 0; i < currentUser.getTunedSongs().size(); i++) {
+            Song song = currentUser.getTunedSongs().get(i);
+            if (i > recentTunedNodes.size() - 2) {
+                SongNode songNode = new SongNode(song, 120, 120, true);
+                recentTunedNodes.add(i, songNode);
+            }
+        }
+        recentTunedScroller.setScrollPane(recentTunedNodes);
+        nodeScrollersVBox.getChildren().set(2, recentTunedScroller);
     }
 
     public void createNodeScrollers() {

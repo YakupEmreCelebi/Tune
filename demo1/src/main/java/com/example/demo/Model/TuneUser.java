@@ -38,9 +38,14 @@ public class TuneUser {
     }
 
 
-    public void addSongToFavorites(String songName) {
-        database.addSongToFavoritesInDatabase(username, songName);
-        //TODO: add to favorites ArrayList
+    public boolean addSongToFavorites(String songName) {
+        Song song = database.searchSongInDatabase(songName);
+        if (song != null) {
+            database.addSongToFavoritesInDatabase(username, songName);
+            favouriteSongs.add(song);
+            return true;
+        }
+        return false;
     }
 
     public void removeSongFromFavorites(String songName) {
@@ -59,6 +64,7 @@ public class TuneUser {
         TuneUser friend = database.searchTuneUserInDatabase(friendUsername);
         if (friend != null) {
             database.addFriendToDatabase(username, friend.getUsername());
+            friends.add(friend);
             return true;
         }
         return false;
@@ -82,8 +88,6 @@ public class TuneUser {
     public void updateProfileImg(int selectedProfileImg) {
         profileImgIndex = selectedProfileImg;
         database.updateProfileImagoNoInDatabase(username, selectedProfileImg + "");
-
-        //TODO: change profileImage
     }
 
     public void setUserTune(boolean checkTuneExistence, Song tuneSong, String tuneNote) {
@@ -93,9 +97,9 @@ public class TuneUser {
         //TODO: tune in database
     }
 
-    public void addSongToLastTunedSongs(Song tunedSong) {
-        tunedSongs.add(tunedSong);
-        //TODO: add lastTunedSongs to database
+    public void addSongToLastTunedSongs(String songName) {
+        database.addSongToTunedSongsInDatabase(username, songName);
+        tunedSongs.add(database.searchSongInDatabase(songName));
     }
 
 

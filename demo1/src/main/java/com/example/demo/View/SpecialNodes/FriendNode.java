@@ -31,7 +31,7 @@ public class FriendNode extends VBox {
         this.setAlignment(Pos.CENTER);
         this.setPadding(new Insets(10));
 
-        Image friendProfileImage = new Image(getClass().getResourceAsStream("/com/example/demo/megadeth_ico.jpg"));
+        Image friendProfileImage = friend.getProfileImage();
         ImageView friendProfileImageView = new ImageView(friendProfileImage);
         friendProfileImageView.setPreserveRatio(true);
         friendProfileImageView.setFitWidth(120);

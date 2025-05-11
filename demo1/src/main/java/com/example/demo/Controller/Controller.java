@@ -196,9 +196,9 @@ public class Controller {
                         addFriend.getUpdateButton().setOnAction(new EventHandler<ActionEvent>() {
                             @Override
                             public void handle(ActionEvent actionEvent) {
-                                if (currentUser.addFriend(addFriend.getStringToUpdate())) {
-                                    System.out.println(addFriend.getStringToUpdate());
-                                    profileFrame.resetUser(currentUser);
+                                String addedFriendName = addFriend.getStringToUpdate();
+                                if (currentUser.addFriend(addedFriendName)) {
+                                    profileFrame.resetUserFriends(currentUser);
                                     closePopUpStage();
                                 } else {
                                     System.out.println("no user");
@@ -228,8 +228,13 @@ public class Controller {
                         addFavSongPopUp.getUpdateButton().setOnAction(new EventHandler<ActionEvent>() {
                             @Override
                             public void handle(ActionEvent actionEvent) {
-                                currentUser.addSongToFavorites(addFavSongPopUp.getStringToUpdate());
-                                System.out.println(addFavSongPopUp.getStringToUpdate());
+                                String addedSongName = addFavSongPopUp.getStringToUpdate();
+                                if (currentUser.addSongToFavorites(addedSongName)) {
+                                    profileFrame.resetUserFavSongs(currentUser);
+                                    closePopUpStage();
+                                } else {
+                                    System.out.println("no song");
+                                }
                             }
                         });
                     }
@@ -313,9 +318,6 @@ public class Controller {
             System.out.println("successfully logged in");
             currentUser = database.searchTuneUserInDatabase(loginFrame.getUsernameTextFieldText());
             currentSong = database.searchSongInDatabase("Until I Found You");
-            for (TuneUser friend : currentUser.getFriends()) {
-                System.out.println(friend.getUsername());
-            }
 
             homeFrame = new HomeFrame(currentUser, currentSong, randomSongs);
             profileFrame = new ProfileFrame(currentUser);
