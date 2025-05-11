@@ -1,9 +1,5 @@
 package com.example.demo.Model;
-import com.mongodb.ConnectionString;
-import com.mongodb.MongoClientSettings;
-import com.mongodb.MongoException;
-import com.mongodb.ServerApi;
-import com.mongodb.ServerApiVersion;
+import com.mongodb.*;
 import com.mongodb.client.*;
 import com.mongodb.client.result.DeleteResult;
 import com.mongodb.client.result.UpdateResult;
@@ -187,22 +183,37 @@ public class Database {
         MongoCollection<Document> collection = database.getCollection("Users");
 
         try {
-            // Query to check if the username or email already exists
+            // Check only if the username exists
             Document existingUser = collection.find(
-                    new Document("$or", Arrays.asList(
-                            new Document("username", username),
-                            new Document("email", email)
-                    ))
+                    new Document("username", username)
             ).first();
 
-            // If a matching user is found, return false (username or email already exists)
-            return existingUser == null;
+            if (existingUser != null) {
+                return false; // username already exists
+            }
 
+            Document dummyUser = new Document("username", "__temp__check__")
+                    .append("email", email);
+
+            collection.insertOne(dummyUser);
+            collection.deleteOne(new Document("username", "__temp__check__"));
+
+            return true;
+
+        } catch (MongoWriteException e) {
+            // Unique index on email triggered a duplicate key error
+            if (e.getError().getCategory() == ErrorCategory.DUPLICATE_KEY) {
+                return false; // email already exists
+            } else {
+                System.err.println("Write error: " + e.getMessage());
+                return false;
+            }
         } catch (MongoException e) {
-            System.err.println("Error checking uniqueness: " + e.getMessage());
+            System.err.println("MongoDB error: " + e.getMessage());
             return false;
         }
     }
+
 
     public boolean updateUsernameInDatabase(String username, String newUserName) {
         MongoCollection<Document> collection = database.getCollection("Users");
