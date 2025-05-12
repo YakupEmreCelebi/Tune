@@ -32,13 +32,16 @@ public class HomeFrame extends Scene {
     private TuneUser currentUser;
     private ArrayList<Song> randomSongs;
     private SongPlayerNode songPlayer;
+    private Song currentSong;
 
 
 
 
     public HomeFrame(TuneUser user, Song theSong, ArrayList<Song> randomSongs) {
         super(new HBox(40), getScreenWidth(), getScreenHeight());
-        this.getStylesheets().add(getClass().getResource("navBar.css").toExternalForm());
+        //this.getStylesheets().add(getClass().getResource("navBar.css").toExternalForm());
+
+        currentSong = theSong;
 
         currentUser = user;
         friendTuneNodes = new ArrayList<Node>();
@@ -52,9 +55,9 @@ public class HomeFrame extends Scene {
         // Create friends node Scroller
         createNodeScrollers();
 
-        // Create Song Player slider
-        songPlayer = new SongPlayerNode(theSong);
-        songPlayer.setAlignment(Pos.CENTER);
+        constructSongPlayer();
+
+
 
         // container VBox
         container = new VBox(20);
@@ -88,7 +91,7 @@ public class HomeFrame extends Scene {
         songNodeScroller = new NodeScroller("Songs", songNodes, 600);
 
         for (TuneUser friend : currentUser.getFriends()) {
-            FriendNode friendBox = new FriendNode(friend, true);
+            FriendNode friendBox = new FriendNode(friend, true, true);
             friendTuneNodes.add(friendBox);
         }
 
@@ -103,6 +106,14 @@ public class HomeFrame extends Scene {
     public void resetNavigateBar(TuneUser user) {
         currentUser = user;
         navigateBar.resetUsersTune(currentUser);
+    }
+
+    public void constructSongPlayer() {
+
+        // Create Song Player slider
+        songPlayer = new SongPlayerNode(currentSong);
+        songPlayer.setAlignment(Pos.CENTER);
+
     }
 
 

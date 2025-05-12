@@ -98,7 +98,7 @@ public class FriendProfileFrame extends Scene {
 
     private void createNodeScrollers() {
         for (TuneUser friend : currentFriend.getFriends()) {
-            FriendNode friendBox = new FriendNode(friend, false);
+            FriendNode friendBox = new FriendNode(friend, false, false);
             friendNodes.add(friendBox);
         }
 

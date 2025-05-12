@@ -582,8 +582,8 @@ public class Controller {
         public void handle(ActionEvent actionEvent) {
 
             showHomeFrame();
-            profileFrame.getNavigateBar().setCurrentFrame("Home");
-            profileFrame.getNavigateBar().getHomeButton().setStyle("-fx-background-color: #dadada; -fx-border-radius: 10; -fx-background-radius: 10");
+            homeFrame.getNavigateBar().setCurrentFrame("Home");
+            homeFrame.getNavigateBar().getHomeButton().setStyle("-fx-background-color: #dadada; -fx-border-radius: 10; -fx-background-radius: 10");
         }
     }
 

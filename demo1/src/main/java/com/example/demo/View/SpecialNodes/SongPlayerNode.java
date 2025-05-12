@@ -104,6 +104,7 @@ public class SongPlayerNode extends HBox {
 
     }
 
+
     public void createButtons() {
         createImages();
 

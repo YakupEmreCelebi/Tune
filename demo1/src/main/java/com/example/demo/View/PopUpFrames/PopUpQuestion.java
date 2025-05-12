@@ -127,13 +127,10 @@ public class PopUpQuestion extends PopUp{
         imageVBox.getChildren().addAll(imageHBox1, imageHBox2);
 
 
-        overlay = new Rectangle(1100, 100, Color.rgb(0, 0, 0, 0.2));
-        overlay.setFill(new LinearGradient(0, 1, 0, 0, true, CycleMethod.NO_CYCLE, new Stop(0, Color.rgb(0, 0, 0, 0.2)), new Stop(1, Color.rgb(0, 0, 0, 0.0))));
         StackPane stackPane = new StackPane();
-        stackPane.getChildren().addAll(backgroundImageView5, overlay, mainVBox);
+        stackPane.getChildren().addAll(backgroundImageView5, mainVBox);
         stackPane.setAlignment(mainVBox, Pos.CENTER);
         stackPane.setAlignment(backgroundImageView5, Pos.CENTER);
-        //animateOverlay(-380,320, 6);
 
 
         //Layout
@@ -181,7 +178,7 @@ public class PopUpQuestion extends PopUp{
 
     public void setHBox(HBox hBox, Label label){
         hBox.getChildren().add(label);
-        hBox.setStyle("-fx-border-color: black; -fx-border-width: 3; -fx-background-color: transparent; -fx-background-radius: 5; -fx-border-radius: 5");
+        hBox.setStyle("-fx-border-color: black; -fx-border-width: 3; -fx-background-color: red; -fx-background-radius: 5; -fx-border-radius: 5");
         hBox.setPrefHeight(50);
         hBox.setAlignment(Pos.CENTER);
         hBox.setPadding(new Insets(0,0,0,10));
@@ -194,7 +191,7 @@ public class PopUpQuestion extends PopUp{
             @Override
             public void handle(MouseEvent event) {
 
-                hBox.setStyle("-fx-border-color: #95dc95; -fx-border-width: 3; -fx-background-color: transparent; -fx-background-radius: 5; -fx-border-radius: 5");
+                hBox.setStyle("-fx-border-color: #95dc95; -fx-border-width: 3; -fx-background-color: green; -fx-background-radius: 5; -fx-border-radius: 5");
             }
         });
 
@@ -202,7 +199,7 @@ public class PopUpQuestion extends PopUp{
             @Override
             public void handle(MouseEvent event) {
 
-                hBox.setStyle("-fx-border-color: black; -fx-border-width: 3; -fx-background-color: transparent; -fx-background-radius: 5; -fx-border-radius: 5");
+                hBox.setStyle("-fx-border-color: black; -fx-border-width: 3; -fx-background-color: red; -fx-background-radius: 5; -fx-border-radius: 5");
             }
         });
     }
@@ -225,23 +222,4 @@ public class PopUpQuestion extends PopUp{
         });
     }
 
-//    private void animateOverlay(double start, double end, double duration) {
-//        Transition overlayAnim = new Transition() {
-//            {
-//                setCycleDuration(Duration.seconds(duration));
-//            }
-//
-//            @Override
-//            protected void interpolate(double frac) {
-//                double value = start + (end - start) * frac;
-//                overlay.setTranslateY(value);
-//            }
-//        };
-//        overlayAnim.play();
-//
-//        Timer timer = new Timer(7000, e -> { animateOverlay(start, end, duration); });
-//
-//        timer.setRepeats(true);
-//        timer.start();
-//    }
 }

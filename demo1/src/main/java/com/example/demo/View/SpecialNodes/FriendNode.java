@@ -23,7 +23,7 @@ public class FriendNode extends VBox {
 
     private TuneUser friend;
 
-    public FriendNode(TuneUser friend, boolean effects) {
+    public FriendNode(TuneUser friend, boolean effects, boolean animEffect) {
         super(10);
 
         this.friend = friend;
@@ -37,7 +37,7 @@ public class FriendNode extends VBox {
         friendProfileImageView.setFitWidth(120);
         friendProfileImageView.setClip(new Circle(60, 60, 60));
 
-        if(friend.getTuneExistence())
+        if(friend.getTuneExistence() && animEffect)
         {
             animateButtonImage(0,360,2,friendProfileImageView);
 

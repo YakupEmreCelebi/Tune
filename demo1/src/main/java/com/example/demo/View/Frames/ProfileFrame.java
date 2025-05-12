@@ -98,7 +98,7 @@ public class ProfileFrame extends Scene {
         for (int i = 0; i < currentUser.getFriends().size(); i++) {
             TuneUser friend = currentUser.getFriends().get(i);
             if (i > friendNodes.size() - 2) {
-                FriendNode friendBox = new FriendNode(friend, true);
+                FriendNode friendBox = new FriendNode(friend, true, false);
                 friendNodes.add(i, friendBox);
             }
         }
@@ -132,7 +132,7 @@ public class ProfileFrame extends Scene {
 
     public void createNodeScrollers() {
         for (TuneUser friend : currentUser.getFriends()) {
-            FriendNode friendBox = new FriendNode(friend, true);
+            FriendNode friendBox = new FriendNode(friend, true, false);
             friendNodes.add(friendBox);
         }
 
