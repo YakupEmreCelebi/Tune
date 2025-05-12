@@ -17,12 +17,14 @@ public class SongNode extends VBox {
     private Label genreLabel;
     private ImageView imageView;
     private Song theSong;
+    private boolean clickable;
 
     public SongNode(Song song, int width, int imgHeight, boolean clickable) {
         super(1.5);
         setPadding(new Insets(10));
 
         theSong = song;
+        this.clickable = clickable;
 
         setMaxWidth(width);
 
@@ -33,7 +35,7 @@ public class SongNode extends VBox {
         firstLabel.setStyle("-fx-font-size: 17px; -fx-font-weight: bold; -fx-font-family: Arial ");
         genreLabel.setStyle("-fx-font-size: 13");
 
-        ImageView imageView = new ImageView(song.getImage());
+        imageView = new ImageView(song.getImage());
         imageView.setFitHeight(imgHeight);
         imageView.setPreserveRatio(true);
 
@@ -45,8 +47,19 @@ public class SongNode extends VBox {
         getChildren().addAll(imageView, firstLabel, genreLabel);
 
         if (clickable) createEffects();
-
         //setStyle("-fx-border-color: black; -fx-border-width: 1;");
+    }
+
+    public void resetSong(Song song) {
+        theSong = song;
+        imageView.setImage(song.getImage());
+
+        if (!clickable) firstLabel.setText(theSong.getArtist());
+        genreLabel.setText(theSong.getGenre());
+
+        getChildren().setAll(imageView, firstLabel, genreLabel);
+
+
     }
 
     private void createEffects() {

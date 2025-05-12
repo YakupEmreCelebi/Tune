@@ -93,7 +93,7 @@ public class SongPlayerNode extends HBox {
         getChildren().addAll(songNode, playerVBox);
     }
 
-    public void reset() {
+    public void resetPlayButton() {
         createImages();
 
         playButton.setGraphic(playImageView);
@@ -102,6 +102,15 @@ public class SongPlayerNode extends HBox {
 
         buttonsHBox.getChildren().set(1, playButton);
 
+    }
+
+    public void resetCurrentSong(Song song) {
+        theSong = song;
+        songNode.resetSong(theSong);
+        getChildren().set(0 ,songNode);
+
+        songLabel.setText(theSong.getName());
+        songTitleHBox.getChildren().set(0, songLabel);
     }
 
 

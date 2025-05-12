@@ -15,6 +15,7 @@ import javafx.event.EventHandler;
 import javafx.scene.Node;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
+import javafx.stage.WindowEvent;
 
 import javax.swing.*;
 import java.util.ArrayList;
@@ -152,7 +153,9 @@ public class Controller {
             FriendNode friendNode = (FriendNode) node;
             friendNode.setOnMouseClicked(new EventHandler<MouseEvent>() {
                 public void handle(MouseEvent event) {
-                    showPopUpShowFriendTune(friendNode.getFriend());
+                    TuneUser friend = friendNode.getFriend();
+                    showPopUpShowFriendTune(friend);
+                    playFriendTuneSong(friend);
                 }
             });
         }
@@ -373,6 +376,7 @@ public class Controller {
             currentUser = database.searchTuneUserInDatabase(loginFrame.getUsernameTextFieldText());
             currentSong = database.searchSongInDatabase("Until I Found You");
 
+
             homeFrame = new HomeFrame(currentUser, currentSong, randomSongs);
             profileFrame = new ProfileFrame(currentUser);
             tuneFrame = new TuneFrame(currentUser);
@@ -480,6 +484,13 @@ public class Controller {
             popUpShowFriendTune = new PopUpShowFriendTune(aFriend);
             popUpStage.setScene(popUpShowFriendTune);
             popUpStage.show();
+
+            popUpStage.setOnCloseRequest(new EventHandler<>() {
+                @Override
+                public void handle(WindowEvent windowEvent) {
+                    playNewSong(currentSong, currentSongList);
+                }
+            });
         }
     }
 
@@ -679,28 +690,30 @@ public class Controller {
 
     private void playNewSong(Song aSong, ArrayList<Song> aSongList) {
         currentSong = aSong;
+        homeFrame.getSongPlayer().resetCurrentSong(currentSong);
+
         currentSongList = aSongList;
-        api.startResumePlayback(aSong, aSongList);
+        api.startResumePlayback(currentSong, currentSongList);
         homeFrame.getSongPlayer().setPlayingStatus(true);
-        homeFrame.getSongPlayer().reset();
+        homeFrame.getSongPlayer().resetPlayButton();
     }
 
     private void playCurrentSong() {
         api.startResumePlayback();
         homeFrame.getSongPlayer().setPlayingStatus(true);
-        homeFrame.getSongPlayer().reset();
+        homeFrame.getSongPlayer().resetPlayButton();
     }
 
     private void pauseCurrentSong() {
         api.pausePlayback();
         homeFrame.getSongPlayer().setPlayingStatus(false);
-        homeFrame.getSongPlayer().reset();
+        homeFrame.getSongPlayer().resetPlayButton();
     }
-//
-//    private void playFriendTuneSong(TuneUser aFriend) {
-//        api.startTrackFromRandomPos(aFriend.getTuneSong());
-//    }
-//
+
+    private void playFriendTuneSong(TuneUser aFriend) {
+        api.startTrackFromRandomPos(aFriend.getTuneSong());
+    }
+
 //    private Song searchSong(String songName) {
 //        return new Song();
 //    }
