@@ -37,15 +37,15 @@ public class FriendNode extends VBox {
         friendProfileImageView.setFitWidth(120);
         friendProfileImageView.setClip(new Circle(60, 60, 60));
 
-//        if(friend.getTuneExistence())
-//        {
-//            animateButtonImage(0,360,2,friendProfileImageView);
-//
-//            Timer timer = new Timer(2000, e -> { animateButtonImage(0, 360, 2, friendProfileImageView); });
-//
-//            timer.setRepeats(true);
-//            timer.start();
-//        }
+        if(friend.getTuneExistence())
+        {
+            animateButtonImage(0,360,2,friendProfileImageView);
+
+            Timer timer = new Timer(2000, e -> { animateButtonImage(0, 360, 2, friendProfileImageView); });
+
+            timer.setRepeats(true);
+            timer.start();
+        }
 
 
         Label friendName = new Label(friend.getUsername());

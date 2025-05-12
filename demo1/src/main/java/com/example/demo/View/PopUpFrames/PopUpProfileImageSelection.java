@@ -266,8 +266,8 @@ public class PopUpProfileImageSelection extends PopUp {
             @Override
             public void handle(MouseEvent mouseEvent) {
 
-                // To get different result make background color: transparent
-                button.setStyle("-fx-background-color: white; -fx-border-color: white;");
+                // To get different result make background color: transparent or white
+                button.setStyle("-fx-background-color: transparent; -fx-border-color: white;");
 
             }
         });
