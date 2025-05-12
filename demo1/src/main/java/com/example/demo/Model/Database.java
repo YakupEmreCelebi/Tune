@@ -491,6 +491,7 @@ public class Database {
         }
     }
 
+
     public String getUserTuneFromDatabase(String username) {
         MongoCollection<Document> collection = database.getCollection("Users");
         String tune = "";
