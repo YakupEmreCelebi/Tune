@@ -936,6 +936,7 @@ public class Database {
         }
 
         songs.add(suggestInstantTuneFromDatabase(""));
+
         return (ArrayList<Song>) songs;
     }
 
