@@ -26,17 +26,17 @@ public class TuneUser {
         this.password = password;
         this.friends = friends;
         this.favouriteSongs = favouriteSongs;
-        this.tuneExistence = false;
         this.database = Controller.database;
+        this.tuneExistence = (!database.getUserTuneFromDatabase(username).equals(""));
         this.tunedSongs = tunedSongs;
         setImageWithIndex(imageIndex);
 
-
-        // For testing
-        //userTune = new Song("7KtPUqnxtCkfFfvot80yPM","Seattle", "eamon mo", "EN", 2024, "don't know", "relax", "https://media-hosting.imagekit.io/7d3c90f6e4e943b5/download.jpg?Expires=1841058444&Key-Pair-Id=K2ZIVPTIP2VGHC&Signature=Z0sv5NAwrgSZJiRumKf~2McaQoyh-Xlc513BiPIp88W~WiERxe8X6XADOAt272ykz88faEvAfUinnWLUS64cqSSkk39KdwVYeHT4RszLruiDjL77MBkkuaYHAJWTQ3qJ6to48BSEeYkkNv069UxtOAUHplneTdyySUh2t9a2s7ZqE089CtmU9TMN-UYXw6JurfMOZ9qUXzw8Ktf-YCuiDUYssQlSQg-1MXcdLclbWfuaNPHcHjM6SNUe3G4nlMh0JWACCHWw8jovKuH~HL2O7l8X5ZHL0Q1k-gdHAd1DHX8DtbCgILEfT9uxSNwX4zeAesKZbpgmPDp5oTjL129jCw__", 4);
-        //tuneNote = "I feel tremendous.";
     }
 
+    public void setTune() {
+        tuneNote = database.getTuneNoteFromDatabase(username);
+        userTune = database.searchSongInDatabase(database.getUserTuneFromDatabase(username));
+    }
 
     public boolean addSongToFavorites(String songName) {
         Song song = database.searchSongInDatabase(songName);
@@ -91,11 +91,11 @@ public class TuneUser {
         database.updateProfileImagoNoInDatabase(username, selectedProfileImg + "");
     }
 
-    public void setUserTune(boolean checkTuneExistence, Song tuneSong, String tuneNote) {
-        this.tuneExistence = tuneExistence;
+    public void updateUserTune(Song tuneSong, String tuneNote) {
+        this.tuneExistence = true;
         this.userTune = tuneSong;
         this.tuneNote = tuneNote;
-        //TODO: tune in database
+        database.setUserTuneInDatabase(username, tuneSong, tuneNote);
     }
 
     public void addSongToLastTunedSongs(String songName) {

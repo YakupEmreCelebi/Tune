@@ -2,8 +2,6 @@ package com.example.demo.Model;
 import com.mongodb.*;
 import com.mongodb.client.*;
 import com.mongodb.client.model.Filters;
-import com.mongodb.client.model.Projections;
-import com.mongodb.client.model.Sorts;
 import com.mongodb.client.result.DeleteResult;
 import com.mongodb.client.result.UpdateResult;
 import org.bson.Document;
@@ -122,7 +120,7 @@ public class Database {
                     ).first();
                     if (foundFriend != null) {
                         TuneUser aFriend = new TuneUser(foundFriend.getString("username"), "", "", 0, new ArrayList<TuneUser>(), new ArrayList<Song>(), new ArrayList<Song>(), Integer.parseInt(foundFriend.getString("profileImageNo")));
-
+                        aFriend.setTune();
                         friends.add(aFriend);
                     }
                 }
@@ -474,11 +472,10 @@ public class Database {
         try {
             // Update the user's tune
             UpdateResult result = collection.updateOne(
-                    new Document("username", username),  // Find the user by their username
-                    new Document("$set", new Document("userTune", tuneSong)) // Set the new tune
-                            .append("tuneNote", tuneNote)
+                    new Document("username", username),
+                    new Document("$set", new Document("userTune", tuneSong.getName())
+                            .append("tuneNote", tuneNote))
             );
-
             // Check if the update was successful
             if (result.getModifiedCount() > 0) {
                 System.out.println("User's tune updated successfully.");

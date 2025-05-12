@@ -148,6 +148,15 @@ public class Controller {
             });
         }
 
+        for (Node node : homeFrame.getFriendTunesNodeScroller().getNodes()) {
+            FriendNode friendNode = (FriendNode) node;
+            friendNode.setOnMouseClicked(new EventHandler<MouseEvent>() {
+                public void handle(MouseEvent event) {
+                    showPopUpShowFriendTune(friendNode.getFriend());
+                }
+            });
+        }
+
         for (int i = 0; i < profileFrame.getFriendScroller().getNodes().size(); i++) {
             Node node =  profileFrame.getFriendScroller().getNodes().get(i);
             if (i != profileFrame.getFriendScroller().getNodes().size() - 1) {
@@ -199,6 +208,43 @@ public class Controller {
                                 String addedFriendName = addFriend.getStringToUpdate();
                                 if (currentUser.addFriend(addedFriendName)) {
                                     profileFrame.resetUserFriends(currentUser);
+                                    FriendNode friendNode = (FriendNode) profileFrame.getFriendScroller().getNodes().get(
+                                            profileFrame.getFriendScroller().getNodes().size() - 2);
+                                    friendNode.setOnMouseClicked(new EventHandler<MouseEvent>() {
+                                        public void handle(MouseEvent event) {
+                                            TuneUser friend = database.searchTuneUserInDatabase(friendNode.getFriend().getUsername());
+                                            FriendProfileFrame friendProfileFrame = new FriendProfileFrame(friend);
+                                            mainStage.setScene(friendProfileFrame);
+                                            mainStage.setTitle(friend.getUsername());
+                                            mainStage.show();
+
+                                            friendProfileFrame.getNavigateBar().getProfileButton().setOnAction(new goToProfileFrame());
+                                            friendProfileFrame.getNavigateBar().getHomeButton().setOnAction(new goToHomeFrame());
+                                            friendProfileFrame.getNavigateBar().getTuneButton().setOnAction(new goToTuneFrame());
+                                            friendProfileFrame.getNavigateBar().getSettingsButton().setOnAction(new goToSettingsFrame());
+
+                                            for (int i = 0; i < friendProfileFrame.getFavSongScroller().getNodes().size(); i++) {
+                                                Node node = friendProfileFrame.getFavSongScroller().getNodes().get(i);
+                                                SongNode songNode = (SongNode) node;
+                                                songNode.setOnMouseClicked(new EventHandler<MouseEvent>() {
+                                                    public void handle(MouseEvent event) {
+                                                        playNewSong(songNode.getTheSong(), currentUser.getFavouriteSongs());
+                                                    }
+                                                });
+                                            }
+
+                                            for (int i = 0; i < friendProfileFrame.getRecentTunedScroller().getNodes().size(); i++) {
+                                                Node node = friendProfileFrame.getFavSongScroller().getNodes().get(i);
+                                                SongNode songNode = (SongNode) node;
+                                                songNode.setOnMouseClicked(new EventHandler<MouseEvent>() {
+                                                    public void handle(MouseEvent event) {
+                                                        playNewSong(songNode.getTheSong(), currentUser.getFavouriteSongs());
+                                                    }
+                                                });
+                                            }
+
+                                        }
+                                    });
                                     closePopUpStage();
                                 } else {
                                     System.out.println("no user");
@@ -232,6 +278,14 @@ public class Controller {
                                 if (currentUser.addSongToFavorites(addedSongName)) {
                                     profileFrame.resetUserFavSongs(currentUser);
                                     closePopUpStage();
+
+                                    SongNode songNode = (SongNode) profileFrame.getFavSongScroller().getNodes().get(profileFrame.getFavSongScroller().getNodes().size() - 2);
+                                    songNode.setOnMouseClicked(new EventHandler<MouseEvent>() {
+                                        public void handle(MouseEvent event) {
+                                            playNewSong(songNode.getTheSong(), currentUser.getFavouriteSongs());
+                                        }
+                                    });
+
                                 } else {
                                     System.out.println("no song");
                                 }
@@ -421,6 +475,7 @@ public class Controller {
     }
 
     public void showPopUpShowFriendTune(TuneUser aFriend){
+        System.out.println(aFriend.getTuneExistence());
         if (aFriend.getTuneExistence()) {
             popUpShowFriendTune = new PopUpShowFriendTune(aFriend);
             popUpStage.setScene(popUpShowFriendTune);
@@ -461,9 +516,16 @@ public class Controller {
     }
 
     public void showPopUpAddTune(){
-        popUpAddTune = new PopUpAddTune();
+        popUpAddTune = new PopUpAddTune(currentSong);
+        popUpAddTune.getAddYourTuneButton().setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent actionEvent) {
+                currentUser.updateUserTune(currentSong, popUpAddTune.getTuneNoteTextAreaText());
+            }
+        });
         popUpStage.setScene(popUpAddTune);
         popUpStage.show();
+        closePopUpStage();
     }
 
     public void removeAccount(){
