@@ -1,20 +1,22 @@
 package com.example.demo.View.Frames;
 
+import com.example.demo.Model.Database;
 import com.example.demo.Model.Song;
 import com.example.demo.Model.TuneUser;
 import com.example.demo.View.SpecialNodes.*;
-import javafx.animation.Transition;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
-import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
-import javafx.util.Duration;
+import javafx.stage.Popup;
 
 import java.util.ArrayList;
 
@@ -25,6 +27,8 @@ public class HomeFrame extends Scene {
     private NavigateBar navigateBar;
     private VBox container;
     private TextField searchBar;
+    private Button searchButton;
+    private HBox searchBarHBox;
     private NodeScroller friendTunesNodeScroller;
     private NodeScroller songNodeScroller;
     private ArrayList<Node> friendTuneNodes;
@@ -33,15 +37,18 @@ public class HomeFrame extends Scene {
     private ArrayList<Song> randomSongs;
     private SongPlayerNode songPlayer;
     private Song currentSong;
+    private StackPane stackPane;
+    private SearchSongsVBox searchSongsVBox;
 
 
-
-
-    public HomeFrame(TuneUser user, Song theSong, ArrayList<Song> randomSongs) {
+    public HomeFrame(TuneUser user, Song theSong, ArrayList<Song> randomSongs, Database database) {
         super(new HBox(40), getScreenWidth(), getScreenHeight());
         //this.getStylesheets().add(getClass().getResource("navBar.css").toExternalForm());
 
         currentSong = theSong;
+
+        stackPane = new StackPane();
+
 
         currentUser = user;
         friendTuneNodes = new ArrayList<Node>();
@@ -54,9 +61,7 @@ public class HomeFrame extends Scene {
 
         // Create friends node Scroller
         createNodeScrollers();
-
         constructSongPlayer();
-
 
 
         // container VBox
@@ -72,13 +77,25 @@ public class HomeFrame extends Scene {
         searchBar.setMaxWidth(350);
         searchBar.setPrefHeight(42);
 
+        // Search Button
+        searchButton = new Button("Search");
+
+        searchBarHBox = new HBox(20);
+        searchBarHBox.getChildren().addAll(searchBar, searchButton);
+        searchBarHBox.setAlignment(Pos.TOP_CENTER);
+
         // Add elements to container
-        constructContainer();
+        container.getChildren().addAll(searchBarHBox, songPlayer, songNodeScroller, friendTunesNodeScroller);
+
+        searchSongsVBox = new SearchSongsVBox("H", database);
+        searchSongsVBox.setVisible(false);
+        searchSongsVBox.setTranslateY(-80);
+        stackPane.getChildren().addAll(container, searchSongsVBox);
 
         // Layout
         HBox layout = (HBox) getRoot();
         layout.setOnMousePressed(new ChangeFocus());
-        layout.getChildren().addAll(navigateBar, container);
+        layout.getChildren().addAll(navigateBar, stackPane);
     }
 
     private void createNodeScrollers() {
@@ -98,10 +115,6 @@ public class HomeFrame extends Scene {
         friendTunesNodeScroller = new NodeScroller("Friends' Tunes", friendTuneNodes, 600);
     }
 
-    public void constructContainer() {
-        container.getChildren().clear();
-        container.getChildren().addAll(searchBar, songPlayer, songNodeScroller, friendTunesNodeScroller);
-    }
 
     public void resetNavigateBar(TuneUser user) {
         currentUser = user;
@@ -157,5 +170,14 @@ public class HomeFrame extends Scene {
     public SongPlayerNode getSongPlayer() {
         return songPlayer;
     }
+
+    public Button getSearchButton() {
+        return searchButton;
+    }
+
+    public SearchSongsVBox getSearchSongsVBox() {
+        return searchSongsVBox;
+    }
 }
+
 

@@ -377,7 +377,7 @@ public class Controller {
             currentSong = database.searchSongInDatabase("Until I Found You");
 
 
-            homeFrame = new HomeFrame(currentUser, currentSong, randomSongs);
+            homeFrame = new HomeFrame(currentUser, currentSong, randomSongs, database);
             profileFrame = new ProfileFrame(currentUser);
             tuneFrame = new TuneFrame(currentUser);
             settingsFrame = new SettingsFrame(currentUser);
@@ -387,6 +387,7 @@ public class Controller {
             homeFrame.getNavigateBar().getTuneButton().setOnAction(new goToTuneFrame());
             homeFrame.getNavigateBar().getSettingsButton().setOnAction(new goToSettingsFrame());
             homeFrame.getNavigateBar().getAddTuneButton().setOnAction(new goToPopUpAddTune());
+            homeFrame.getSearchButton().setOnAction(event -> {showSearchBarSongs();});
 
             profileFrame.getNavigateBar().getProfileButton().setOnAction(new goToProfileFrame());
             profileFrame.getNavigateBar().getHomeButton().setOnAction(new goToHomeFrame());
@@ -548,6 +549,10 @@ public class Controller {
         database.removeUserFromDatabase(currentUser.getUsername());
         showWelcomeFrame();
         closePopUpStage();
+    }
+
+    public void showSearchBarSongs(){
+        homeFrame.getSearchSongsVBox().setVisible(true);
     }
 
     // Inner Classes for Events
