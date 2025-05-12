@@ -4,6 +4,7 @@ import com.example.demo.Model.Database;
 import com.example.demo.Model.Song;
 import com.example.demo.Model.TuneUser;
 import com.example.demo.View.SpecialNodes.*;
+import javafx.animation.ScaleTransition;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -12,11 +13,14 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Popup;
+import javafx.util.Duration;
 
 import java.util.ArrayList;
 
@@ -29,6 +33,7 @@ public class HomeFrame extends Scene {
     private TextField searchBar;
     private Button searchButton;
     private HBox searchBarHBox;
+    private ImageView searchImageView;
     private NodeScroller friendTunesNodeScroller;
     private NodeScroller songNodeScroller;
     private ArrayList<Node> friendTuneNodes;
@@ -39,6 +44,7 @@ public class HomeFrame extends Scene {
     private Song currentSong;
     private StackPane stackPane;
     private SearchSongsVBox searchSongsVBox;
+
 
 
     public HomeFrame(TuneUser user, Song theSong, ArrayList<Song> randomSongs, Database database) {
@@ -75,21 +81,33 @@ public class HomeFrame extends Scene {
         searchBar.setPromptText("Search Music");
         searchBar.setStyle("-fx-border-radius: 30px; -fx-background-radius: 30px; -fx-focus-color: transparent; -fx-faint-focus-color: transparent; -fx-border-color: #ccc;");
         searchBar.setMaxWidth(350);
+        searchBar.setMinWidth(350);
         searchBar.setPrefHeight(42);
 
-        // Search Button
-        searchButton = new Button("Search");
+        // Search Image
+        Image searchImage = new Image(getClass().getResourceAsStream("/com/example/demo/search_ico.png"));
+        searchImageView = new ImageView(searchImage);
+        searchImageView.setFitWidth(25);
+        searchImageView.setPreserveRatio(true);
 
-        searchBarHBox = new HBox(20);
+        // Search Button
+        searchButton = new Button("", searchImageView);
+        searchButton.setStyle("-fx-background-color: transparent;");
+        addHoverEffect(searchButton);
+
+        searchBarHBox = new HBox(5);
         searchBarHBox.getChildren().addAll(searchBar, searchButton);
-        searchBarHBox.setAlignment(Pos.TOP_CENTER);
+        searchBarHBox.setMaxWidth(400);
+        searchBarHBox.setMinWidth(400);
+        searchBarHBox.setPrefWidth(400);
+        searchBarHBox.setPrefHeight(42);
+        searchBarHBox.setAlignment(Pos.CENTER);
 
         // Add elements to container
         container.getChildren().addAll(searchBarHBox, songPlayer, songNodeScroller, friendTunesNodeScroller);
 
         searchSongsVBox = new SearchSongsVBox("H", database);
         searchSongsVBox.setVisible(false);
-        searchSongsVBox.setTranslateY(-80);
         stackPane.getChildren().addAll(container, searchSongsVBox);
 
         // Layout
@@ -127,6 +145,32 @@ public class HomeFrame extends Scene {
         songPlayer = new SongPlayerNode(currentSong);
         songPlayer.setAlignment(Pos.CENTER);
 
+    }
+
+    private void addHoverEffect(Button button){
+        ScaleTransition scaleUp = new ScaleTransition(Duration.seconds(0.1), button);
+        scaleUp.setToX(1.05);
+        scaleUp.setToY(1.05);
+
+        ScaleTransition scaleDown = new ScaleTransition(Duration.seconds(0.1), button);
+        scaleDown.setToX(1.0);
+        scaleDown.setToY(1.0);
+
+        button.setOnMouseEntered(new EventHandler<MouseEvent>() {
+
+            @Override
+            public void handle(MouseEvent mouseEvent) {
+                scaleUp.play();
+            }
+        });
+
+        button.setOnMouseExited(new EventHandler<MouseEvent>() {
+
+            @Override
+            public void handle(MouseEvent mouseEvent) {
+                scaleDown.play();
+            }
+        });
     }
 
 
@@ -177,6 +221,14 @@ public class HomeFrame extends Scene {
 
     public SearchSongsVBox getSearchSongsVBox() {
         return searchSongsVBox;
+    }
+
+    public String getSearchBarText() {
+        return searchBar.getText();
+    }
+
+    public TextField getSearchBar() {
+        return searchBar;
     }
 }
 

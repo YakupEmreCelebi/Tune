@@ -107,8 +107,10 @@ public class Controller {
         welcomeFrame.getSignUpButton().setOnAction(new goToSignupFrame());
 
         loginFrame.getLoginButton().setOnAction(new loginFrameController());
+        loginFrame.getBackButton().setOnAction(new goToWelcomeFrame());
 
         signUpFrame.getSignupButton().setOnAction(new signUpFrameController());
+        signUpFrame.getBackButton().setOnAction(new goToWelcomeFrame());
 
 
     }
@@ -552,7 +554,18 @@ public class Controller {
     }
 
     public void showSearchBarSongs(){
+        homeFrame.getSearchSongsVBox().setSongs(database.suggestSearchBarTunesFromDatabase(homeFrame.getSearchBarText()));
         homeFrame.getSearchSongsVBox().setVisible(true);
+        for(int i=0; i<homeFrame.getSearchSongsVBox().getButtons().size(); i++){
+            int finalI = i;
+            homeFrame.getSearchSongsVBox().getButtons().get(i).setOnAction(actionEvent -> {homeFrame.getSearchSongsVBox().setVisible(false);
+                System.out.println(homeFrame.getSearchSongsVBox().getButtons().get(finalI).getText());
+                homeFrame.getSearchBar().clear();
+
+                // List can be fixed (2. argument)
+                playNewSong(database.searchSongInDatabase(homeFrame.getSearchSongsVBox().getButtons().get(finalI).getText()), homeFrame.getSearchSongsVBox().getSongs());
+            });
+        }
     }
 
     // Inner Classes for Events

@@ -19,6 +19,9 @@ public class SearchSongsVBox extends VBox {
     Database database;
     String text;
     ArrayList<Song> songs;
+    ArrayList<Button> buttons;
+    ImageView img;
+    Button b;
 
     public SearchSongsVBox(String text, Database database) {
         super(0);
@@ -26,35 +29,49 @@ public class SearchSongsVBox extends VBox {
         setMinWidth(400);
         setPadding(new Insets(10,0,0,0));
 
-        setStyle("-fx-background-color: white; -fx-border-radius: 10; -fx-background-radius: 10");
+        buttons = new ArrayList<>();
+
+        setStyle("-fx-background-color: white; -fx-border-radius: 10; -fx-background-radius: 10; -fx-border-color: black; -fx-border-width: 1");
 
         this.text = text;
         this.database = database;
 
         songs = database.suggestSearchBarTunesFromDatabase(text);
 
-        setMaxHeight(songs.size() * 100 + 20);
-        setMinHeight(songs.size() * 100 + 20);
+        setSongs(songs);
 
+
+
+        //this.getChildren().add(new Label(songs.get(0).getName()));
+        System.out.println(songs.size());
+    }
+
+    public void setSongs(ArrayList<Song> songList) {
+        this.getChildren().clear();
+        songs = songList;
         for(int i=0; i<songs.size(); i++) {
-            ImageView img = new ImageView(songs.get(i).getImage());
+            img = new ImageView(songs.get(i).getImage());
             img.setFitHeight(80);
-            img.setPreserveRatio(true);
-            Button b = new Button(songs.get(i).getName(), img);
+            img.setFitWidth(80);
+            img.setPreserveRatio(false);
+            b = new Button(songs.get(i).getName(), img);
+
             b.setAlignment(Pos.CENTER_LEFT);
             b.setMaxHeight(100);
             b.setMinHeight(100);
             b.setMaxWidth(400);
             setMinWidth(400);
             addHoverEffect(b);
+            buttons.add(b);
 
-            b.setStyle("-fx-background-color: transparent;");
+            b.setStyle("-fx-background-color: transparent; -fx-font-size: 15; -fx-font-family: Arial; -fx-font-weight: bold");
             this.getChildren().add(b);
-
         }
 
-        //this.getChildren().add(new Label(songs.get(0).getName()));
-        System.out.println(songs.size());
+        setMaxHeight(songs.size() * 100 + 20);
+        setMinHeight(songs.size() * 100 + 20);
+
+        this.setTranslateY(-80 + ((songs.size() - 5) * 50));
     }
 
     private void addHoverEffect(Button button) {
@@ -62,7 +79,7 @@ public class SearchSongsVBox extends VBox {
             @Override
             public void handle(MouseEvent event) {
 
-                button.setStyle("-fx-background-color: #e6e6e6;");
+                button.setStyle("-fx-background-color: #e6e6e6; -fx-font-size: 15; -fx-font-family: Arial; -fx-font-weight: bold");
             }
         });
 
@@ -70,8 +87,16 @@ public class SearchSongsVBox extends VBox {
             @Override
             public void handle(MouseEvent event) {
 
-                button.setStyle("-fx-background-color: transparent;");
+                button.setStyle("-fx-background-color: transparent; -fx-font-size: 15; -fx-font-family: Arial; -fx-font-weight: bold");
             }
         });
+    }
+
+    public ArrayList<Button> getButtons() {
+        return buttons;
+    }
+
+    public ArrayList<Song> getSongs() {
+        return songs;
     }
 }
