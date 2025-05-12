@@ -122,7 +122,7 @@ public class Database {
                     ).first();
                     if (foundFriend != null) {
                         TuneUser aFriend = new TuneUser(foundFriend.getString("username"), "", "", 0, new ArrayList<TuneUser>(), new ArrayList<Song>(), new ArrayList<Song>(), Integer.parseInt(foundFriend.getString("profileImageNo")));
-
+                        aFriend.setTune();
                         friends.add(aFriend);
                     }
                 }

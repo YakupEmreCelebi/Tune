@@ -521,11 +521,11 @@ public class Controller {
             @Override
             public void handle(ActionEvent actionEvent) {
                 currentUser.updateUserTune(currentSong, popUpAddTune.getTuneNoteTextAreaText());
+                closePopUpStage();
             }
         });
         popUpStage.setScene(popUpAddTune);
         popUpStage.show();
-        closePopUpStage();
     }
 
     public void removeAccount(){
