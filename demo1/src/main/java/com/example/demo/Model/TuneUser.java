@@ -28,6 +28,7 @@ public class TuneUser {
         this.favouriteSongs = favouriteSongs;
         this.database = Controller.database;
         this.tuneExistence = (!database.getUserTuneFromDatabase(username).equals(""));
+        if (tuneExistence) setTune();
         this.tunedSongs = tunedSongs;
         setImageWithIndex(imageIndex);
 

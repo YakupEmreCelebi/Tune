@@ -164,7 +164,7 @@ public class Controller {
                 friendNode.setOnMouseClicked(new EventHandler<MouseEvent>() {
                     public void handle(MouseEvent event) {
                         TuneUser friend = database.searchTuneUserInDatabase(friendNode.getFriend().getUsername());
-                        FriendProfileFrame friendProfileFrame = new FriendProfileFrame(friend);
+                        FriendProfileFrame friendProfileFrame = new FriendProfileFrame(friend, currentUser);
                         mainStage.setScene(friendProfileFrame);
                         mainStage.setTitle(friend.getUsername());
                         mainStage.show();
@@ -213,7 +213,7 @@ public class Controller {
                                     friendNode.setOnMouseClicked(new EventHandler<MouseEvent>() {
                                         public void handle(MouseEvent event) {
                                             TuneUser friend = database.searchTuneUserInDatabase(friendNode.getFriend().getUsername());
-                                            FriendProfileFrame friendProfileFrame = new FriendProfileFrame(friend);
+                                            FriendProfileFrame friendProfileFrame = new FriendProfileFrame(friend, currentUser);
                                             mainStage.setScene(friendProfileFrame);
                                             mainStage.setTitle(friend.getUsername());
                                             mainStage.show();
@@ -521,6 +521,11 @@ public class Controller {
             @Override
             public void handle(ActionEvent actionEvent) {
                 currentUser.updateUserTune(currentSong, popUpAddTune.getTuneNoteTextAreaText());
+                homeFrame.resetNavigateBar(currentUser);
+                profileFrame.resetNavigateBar(currentUser);
+                settingsFrame.resetNavigateBar(currentUser);
+                tuneFrame.resetNavigateBar(currentUser);
+
                 closePopUpStage();
             }
         });

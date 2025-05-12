@@ -40,11 +40,13 @@ public class FriendProfileFrame extends Scene {
     private ImageView profileImageView;
     private TuneUser currentFriend;
     private Image profileImage;
+    private TuneUser currentUser;
 
-    public FriendProfileFrame(TuneUser friend) {
+    public FriendProfileFrame(TuneUser friend, TuneUser currentUser) {
         super(new HBox(40), getScreenWidth() , getScreenHeight());
         currentFriend = friend;
-        navigateBar = new NavigateBar(currentFriend);
+        currentUser = currentUser;
+        navigateBar = new NavigateBar(currentUser);
 
         friendNodes = new ArrayList<Node>();
         favSongNodes = new ArrayList<Node>();
@@ -73,6 +75,8 @@ public class FriendProfileFrame extends Scene {
         // Alignments
         StackPane.setAlignment(navigateBar, Pos.TOP_LEFT);
     }
+
+
 
     private void createImage(){
         profileImageView = new ImageView(currentFriend.getProfileImage());

@@ -230,6 +230,11 @@ public class TuneFrame extends Scene {
         tuneWithFriendsVBox.getChildren().addAll(noOfTuneWithFriendsLabel, tuneWithFriendTitleLabel, tuneWithFriendImageView2);
     }
 
+    public void resetNavigateBar(TuneUser user) {
+        currentUser = user;
+        navigateBar.resetUsersTune(currentUser);
+    }
+
     private void createImages(){
 
         Image backgroundImage = new Image(getClass().getResourceAsStream("/com/example/demo/Tune_Background.png"));

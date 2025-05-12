@@ -100,6 +100,11 @@ public class HomeFrame extends Scene {
         container.getChildren().addAll(searchBar, songPlayer, songNodeScroller, friendTunesNodeScroller);
     }
 
+    public void resetNavigateBar(TuneUser user) {
+        currentUser = user;
+        navigateBar.resetUsersTune(currentUser);
+    }
+
 
     private static double getScreenWidth() {
         return getPrimary().getVisualBounds().getWidth();

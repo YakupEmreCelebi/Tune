@@ -474,9 +474,9 @@ public class Database {
         try {
             // Update the user's tune
             UpdateResult result = collection.updateOne(
-                    new Document("username", username),  // Find the user by their username
-                    new Document("$set", new Document("userTune", tuneSong)) // Set the new tune
-                            .append("tuneNote", tuneNote)
+                    new Document("username", username),
+                    new Document("$set", new Document("userTune", tuneSong.getName())
+                            .append("tuneNote", tuneNote))
             );
 
             // Check if the update was successful

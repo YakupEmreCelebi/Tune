@@ -101,6 +101,11 @@ public class SettingsFrame extends Scene {
         layout.getChildren().addAll(navigateBar, container);
     }
 
+    public void resetNavigateBar(TuneUser user) {
+        currentUser = user;
+        navigateBar.resetUsersTune(currentUser);
+    }
+
     private void createImages() {
         Image pencilImage = new Image(getClass().getResourceAsStream("/com/example/demo/pen2.png"));
         pencilImageView = new ImageView(pencilImage);

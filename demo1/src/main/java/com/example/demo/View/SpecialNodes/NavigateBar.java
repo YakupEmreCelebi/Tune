@@ -39,6 +39,7 @@ public class NavigateBar extends BorderPane {
     private String currentFrame;
     private TuneUser currentUser;
     private ImageView tuneImgView;
+    private VBox buttonNLabel;
 
     public NavigateBar(TuneUser currentUser) {
 
@@ -107,10 +108,17 @@ public class NavigateBar extends BorderPane {
         label.setAlignment(Pos.CENTER);
     }
 
-    private void createUsersTune() {
+    public void resetUsersTune(TuneUser currentUser) {
+        Image img = (!currentUser.getTuneExistence()) ? new Image(getClass().getResourceAsStream("/com/example/demo/plus_ico.png")) : currentUser.getTuneSong().getImage();
+        tuneImgView.setImage(img);
+        addTune.setGraphic(tuneImgView);
+        buttonNLabel.getChildren().set(0, addTune);
+    }
+
+    public void createUsersTune() {
         usersTune = new BorderPane();
         usersTune.setPrefSize(50,65);
-        VBox buttonNLabel = new VBox(20);
+        buttonNLabel = new VBox(20);
 
 
         Image img;
@@ -118,6 +126,7 @@ public class NavigateBar extends BorderPane {
         if (!currentUser.getTuneExistence())
         {
             img = new Image(getClass().getResourceAsStream("/com/example/demo/plus_ico.png"));
+
         }
         else
         {
@@ -184,14 +193,9 @@ public class NavigateBar extends BorderPane {
         usersTuneLabel.setAlignment(Pos.CENTER);
 
         buttonNLabel.setAlignment(Pos.CENTER);
-        buttonNLabel.getChildren().addAll(addTune,usersTuneLabel);
-
+        buttonNLabel.getChildren().setAll(addTune,usersTuneLabel);
 
         usersTune.setCenter(buttonNLabel);
-
-
-
-
     }
 
     private void animateButtonImage(double start, double end, double duration, ImageView imageView) {

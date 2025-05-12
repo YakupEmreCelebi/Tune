@@ -76,6 +76,11 @@ public class ProfileFrame extends Scene {
         StackPane.setAlignment(navigateBar, Pos.TOP_LEFT);
     }
 
+    public void resetNavigateBar(TuneUser user) {
+        currentUser = user;
+        navigateBar.resetUsersTune(currentUser);
+    }
+
     private void createImage(){
         profileImageView = new ImageView(currentUser.getProfileImage());
         profileImageView.setPreserveRatio(true);
