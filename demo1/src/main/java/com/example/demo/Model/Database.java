@@ -932,7 +932,8 @@ public class Database {
 
             if (songs.isEmpty()) {
                 System.out.println("No songs found matching the criteria.");
-                return suggestInstantTuneFromDatabase("");
+                songs.add(suggestInstantTuneFromDatabase(""));
+                return (ArrayList<Song>) songs;
             }
 
         } catch (MongoException e) {
