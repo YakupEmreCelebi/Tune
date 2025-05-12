@@ -930,17 +930,12 @@ public class Database {
                 songs.add(song);
             }
 
-            if (songs.isEmpty()) {
-                System.out.println("No songs found matching the criteria.");
-                return suggestInstantTuneFromDatabase("");
-            }
-
         } catch (MongoException e) {
             System.err.println("Error suggesting random tune: " + e.getMessage());
             return null;
         }
 
-
+        songs.add(suggestInstantTuneFromDatabase(""));
         return (ArrayList<Song>) songs;
     }
 
