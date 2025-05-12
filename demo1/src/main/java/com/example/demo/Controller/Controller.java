@@ -51,9 +51,14 @@ public class Controller {
     private PopUpRemoveAccount popUpRemoveAccount;
     private PopUpProfileImageSelection popUpProfileImageSelection;
     private PopUpAddTune popUpAddTune;
-    private PopUpQuestion popUpQuestion;
+    private PopUpQuestion popUpQuestion1;
+    private PopUpQuestion popUpQuestion2;
+    private PopUpQuestion popUpQuestion3;
+    private PopUpQuestion popUpQuestion4;
     private PopUpInstantTune popUpInstantTune;
     private ArrayList<Song> randomSongs;
+
+    private String detailedTuneChoices;
 
     private PopUpStage popUpStage;
 
@@ -99,6 +104,10 @@ public class Controller {
         loginFrame = new LoginFrame();
         signUpFrame = new SignUpFrame();
 
+        popUpQuestion1 = new PopUpQuestion("1. Mood", "Happy", "Sad", "Happy", "Energetic");
+        popUpQuestion2 = new PopUpQuestion("2. Genre", "Rock", "Jazz", "Metal", "Pop");
+        popUpQuestion3 = new PopUpQuestion("3. Language", "TR", "ENG", "ESP", "");
+        popUpQuestion4 = new PopUpQuestion("4. Year" , "1980-2000", "2000-2010", "2010-2025", "");
 
 
         popUpStage = new PopUpStage();
@@ -405,7 +414,7 @@ public class Controller {
             tuneFrame.getNavigateBar().getSettingsButton().setOnAction(new goToSettingsFrame());
             tuneFrame.getNavigateBar().getAddTuneButton().setOnAction(new goToPopUpAddTune());
 
-            tuneFrame.getDetailedTuneButton().setOnAction(actionEvent -> showPopUpQuestion());
+            tuneFrame.getDetailedTuneButton().setOnAction(actionEvent -> showPopUpQuestion1());
             tuneFrame.getInstantTuneButton().setOnAction(actionEvent -> {showPopUpInstantTune(database.suggestInstantTuneFromDatabase(currentUser.getUsername()));});
 
             settingsFrame.getNavigateBar().getProfileButton().setOnAction(new goToProfileFrame());
@@ -499,10 +508,34 @@ public class Controller {
         }
     }
 
-    public void showPopUpQuestion(){
-        popUpQuestion = new PopUpQuestion("1. Genre", "Rock", "Jazz", "Metal", "Pop");
-        popUpStage.setScene(popUpQuestion);
+    public void showPopUpQuestion1(){
+        detailedTuneChoices = "";
+        popUpStage.setScene(popUpQuestion1);
         popUpStage.show();
+        popUpQuestion1.getNextButton().setOnAction(actionEvent -> {showPopUpQuestion2();
+        detailedTuneChoices += popUpQuestion1.getChoice();});
+
+    }
+    public void showPopUpQuestion2(){
+        popUpStage.setScene(popUpQuestion2);
+        popUpStage.show();
+        popUpQuestion2.getNextButton().setOnAction(actionEvent -> {showPopUpQuestion3();
+        detailedTuneChoices += popUpQuestion2.getChoice();});
+
+    }
+    public void showPopUpQuestion3(){
+        popUpStage.setScene(popUpQuestion3);
+        popUpStage.show();
+        popUpQuestion3.getNextButton().setOnAction(actionEvent -> {showPopUpQuestion4();
+        detailedTuneChoices += popUpQuestion3.getChoice();});
+
+    }
+    public void showPopUpQuestion4(){
+        popUpStage.setScene(popUpQuestion4);
+        popUpStage.show();
+        popUpQuestion4.getNextButton().setOnAction(actionEvent -> {closePopUpStage();
+        detailedTuneChoices += popUpQuestion4.getChoice();
+            System.out.println(detailedTuneChoices);});
 
     }
 

@@ -50,6 +50,8 @@ public class PopUpQuestion extends PopUp{
     Button nextButton;
 
     Rectangle overlay;
+    String choice = "None";
+    HBox currentHBox;
 
 
     public PopUpQuestion(String question, String option1, String option2, String option3, String option4) {
@@ -177,13 +179,46 @@ public class PopUpQuestion extends PopUp{
     }
 
     public void setHBox(HBox hBox, Label label){
+        hBox.setOnMouseClicked(mouseEvent -> {currentHBox = hBox;
+            clearHBoxChoice(option1HBox);
+            clearHBoxChoice(option2HBox);
+            clearHBoxChoice(option3HBox);
+            clearHBoxChoice(option4HBox);
+
+            if(currentHBox == hBox){
+                hBox.setStyle("-fx-border-color: #95dc95; -fx-border-width: 3; -fx-background-color: green; -fx-background-radius: 5; -fx-border-radius: 5");
+            }
+
+            if(currentHBox == option1HBox){
+                choice = option1Label.getText();
+            }
+            if(currentHBox == option2HBox){
+                choice = option2Label.getText();
+            }
+            if(currentHBox == option3HBox){
+                choice = option3Label.getText();
+            }
+            if(currentHBox == option4HBox){
+                choice = option4Label.getText();
+            }
+
+            System.out.println(choice);
+
+            });
+
         hBox.getChildren().add(label);
         hBox.setStyle("-fx-border-color: black; -fx-border-width: 3; -fx-background-color: red; -fx-background-radius: 5; -fx-border-radius: 5");
         hBox.setPrefHeight(50);
         hBox.setAlignment(Pos.CENTER);
         hBox.setPadding(new Insets(0,0,0,10));
+
         addHoverEffect(hBox);
 
+    }
+
+    private void clearHBoxChoice(HBox hBox){
+
+        hBox.setStyle("-fx-border-color: black; -fx-border-width: 3; -fx-background-color: red; -fx-background-radius: 5; -fx-border-radius: 5");
     }
 
     private void addHoverEffect(HBox hBox) {
@@ -199,7 +234,10 @@ public class PopUpQuestion extends PopUp{
             @Override
             public void handle(MouseEvent event) {
 
-                hBox.setStyle("-fx-border-color: black; -fx-border-width: 3; -fx-background-color: red; -fx-background-radius: 5; -fx-border-radius: 5");
+                if(currentHBox != hBox){
+                    hBox.setStyle("-fx-border-color: black; -fx-border-width: 3; -fx-background-color: red; -fx-background-radius: 5; -fx-border-radius: 5");
+                }
+
             }
         });
     }
@@ -222,4 +260,11 @@ public class PopUpQuestion extends PopUp{
         });
     }
 
+    public Button getNextButton() {
+        return nextButton;
+    }
+
+    public String getChoice() {
+        return choice;
+    }
 }
