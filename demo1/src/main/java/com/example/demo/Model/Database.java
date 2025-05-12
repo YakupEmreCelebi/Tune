@@ -468,15 +468,15 @@ public class Database {
     }
 
 
-    public void setUserTuneInDatabase(String username, Song tuneSong, String tuneNote) {
+    //set user tune method
+    public void setUserTuneInDatabase(String username, String userTune, String tuneNote) {
         MongoCollection<Document> collection = database.getCollection("Users");
 
         try {
-            // Update the user's tune
+            // Update the user's tune and tune note
             UpdateResult result = collection.updateOne(
                     new Document("username", username),  // Find the user by their username
-                    new Document("$set", new Document("userTune", tuneSong)) // Set the new tune
-                            .append("tuneNote", tuneNote)
+                    new Document("$set", new Document("userTune", userTune).append("tuneNote", tuneNote)) // Set the new tune and note
             );
 
             // Check if the update was successful
