@@ -71,9 +71,9 @@ public class TuneFrame extends Scene {
         navigateBar = new NavigateBar(currentUser);
 
         //Buttons
-        instantTuneButton = new TuneButton("Instant Tune", 680, 150, tuneImageView);
-        tuneWithFriendButton = new TuneButton("Tune with a\n    Friend", 1100, 180, detailedTuneImageView);
-        detailedTuneButton = new TuneButton("Detailed Tune",820,430, tuneWithFriendImageView);
+        instantTuneButton = new TuneButton("Instant Tune", (int) (getScreenWidth() / 2.258), (int) (getScreenHeight() / 5.44), tuneImageView);
+        tuneWithFriendButton = new TuneButton("Tune with a\n    Friend", (int) (getScreenWidth() / 1.396) ,  (int) (getScreenHeight() / 4.533), detailedTuneImageView);
+        detailedTuneButton = new TuneButton("Detailed Tune", (int) (getScreenWidth() / 1.873),(int) (getScreenHeight() / 1.897), tuneWithFriendImageView);
         seeRecentTunedSongsButton = new Button("See recent tuned songs");
         seeRecentTunedSongsButton.setStyle("-fx-border-radius: 5; -fx-background-radius: 5; -fx-border-color: #2c2c2c; -fx-font-size: 13");
 
@@ -86,6 +86,9 @@ public class TuneFrame extends Scene {
 
         tuneWithFriendTitleLabel = new Label("Songs you tuned with a friend\n     what a catcher");
         tuneWithFriendTitleLabel.setStyle("-fx-font-size: 13; -fx-font-family: Arial; -fx-text-fill: #939393");
+
+        System.out.println(getScreenHeight());
+        System.out.println(getScreenWidth());
 
 
 
@@ -100,15 +103,17 @@ public class TuneFrame extends Scene {
 
         // Recent Tuned Songs VBox
         recentTunedSongsVBox = new VBox(7);
-        recentTunedSongsVBox.setLayoutY(600);
-        recentTunedSongsVBox.setLayoutX(350);
+        recentTunedSongsVBox.setLayoutY(getScreenHeight() - 180);
+        recentTunedSongsVBox.setLayoutX(getScreenWidth() / 5.5 + 20);
+        recentTunedSongsVBox.setMaxHeight(150);
+        recentTunedSongsVBox.setMinHeight(150);
         recentTunedSongsVBox.setPadding(new Insets(20,60,20,15));
         recentTunedSongsVBox.setStyle("-fx-border-color: #989898; -fx-border-width: 1px; -fx-background-radius: 5; -fx-border-radius: 5");
         constructRecentTunedSongs();
 
         // Tune With Friends VBox
         tuneWithFriendsVBox = new VBox(3);
-        tuneWithFriendsVBox.setLayoutX(1250);
+        tuneWithFriendsVBox.setLayoutX(getScreenWidth() - 270);
         tuneWithFriendsVBox.setLayoutY(50);
         tuneWithFriendsVBox.setPadding(new Insets(20,60,20,15));
         tuneWithFriendsVBox.setStyle("-fx-border-color: #989898; -fx-border-width: 1px; -fx-background-radius: 5; -fx-border-radius: 5");

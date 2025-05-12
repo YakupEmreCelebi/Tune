@@ -52,6 +52,7 @@ public class Controller {
     private PopUpProfileImageSelection popUpProfileImageSelection;
     private PopUpAddTune popUpAddTune;
     private PopUpQuestion popUpQuestion;
+    private PopUpInstantTune popUpInstantTune;
     private ArrayList<Song> randomSongs;
 
     private PopUpStage popUpStage;
@@ -405,6 +406,7 @@ public class Controller {
             tuneFrame.getNavigateBar().getAddTuneButton().setOnAction(new goToPopUpAddTune());
 
             tuneFrame.getDetailedTuneButton().setOnAction(actionEvent -> showPopUpQuestion());
+            tuneFrame.getInstantTuneButton().setOnAction(actionEvent -> {showPopUpInstantTune(database.suggestInstantTuneFromDatabase(currentUser.getUsername()));});
 
             settingsFrame.getNavigateBar().getProfileButton().setOnAction(new goToProfileFrame());
             settingsFrame.getNavigateBar().getHomeButton().setOnAction(new goToHomeFrame());
@@ -504,6 +506,20 @@ public class Controller {
 
     }
 
+    public void showPopUpInstantTune(Song song){
+        popUpInstantTune = new PopUpInstantTune(song);
+        popUpStage.setScene(popUpInstantTune);
+        popUpStage.show();
+        Song nextSong;
+        popUpInstantTune.getAnotherButton().setOnAction(actionEvent -> {
+            popUpInstantTune.changeSong(database.suggestInstantTuneFromDatabase(currentUser.getUsername()));});
+
+        popUpInstantTune.getAddToFavoritesButton().setOnAction(actionEvent -> {
+            addFavorites(popUpInstantTune.getSong());
+            closePopUpStage();
+        });
+    }
+
     public void showPopUpRemoveAccount(){
         popUpRemoveAccount = new PopUpRemoveAccount();
         popUpStage.setScene(popUpRemoveAccount);
@@ -553,6 +569,12 @@ public class Controller {
         closePopUpStage();
     }
 
+    public void addFavorites(Song song){
+        if (currentUser.addSongToFavorites(song.getName())) {
+            profileFrame.resetUserFavSongs(currentUser);
+        }
+    }
+
     public void showSearchBarSongs(){
         homeFrame.getSearchSongsVBox().setSongs(database.suggestSearchBarTunesFromDatabase(homeFrame.getSearchBarText()));
         homeFrame.getSearchSongsVBox().setVisible(true);
@@ -576,6 +598,7 @@ public class Controller {
             showWelcomeFrame();
         }
     }
+
 
     private class goToLoginFrame implements EventHandler<ActionEvent> {
         @Override
@@ -604,6 +627,7 @@ public class Controller {
             loginFrameOperations();
         }
     }
+
 
     private class goToHomeFrame implements EventHandler<ActionEvent> {
 
