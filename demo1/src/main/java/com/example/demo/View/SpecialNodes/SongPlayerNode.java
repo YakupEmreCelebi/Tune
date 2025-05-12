@@ -63,6 +63,7 @@ public class SongPlayerNode extends HBox {
         slider.setPrefWidth(400);
         slider.setMaxWidth(400);
         slider.getStyleClass().add("custom-slider");
+        slider.setDisable(true);
 
         // Label
         songLabel = new Label(song.getName());
@@ -75,7 +76,7 @@ public class SongPlayerNode extends HBox {
         buttonsHBox.setAlignment(Pos.CENTER);
 
         sliderHBox = new HBox();
-        sliderHBox.getChildren().addAll( startCircle, slider, endCircle);
+        sliderHBox.getChildren().addAll(startCircle, slider, endCircle);
         sliderHBox.setAlignment(Pos.CENTER);
 
         songTitleHBox = new HBox();

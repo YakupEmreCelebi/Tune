@@ -24,7 +24,7 @@ public class PopUpInstantTune extends PopUp{
         super(400, 350);
 
         this.song = song;
-        songNode = new SongNode(song, 300, 220, false);
+        songNode = new SongNode(song, 300, 220, true);
 
         // Buttons
         anotherButton = new Button("Get another song");

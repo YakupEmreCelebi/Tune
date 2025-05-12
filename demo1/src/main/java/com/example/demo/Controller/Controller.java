@@ -13,6 +13,7 @@ import com.example.demo.View.Stage.PopUpStage;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.Node;
+import javafx.scene.control.Slider;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
@@ -26,6 +27,8 @@ public class Controller {
 
     private TuneUser currentUser;
     private Song currentSong;
+    private int songIndex = 0;
+    private Timer sliderTimer;
 
     private ArrayList<Song> currentSongList;
     private boolean checkSongPlaying;
@@ -158,7 +161,7 @@ public class Controller {
             SongNode songNode = (SongNode) node;
             songNode.setOnMouseClicked(new EventHandler<MouseEvent>() {
                 public void handle(MouseEvent event) {
-                    playNewSong(songNode.getTheSong(), currentUser.getFavouriteSongs());
+                    playNewSong(songNode.getTheSong(), randomSongs);
                 }
             });
         }
@@ -206,7 +209,7 @@ public class Controller {
                             SongNode songNode = (SongNode) node;
                             songNode.setOnMouseClicked(new EventHandler<MouseEvent>() {
                                 public void handle(MouseEvent event) {
-                                    playNewSong(songNode.getTheSong(), currentUser.getFavouriteSongs());
+                                    playNewSong(songNode.getTheSong(), currentUser.getTunedSongs());
                                 }
                             });
                         }
@@ -251,11 +254,11 @@ public class Controller {
                                             }
 
                                             for (int i = 0; i < friendProfileFrame.getRecentTunedScroller().getNodes().size(); i++) {
-                                                Node node = friendProfileFrame.getFavSongScroller().getNodes().get(i);
+                                                Node node = friendProfileFrame.getRecentTunedScroller().getNodes().get(i);
                                                 SongNode songNode = (SongNode) node;
                                                 songNode.setOnMouseClicked(new EventHandler<MouseEvent>() {
                                                     public void handle(MouseEvent event) {
-                                                        playNewSong(songNode.getTheSong(), currentUser.getFavouriteSongs());
+                                                        playNewSong(songNode.getTheSong(), currentUser.getTunedSongs());
                                                     }
                                                 });
                                             }
@@ -346,6 +349,24 @@ public class Controller {
         });
 
 
+        tuneFrame.getDetailedTuneButton().setOnAction(actionEvent -> showPopUpQuestion1());
+        tuneFrame.getInstantTuneButton().setOnAction(actionEvent -> {
+            Song suggestedSong = database.suggestInstantTuneFromDatabase(currentUser.getUsername());
+            showPopUpInstantTune(suggestedSong);
+            currentUser.addSongToLastTunedSongs(suggestedSong.getName());
+            profileFrame.resetUserTunedSongs(currentUser);
+
+            SongNode songNode = (SongNode) profileFrame.getRecentTunedScroller().getNodes().get(profileFrame.getRecentTunedScroller().getNodes().size() - 2);
+            songNode.setOnMouseClicked(new EventHandler<MouseEvent>() {
+                public void handle(MouseEvent event) {
+                    playNewSong(songNode.getTheSong(), currentUser.getTunedSongs());
+                }
+            });
+
+
+        });
+
+
     }
 
     public void showWelcomeFrame() {
@@ -415,9 +436,6 @@ public class Controller {
             tuneFrame.getNavigateBar().getTuneButton().setOnAction(new goToTuneFrame());
             tuneFrame.getNavigateBar().getSettingsButton().setOnAction(new goToSettingsFrame());
             tuneFrame.getNavigateBar().getAddTuneButton().setOnAction(new goToPopUpAddTune());
-
-            tuneFrame.getDetailedTuneButton().setOnAction(actionEvent -> showPopUpQuestion1());
-            tuneFrame.getInstantTuneButton().setOnAction(actionEvent -> {showPopUpInstantTune(database.suggestInstantTuneFromDatabase(currentUser.getUsername()));});
 
             settingsFrame.getNavigateBar().getProfileButton().setOnAction(new goToProfileFrame());
             settingsFrame.getNavigateBar().getHomeButton().setOnAction(new goToHomeFrame());
@@ -564,7 +582,6 @@ public class Controller {
         });
 
 
-
         popUpStage.setOnCloseRequest(new EventHandler<>() {
             @Override
             public void handle(WindowEvent windowEvent) {
@@ -579,12 +596,23 @@ public class Controller {
         ArrayList<Song> suggestedSongs = database.suggestDetailedTuneFromDatabase(detailedTuneChoices);
         count = 0;
 
-        popUpInstantTune = new PopUpInstantTune(suggestedSongs.get(count++));
+        popUpInstantTune = new PopUpInstantTune(suggestedSongs.get(count));
+        currentUser.addSongToLastTunedSongs(suggestedSongs.get(count++).getName());
+        profileFrame.resetUserTunedSongs(currentUser);
+
+        SongNode songNode = (SongNode) profileFrame.getRecentTunedScroller().getNodes().get(profileFrame.getRecentTunedScroller().getNodes().size() - 2);
+        songNode.setOnMouseClicked(new EventHandler<MouseEvent>() {
+            public void handle(MouseEvent event) {
+                playNewSong(songNode.getTheSong(), currentUser.getTunedSongs());
+            }
+        });
         popUpStage.setScene(popUpInstantTune);
         popUpStage.show();
 
         popUpInstantTune.getAnotherButton().setOnAction(actionEvent -> {
-            if (count < suggestedSongs.size()) popUpInstantTune.changeSong(suggestedSongs.get(count++));
+            if (count < suggestedSongs.size()) {
+                popUpInstantTune.changeSong(suggestedSongs.get(count++));
+            }
             else System.out.println("no other suggestion");
         });
 
@@ -598,9 +626,10 @@ public class Controller {
         popUpInstantTune = new PopUpInstantTune(song);
         popUpStage.setScene(popUpInstantTune);
         popUpStage.show();
-        Song nextSong;
+
         popUpInstantTune.getAnotherButton().setOnAction(actionEvent -> {
-            popUpInstantTune.changeSong(database.suggestInstantTuneFromDatabase(currentUser.getUsername()));});
+            popUpInstantTune.changeSong(database.suggestInstantTuneFromDatabase(currentUser.getUsername()));
+        });
 
         popUpInstantTune.getAddToFavoritesButton().setOnAction(actionEvent -> {
             addFavorites(popUpInstantTune.getSong());
@@ -702,7 +731,7 @@ public class Controller {
                 homeFrame.getSearchBar().clear();
 
                 // List can be fixed (2. argument)
-                playNewSong(database.searchSongInDatabase(homeFrame.getSearchSongsVBox().getButtons().get(finalI).getText()), homeFrame.getSearchSongsVBox().getSongs());
+                playNewSong(database.searchSongInDatabase(homeFrame.getSearchSongsVBox().getButtons().get(finalI).getText()), currentSongList);
             });
         }
     }
@@ -848,8 +877,32 @@ public class Controller {
     }
 
     private void playNewSong(Song aSong, ArrayList<Song> aSongList) {
+        songIndex = 0;
         currentSong = aSong;
         homeFrame.getSongPlayer().resetCurrentSong(currentSong);
+
+//        Slider slider = homeFrame.getSlider();
+//        slider.setMin(0);
+//        slider.setMax(180);//currentSong.getDurationMS();
+//        slider.setValue(0);
+//
+//        try {
+//            sliderTimer = new Timer(1000, e -> {
+//                if (slider.getValue() < slider.getMax()) {
+//                    slider.setValue(slider.getValue() + 10);
+//                } else {
+//                    slider.setValue(0);
+//                    currentSong = currentSongList.get(songIndex++);
+//                    homeFrame.getSongPlayer().resetCurrentSong(currentSong);
+//                    slider.setMax(180);//currentSong.getDurationMS();
+//                }
+//            });
+//            sliderTimer.setRepeats(true);
+//            sliderTimer.start();
+//        } catch (Exception e) {
+//            throw new RuntimeException(e);
+//        }
+
 
         currentSongList = aSongList;
         api.startResumePlayback(currentSong, currentSongList);
@@ -859,6 +912,29 @@ public class Controller {
 
     private void playCurrentSong() {
         api.startResumePlayback();
+
+//        Slider slider = homeFrame.getSlider();
+//        slider.setMin(0);
+//        slider.setMax(currentSong.getDurationMS());
+//        slider.setValue(currentSong.getCurrentPositionMS());
+//
+//        try {
+//            sliderTimer = new Timer(1000, e -> {
+//                if (slider.getValue() <slider.getMax()) {
+//                    slider.setValue(slider.getValue() + 1);
+//                } else {
+//                    currentSong = currentSongList.get(songIndex++);
+//
+//                    slider.setMax(currentSong.getDurationMS());
+//                }
+//            });
+//            sliderTimer.setRepeats(true);
+//            sliderTimer.start();
+//        } catch (Exception e) {
+//            throw new RuntimeException(e);
+//        }
+
+
         homeFrame.getSongPlayer().setPlayingStatus(true);
         homeFrame.getSongPlayer().resetPlayButton();
     }
