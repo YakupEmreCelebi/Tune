@@ -88,6 +88,8 @@ public class Controller {
         randomSongs.add(testSong6);
         randomSongs.add(testSong7);
         randomSongs.add(testSong8);
+
+        currentSongList = randomSongs;
 //
         //currentUser = new TuneUser("Test", "Test123", "test@mail.com", 0, new ArrayList<TuneUser>(), randomSongs, 1); // waiting to be changed
         //for (Song aSong : randomSongs) currentUser.addSongToLastTunedSongs(aSong);
@@ -104,10 +106,10 @@ public class Controller {
         loginFrame = new LoginFrame();
         signUpFrame = new SignUpFrame();
 
-        popUpQuestion1 = new PopUpQuestion("1. Mood", "Happy", "Sad", "Happy", "Energetic");
-        popUpQuestion2 = new PopUpQuestion("2. Genre", "Rock", "Jazz", "Metal", "Pop");
-        popUpQuestion3 = new PopUpQuestion("3. Language", "TR", "ENG", "ESP", "");
-        popUpQuestion4 = new PopUpQuestion("4. Year" , "1980-2000", "2000-2010", "2010-2025", "");
+        popUpQuestion1 = new PopUpQuestion("1. Mood", "Happy", "Sad", "Romantic", "Dance");
+        popUpQuestion2 = new PopUpQuestion("2. Genre", "Rock", "Pop", "Rap", "Indie");
+        popUpQuestion3 = new PopUpQuestion("3. Language", "TR", "EN", "ESP", "");
+        popUpQuestion4 = new PopUpQuestion("4. Year" , "1960-1980", "1980-2000", "2000-2025", "");
 
 
         popUpStage = new PopUpStage();
@@ -482,6 +484,14 @@ public class Controller {
         popUpStage.setScene(popUpUpdate);
         popUpStage.setTitle(title);
         popUpStage.show();
+
+        popUpStage.setOnCloseRequest(new EventHandler<>() {
+            @Override
+            public void handle(WindowEvent windowEvent) {
+                return;
+            }
+        });
+
         popUpUpdate.getUpdateButton().setOnAction(new closePopUp());
     }
 
@@ -489,6 +499,13 @@ public class Controller {
         popUpStage.setScene(popUp);
         popUpStage.setTitle(title);
         popUpStage.show();
+
+        popUpStage.setOnCloseRequest(new EventHandler<>() {
+            @Override
+            public void handle(WindowEvent windowEvent) {
+                return;
+            }
+        });
 
     }
 
@@ -498,6 +515,7 @@ public class Controller {
             popUpShowFriendTune = new PopUpShowFriendTune(aFriend);
             popUpStage.setScene(popUpShowFriendTune);
             popUpStage.show();
+
 
             popUpStage.setOnCloseRequest(new EventHandler<>() {
                 @Override
@@ -513,30 +531,67 @@ public class Controller {
         popUpStage.setScene(popUpQuestion1);
         popUpStage.show();
         popUpQuestion1.getNextButton().setOnAction(actionEvent -> {showPopUpQuestion2();
-        detailedTuneChoices += popUpQuestion1.getChoice();});
+        detailedTuneChoices += popUpQuestion1.getChoice() + " ";});
 
     }
     public void showPopUpQuestion2(){
         popUpStage.setScene(popUpQuestion2);
         popUpStage.show();
         popUpQuestion2.getNextButton().setOnAction(actionEvent -> {showPopUpQuestion3();
-        detailedTuneChoices += popUpQuestion2.getChoice();});
+        detailedTuneChoices += popUpQuestion2.getChoice() + " ";});
 
     }
     public void showPopUpQuestion3(){
         popUpStage.setScene(popUpQuestion3);
         popUpStage.show();
         popUpQuestion3.getNextButton().setOnAction(actionEvent -> {showPopUpQuestion4();
-        detailedTuneChoices += popUpQuestion3.getChoice();});
+        detailedTuneChoices += popUpQuestion3.getChoice() + " ";});
 
     }
+
     public void showPopUpQuestion4(){
         popUpStage.setScene(popUpQuestion4);
         popUpStage.show();
-        popUpQuestion4.getNextButton().setOnAction(actionEvent -> {closePopUpStage();
-        detailedTuneChoices += popUpQuestion4.getChoice();
-            System.out.println(detailedTuneChoices);});
 
+        popUpQuestion4.getNextButton().setOnAction(new EventHandler<>() {
+            @Override
+            public void handle(ActionEvent actionEvent) {
+                closePopUpStage();
+                int year = Integer.parseInt(popUpQuestion4.getChoice().split("-")[1]);
+                detailedTuneChoices += year;
+                showPopUpDetailedTune();
+            }
+        });
+
+
+
+        popUpStage.setOnCloseRequest(new EventHandler<>() {
+            @Override
+            public void handle(WindowEvent windowEvent) {
+                return;
+            }
+        });
+
+    }
+
+    int count = 0;
+    public void showPopUpDetailedTune(){
+        ArrayList<Song> suggestedSongs = database.suggestDetailedTuneFromDatabase(detailedTuneChoices);
+        count = 0;
+
+        popUpInstantTune = new PopUpInstantTune(suggestedSongs.get(count++));
+        popUpStage.setScene(popUpInstantTune);
+        popUpStage.show();
+
+        popUpInstantTune.getAnotherButton().setOnAction(actionEvent -> {
+            if (count < suggestedSongs.size()) popUpInstantTune.changeSong(suggestedSongs.get(count++));
+            else System.out.println("no other suggestion");
+        });
+
+        popUpInstantTune.getAddToFavoritesButton().setOnAction(actionEvent -> {
+            addFavorites(popUpInstantTune.getSong());
+            closePopUpStage();
+        });
     }
 
     public void showPopUpInstantTune(Song song){
@@ -557,6 +612,13 @@ public class Controller {
         popUpRemoveAccount = new PopUpRemoveAccount();
         popUpStage.setScene(popUpRemoveAccount);
         popUpStage.show();
+
+        popUpStage.setOnCloseRequest(new EventHandler<>() {
+            @Override
+            public void handle(WindowEvent windowEvent) {
+                return;
+            }
+        });
         popUpRemoveAccount.getYesButton().setOnAction(actionEvent -> removeAccount());
         popUpRemoveAccount.getNoButton().setOnAction(actionEvent -> closePopUpStage());
 
@@ -566,6 +628,14 @@ public class Controller {
         popUpProfileImageSelection = new PopUpProfileImageSelection();
         popUpStage.setScene(popUpProfileImageSelection);
         popUpStage.show();
+
+        popUpStage.setOnCloseRequest(new EventHandler<>() {
+            @Override
+            public void handle(WindowEvent windowEvent) {
+                return;
+            }
+        });
+
         for(int i=0; i<popUpProfileImageSelection.getButtons().size(); i++){
             int finalI = i;
             popUpProfileImageSelection.getButtons().get(i).setOnAction(actionEvent -> {
@@ -594,6 +664,13 @@ public class Controller {
         });
         popUpStage.setScene(popUpAddTune);
         popUpStage.show();
+
+        popUpStage.setOnCloseRequest(new EventHandler<>() {
+            @Override
+            public void handle(WindowEvent windowEvent) {
+                return;
+            }
+        });
     }
 
     public void removeAccount(){
@@ -605,6 +682,13 @@ public class Controller {
     public void addFavorites(Song song){
         if (currentUser.addSongToFavorites(song.getName())) {
             profileFrame.resetUserFavSongs(currentUser);
+
+            SongNode songNode = (SongNode) profileFrame.getFavSongScroller().getNodes().get(profileFrame.getFavSongScroller().getNodes().size() - 2);
+            songNode.setOnMouseClicked(new EventHandler<MouseEvent>() {
+                public void handle(MouseEvent event) {
+                    playNewSong(songNode.getTheSong(), currentUser.getFavouriteSongs());
+                }
+            });
         }
     }
 

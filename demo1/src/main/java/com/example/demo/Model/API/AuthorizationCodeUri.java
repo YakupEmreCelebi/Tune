@@ -23,6 +23,7 @@ public class AuthorizationCodeUri {
 //          .scope("user-read-birthdate,user-read-email")
 //          .show_dialog(true)
             .scope("user-modify-playback-state")
+            .scope("user-read-currently-playing")
             .build();
 
     public static void authorizationCodeUri_Sync() {

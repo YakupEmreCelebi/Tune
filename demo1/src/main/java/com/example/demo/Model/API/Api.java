@@ -5,12 +5,11 @@ import com.google.gson.JsonArray;
 import se.michaelthelin.spotify.SpotifyApi;
 import se.michaelthelin.spotify.SpotifyHttpManager;
 import se.michaelthelin.spotify.exceptions.SpotifyWebApiException;
+import se.michaelthelin.spotify.model_objects.miscellaneous.CurrentlyPlaying;
+import se.michaelthelin.spotify.model_objects.miscellaneous.CurrentlyPlayingContext;
 import se.michaelthelin.spotify.model_objects.specification.Paging;
-import se.michaelthelin.spotify.requests.data.player.PauseUsersPlaybackRequest;
+import se.michaelthelin.spotify.requests.data.player.*;
 import org.apache.hc.core5.http.ParseException;
-import se.michaelthelin.spotify.requests.data.player.SkipUsersPlaybackToNextTrackRequest;
-import se.michaelthelin.spotify.requests.data.player.SkipUsersPlaybackToPreviousTrackRequest;
-import se.michaelthelin.spotify.requests.data.player.StartResumeUsersPlaybackRequest;
 import se.michaelthelin.spotify.model_objects.specification.Track;
 import se.michaelthelin.spotify.requests.data.search.simplified.SearchTracksRequest;
 import se.michaelthelin.spotify.requests.data.tracks.GetTrackRequest;
@@ -19,6 +18,9 @@ import java.io.IOException;
 import java.net.URI;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.concurrent.CancellationException;
+import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.CompletionException;
 
 public class Api {
 
@@ -26,7 +28,7 @@ public class Api {
     public static final String clientSecret = "89f49024768b4c5b837c2be769be09e8";
     public static final URI redirectUri = SpotifyHttpManager.makeUri("https://drallin.com/");
 
-    public static final String accessTokenAuth = "BQCQN51Fj6x604eBAeCezhrEK4giGDRwgSwkr1ROkf3qgcrfmgoEFg6Ji7LIpx4Jq7Oz3FltS68eQqaT7yeBI-MIz92_losim-bBAtPNEeIMQtMZ1om1p_LtcCzMDMIfkfTkYQqvM2OEADtHxqkvqEdAGYEnvOZffAjv4ie-IyJhMyec6AFzofjjcwccq4w2OKcAHgeDq42rNbpSQu0DcWou3J4ctWXOqGjeM6bQZ_WNfC0LWGpgtw";
+    public static final String accessTokenAuth = "BQB4Ykrjzrl56_IavDp5_KhbmQju-8NF_MIbShN_4Q7DWzqpfsg7sOYvCAu-oKQgRsRbNogDlq6uCvpyls6NsVQkAfJOL9XFumlj4AtbkKHOGn0LoZZO30hTVrIWOzb1y_hoU6eEXAh0MVck2yOs8XL5ly4TR-8gyvHyvZ3WobhBXUYF-DVMP9V1e_7W9PndMZlJLRWGMY-h3dJnWEYpCl1MfASg5MYe_ElfJwxtcCgIELl_VSoaVg";
     public static final String refreshTokenAuth = "AQCqgsOMEZWtLTJLcmNgkyRUv_jt07QHKW4Y0XqAHjqr0xqEdDf1wUjC6bCG969KKksECbY1ZfOnZ4JMRQwGoDbe8sahDgvfLcnsUhOZTEbxSbDrHqcC007sfng9w5SUsrs";
 
 
@@ -64,6 +66,13 @@ public class Api {
 //*          .uris(JsonParser.parseString("[\"spotify:track:01iyCAUm8EvOFqVWYJ3dVX\"]").getAsJsonArray())
 //*          .position_ms(10000)
 //            .build();
+
+    private static final GetUsersCurrentlyPlayingTrackRequest getUsersCurrentlyPlayingTrackRequest = spotifyApi
+            .getUsersCurrentlyPlayingTrack()
+//          .market(CountryCode.SE)
+            .additionalTypes("track")
+            .build();
+
 
 
 

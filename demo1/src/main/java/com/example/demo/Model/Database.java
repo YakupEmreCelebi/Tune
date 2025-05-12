@@ -915,7 +915,7 @@ public class Database {
     }
 
     //returns random if all parameters are together or returns null
-    public Song suggestDetailedTuneFromDatabase(String answerText) {
+    public ArrayList<Song> suggestDetailedTuneFromDatabase(String answerText) {
         MongoCollection<Document> collection = database.getCollection("Songs");
         List<Song> songs = new ArrayList<>();
 
@@ -940,8 +940,8 @@ public class Database {
             return null;
         }
 
-        Random random = new Random();
-        return songs.get(random.nextInt(songs.size()));
+
+        return (ArrayList<Song>) songs;
     }
 
     public ArrayList<Song> suggestSearchBarTunesFromDatabase(String songName) {
