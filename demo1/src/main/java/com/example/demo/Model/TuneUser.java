@@ -31,7 +31,10 @@ public class TuneUser {
         if (tuneExistence) setTune();
         this.tunedSongs = tunedSongs;
         setImageWithIndex(imageIndex);
+        this.numbOfTunedSongsWithFriends = database.getNumbOfTunedSongsWithFriendsFromDatabase(username);
     }
+
+
 
     public void setTune() {
         tuneNote = database.getTuneNoteFromDatabase(username);

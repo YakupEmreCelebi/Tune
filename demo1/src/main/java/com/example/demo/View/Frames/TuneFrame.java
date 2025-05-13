@@ -209,7 +209,6 @@ public class TuneFrame extends Scene {
     }
 
 
-
     public void constructRecentTunedSongs() {
         recentTunedSongsVBox.getChildren().clear();
         noOfTunedSongs = String.valueOf(currentUser.getTunedSongs().size());
