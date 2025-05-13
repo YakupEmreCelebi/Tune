@@ -256,7 +256,7 @@ public class Database {
 
         try {
             // Check if the new email already exists
-            boolean isUnique = checkIfUserUnique("", newEmail);
+            boolean isUnique = checkIfUserUnique("ghjglulgyghjghjgjgjghjgjgdfghjghjghjghjgjghjfhjfghfghffghfghfghgfhgffh", newEmail);
             if (!isUnique) {
                 System.out.println("Error: The new email is already in use.");
                 return false; // Return false if the new email is already in use

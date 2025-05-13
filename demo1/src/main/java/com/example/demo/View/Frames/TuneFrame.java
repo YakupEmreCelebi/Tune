@@ -72,8 +72,8 @@ public class TuneFrame extends Scene {
 
         //Buttons
         instantTuneButton = new TuneButton("Instant Tune", (int) (getScreenWidth() / 2.258), (int) (getScreenHeight() / 5.44), tuneImageView);
-        tuneWithFriendButton = new TuneButton("Tune with a\n    Friend", (int) (getScreenWidth() / 1.396) ,  (int) (getScreenHeight() / 4.533), detailedTuneImageView);
-        detailedTuneButton = new TuneButton("Detailed Tune", (int) (getScreenWidth() / 1.873),(int) (getScreenHeight() / 1.897), tuneWithFriendImageView);
+        tuneWithFriendButton = new TuneButton("Tune with a\n    Friend", (int) (getScreenWidth() / 1.396) ,  (int) (getScreenHeight() / 4.533), tuneWithFriendImageView);
+        detailedTuneButton = new TuneButton("Detailed Tune", (int) (getScreenWidth() / 1.873),(int) (getScreenHeight() / 1.897), detailedTuneImageView);
         seeRecentTunedSongsButton = new Button("See recent tuned songs");
         seeRecentTunedSongsButton.setStyle("-fx-border-radius: 5; -fx-background-radius: 5; -fx-border-color: #2c2c2c; -fx-font-size: 13");
 
