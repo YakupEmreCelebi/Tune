@@ -64,6 +64,7 @@ public class Controller {
     private PopUpQuestion popUpQuestion3;
     private PopUpQuestion popUpQuestion4;
     private PopUpInstantTune popUpInstantTune;
+    private PopUpTuneWithFriend popUpTuneWithFriend;
     private PopUpAboutTune popUpAboutTune;
     private PopUpAboutUs popUpAboutUs;
     private PopUpRemoveFriend popUpRemoveFriend;
@@ -362,6 +363,7 @@ public class Controller {
         });
 
 
+        tuneFrame.getTuneWithFriendButton().setOnAction(actionEvent -> {showPopUpTuneWithFriend();});
         tuneFrame.getDetailedTuneButton().setOnAction(actionEvent -> showPopUpQuestion1());
         tuneFrame.getInstantTuneButton().setOnAction(actionEvent -> {
             Song suggestedSong = database.suggestInstantTuneFromDatabase(currentUser.getUsername());
@@ -754,6 +756,12 @@ public class Controller {
                 return;
             }
         });
+    }
+
+    public void showPopUpTuneWithFriend(){
+        popUpTuneWithFriend = new PopUpTuneWithFriend(currentUser);
+        popUpStage.setScene(popUpTuneWithFriend);
+        popUpStage.show();
     }
 
     public void removeAccount(){
