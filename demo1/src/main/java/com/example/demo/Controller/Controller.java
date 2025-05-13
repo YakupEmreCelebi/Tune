@@ -625,8 +625,7 @@ public class Controller {
 
     }
 
-    public void showPopUpShowFriendTune(TuneUser aFriend, boolean wasPlaying){
-        System.out.println(aFriend.getTuneExistence());
+    public void showPopUpShowFriendTune(TuneUser aFriend, boolean wasPlaying) {
         if (aFriend.getTuneExistence()) {
             if (wasPlaying) {
                 pauseCurrentSong();
@@ -650,6 +649,7 @@ public class Controller {
                 @Override
                 public void handle(ActionEvent actionEvent) {
                     playNewSong(aFriend.getTuneSong(), currentSongList);
+                    closePopUpStage();
                 }
             });
 
