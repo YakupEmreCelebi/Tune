@@ -409,7 +409,12 @@ public class Controller {
 
         tuneFrame.getTuneWithFriendButton().setOnAction(actionEvent -> {
             showPopUpTuneWithFriend();
-            tuneFrame.changeTuneWithFriendsVBox(currentUser.getTunedSongs().size() + 1);
+
+            database.increaseNumbOfTunedSongsWithFriendsInDatabase(currentUser.getUsername());
+            currentUser.increaseNumbOfTunedSongsWithFriends();
+            tuneFrame.changeTuneWithFriendsVBox(currentUser.getNumbOfTunedSongsWithFriends());
+
+            tuneFrame.changeRecentTuneVBox(currentUser.getTunedSongs().size() + 1);
         });
         tuneFrame.getDetailedTuneButton().setOnAction(actionEvent -> showPopUpQuestion1());
         tuneFrame.getInstantTuneButton().setOnAction(actionEvent -> {
@@ -473,7 +478,6 @@ public class Controller {
             System.out.println("successfully logged in");
             currentUser = database.searchTuneUserInDatabase(loginFrame.getUsernameTextFieldText());
             currentSong = database.searchSongInDatabase("Until I Found You");
-
 
 
             homeFrame = new HomeFrame(currentUser, currentSong, randomSongs, database);
