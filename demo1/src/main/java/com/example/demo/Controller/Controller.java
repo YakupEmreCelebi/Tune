@@ -848,6 +848,7 @@ public class Controller {
 
     }
 
+
     public void showPopUpAddTune(){
         popUpAddTune = new PopUpAddTune(currentSong);
         popUpAddTune.getAddYourTuneButton().setOnAction(new EventHandler<ActionEvent>() {
