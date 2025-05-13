@@ -764,8 +764,10 @@ public class Controller {
         count = 0;
 
         popUpInstantTune = new PopUpInstantTune(suggestedSongs.get(count));
+        tuneFrame.setImageVBox(suggestedSongs.get(count));
         currentUser.addSongToLastTunedSongs(suggestedSongs.get(count++).getName());
         profileFrame.resetUserTunedSongs(currentUser);
+
 
         SongNode songNode = (SongNode) profileFrame.getRecentTunedScroller().getNodes().get(profileFrame.getRecentTunedScroller().getNodes().size() - 2);
         songNode.setOnMouseClicked(new EventHandler<MouseEvent>() {
@@ -779,6 +781,7 @@ public class Controller {
         popUpInstantTune.getAnotherButton().setOnAction(actionEvent -> {
             if (count < suggestedSongs.size()) {
                 popUpInstantTune.changeSong(suggestedSongs.get(count));
+                tuneFrame.setImageVBox(suggestedSongs.get(count));
                 currentUser.addSongToLastTunedSongs(suggestedSongs.get(count++).getName());
                 profileFrame.resetUserTunedSongs(currentUser);
             }
@@ -795,12 +798,14 @@ public class Controller {
         popUpInstantTune = new PopUpInstantTune(song);
         popUpStage.setScene(popUpInstantTune);
         popUpStage.show();
+        tuneFrame.setImageVBox(song);
 
         popUpInstantTune.getAnotherButton().setOnAction(actionEvent -> {
             Song suggestedSong = database.suggestInstantTuneFromDatabase(currentUser.getUsername());
             popUpInstantTune.changeSong(suggestedSong);
             currentUser.addSongToLastTunedSongs(suggestedSong.getName());
             profileFrame.resetUserTunedSongs(currentUser);
+            tuneFrame.setImageVBox(suggestedSong);
             tuneFrame.changeRecentTuneVBox(currentUser.getTunedSongs().size());
         });
 

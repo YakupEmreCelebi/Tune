@@ -221,11 +221,11 @@ public class TuneFrame extends Scene {
     public void constructImageVBox() {
         lastTunedSongVBox.getChildren().clear();
         if (currentUser.getTunedSongs().size() > 0) {
-            SongNode songNode = new SongNode(currentUser.getTunedSongs().get(0), 150, 150, true, false); // song parameter will change
+            SongNode songNode = new SongNode(currentUser.getTunedSongs().getLast(), 150, 150, true, false); // song parameter will change
             lastTunedSongVBox.getChildren().addAll(lastTunedSongLabel, songNode);
         } else {
             lastTunedSongLabel.setText("You haven't tuned any song so far!");
-            lastTunedSongVBox.getChildren().addAll(lastTunedSongLabel);
+            lastTunedSongVBox.getChildren().addAll(lastTunedSongLabel, null);
         }
     }
 
@@ -270,7 +270,7 @@ public class TuneFrame extends Scene {
         tuneWithFriendImageView2.setFitWidth(50);
     }
 
-    public void changeRecentTuneVBox(int number){
+    public void changeRecentTuneVBox(int number) {
         noOfTunedSongs = String.valueOf(number);
         noOfTunedSongsLabel.setText(noOfTunedSongs);
         recentTunedSongsVBox.getChildren().set(0, noOfTunedSongsLabel);
@@ -281,6 +281,11 @@ public class TuneFrame extends Scene {
         noOfTuneWithFriendsLabel.setText(noOfTuneWithFriends);
         noOfTuneWithFriendsLabel.setStyle("-fx-font-weight: bold; -fx-font-size: 16");
         tuneWithFriendsVBox.getChildren().set(0, noOfTuneWithFriendsLabel);
+    }
+
+    public void setImageVBox(Song song) {
+        SongNode songNode = new SongNode(song, 150, 150, true, false);
+        lastTunedSongVBox.getChildren().set(1, songNode);
     }
 
 

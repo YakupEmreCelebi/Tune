@@ -107,7 +107,7 @@ public class HomeFrame extends Scene {
         // Add elements to container
         container.getChildren().addAll(searchBarHBox, songPlayer, songNodeScroller, friendTunesNodeScroller);
 
-        searchSongsVBox = new SearchSongsVBox("H", database);
+        searchSongsVBox = new SearchSongsVBox("Highway", database);
         searchSongsVBox.setVisible(false);
         stackPane.getChildren().addAll(container, searchSongsVBox);
 
