@@ -24,7 +24,7 @@ public class PopUpInstantTune extends PopUp{
         super(400, 350);
 
         this.song = song;
-        songNode = new SongNode(song, 300, 220, true);
+        songNode = new SongNode(song, 300, 220, true, false);
 
         // Buttons
         anotherButton = new Button("Get another song");
@@ -89,7 +89,7 @@ public class PopUpInstantTune extends PopUp{
     public void changeSong(Song aSong) {
         this.song = aSong;
         System.out.println(song.getName());
-        songNode = new SongNode(song, 300, 220, false);
+        songNode = new SongNode(song, 300, 220, false, false);
         layout.getChildren().set(0, songNode);
     }
 

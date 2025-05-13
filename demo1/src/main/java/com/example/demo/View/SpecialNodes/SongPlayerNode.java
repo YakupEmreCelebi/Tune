@@ -85,7 +85,7 @@ public class SongPlayerNode extends HBox {
 
         // Song Node
 
-        songNode = new SongNode(theSong, 150,150, false);
+        songNode = new SongNode(theSong, 150,150, false, false);
 
         playerVBox = new VBox(8);
         playerVBox.getChildren().addAll(songTitleHBox, sliderHBox, buttonsHBox);
