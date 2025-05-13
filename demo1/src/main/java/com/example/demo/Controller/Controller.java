@@ -606,6 +606,12 @@ public class Controller {
     int count = 0;
     public void showPopUpDetailedTune(){
         ArrayList<Song> suggestedSongs = database.suggestDetailedTuneFromDatabase(detailedTuneChoices);
+        for (int i = 0; i < suggestedSongs.size(); i++) {
+            int randomIndex = (int) (Math.random() * suggestedSongs.size());
+            Song temp = suggestedSongs.get(i);
+            suggestedSongs.set(i, suggestedSongs.get(randomIndex));
+            suggestedSongs.set(randomIndex, temp);
+        }
         count = 0;
 
         popUpInstantTune = new PopUpInstantTune(suggestedSongs.get(count));
