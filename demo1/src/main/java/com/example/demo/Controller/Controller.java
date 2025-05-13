@@ -10,6 +10,8 @@ import com.example.demo.View.PopUpFrames.*;
 import com.example.demo.View.SpecialNodes.FriendNode;
 import com.example.demo.View.SpecialNodes.SongNode;
 import com.example.demo.View.Stage.PopUpStage;
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.Node;
@@ -17,9 +19,11 @@ import javafx.scene.control.Slider;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
+import javafx.util.Duration;
 
 import javax.swing.*;
 import java.util.ArrayList;
+import java.util.TimerTask;
 
 public class Controller {
 
@@ -28,7 +32,8 @@ public class Controller {
     private TuneUser currentUser;
     private Song currentSong;
     private int songIndex = 0;
-    private Timer sliderTimer;
+    private Timeline sliderTimeline;
+    private Slider slider;
 
     private ArrayList<Song> currentSongList;
     private boolean checkSongPlaying;
@@ -146,14 +151,14 @@ public class Controller {
         homeFrame.getSongPlayer().getNextButton().setOnAction(new EventHandler<>() {
             @Override
             public void handle(ActionEvent actionEvent) {
-                api.skipPlaybackToNextTrack();
+                skipToNextSong();
             }
         });
 
         homeFrame.getSongPlayer().getPreviousButton().setOnAction(new EventHandler<>() {
             @Override
             public void handle(ActionEvent actionEvent) {
-                api.skipPlaybackToPreviousTrack();
+                skipToPreviousSong();
             }
         });
 
@@ -171,7 +176,10 @@ public class Controller {
             friendNode.setOnMouseClicked(new EventHandler<MouseEvent>() {
                 public void handle(MouseEvent event) {
                     TuneUser friend = friendNode.getFriend();
-                    showPopUpShowFriendTune(friend);
+                    boolean wasPlaying = homeFrame.getSongPlayer().getPLayingStatus();
+                    showPopUpShowFriendTune(friend, wasPlaying);
+                    pauseCurrentSong();
+                    currentSong.setCurrentPositionMS((int) slider.getValue());
                     playFriendTuneSong(friend);
                 }
             });
@@ -527,7 +535,7 @@ public class Controller {
 
     }
 
-    public void showPopUpShowFriendTune(TuneUser aFriend){
+    public void showPopUpShowFriendTune(TuneUser aFriend, boolean wasPlaying){
         System.out.println(aFriend.getTuneExistence());
         if (aFriend.getTuneExistence()) {
             popUpShowFriendTune = new PopUpShowFriendTune(aFriend);
@@ -538,7 +546,11 @@ public class Controller {
             popUpStage.setOnCloseRequest(new EventHandler<>() {
                 @Override
                 public void handle(WindowEvent windowEvent) {
-                    playNewSong(currentSong, currentSongList);
+                    if (wasPlaying) playNewSong(currentSong, currentSongList);
+                    else {
+                        playNewSong(currentSong, currentSongList);
+                        pauseCurrentSong();
+                    }
                 }
             });
         }
@@ -852,13 +864,13 @@ public class Controller {
         }
     }
 
-    private class goToPopUpShowFriendTune implements EventHandler<ActionEvent> {
-
-        @Override
-        public void handle(ActionEvent actionEvent) {
-            showPopUpShowFriendTune(currentUser);
-        }
-    }
+//    private class goToPopUpShowFriendTune implements EventHandler<ActionEvent> {
+//
+//        @Override
+//        public void handle(ActionEvent actionEvent) {
+//            showPopUpShowFriendTune(currentUser);
+//        }
+//    }
 
     private class goToPopProfileImageSelection implements EventHandler<ActionEvent> {
 
@@ -881,28 +893,33 @@ public class Controller {
         currentSong = aSong;
         homeFrame.getSongPlayer().resetCurrentSong(currentSong);
 
-//        Slider slider = homeFrame.getSlider();
-//        slider.setMin(0);
-//        slider.setMax(180);//currentSong.getDurationMS();
-//        slider.setValue(0);
-//
-//        try {
-//            sliderTimer = new Timer(1000, e -> {
-//                if (slider.getValue() < slider.getMax()) {
-//                    slider.setValue(slider.getValue() + 10);
-//                } else {
-//                    slider.setValue(0);
-//                    currentSong = currentSongList.get(songIndex++);
-//                    homeFrame.getSongPlayer().resetCurrentSong(currentSong);
-//                    slider.setMax(180);//currentSong.getDurationMS();
-//                }
-//            });
-//            sliderTimer.setRepeats(true);
-//            sliderTimer.start();
-//        } catch (Exception e) {
-//            throw new RuntimeException(e);
-//        }
+        slider = homeFrame.getSlider();
+        slider.setMin(0);
+        slider.setMax(180);//currentSong.getDurationMS();
+        slider.setValue(0);
 
+        try {
+            sliderTimeline = new Timeline(
+                    new KeyFrame(Duration.seconds(1), e -> {
+                        if (slider.getValue() < slider.getMax()) {
+                            slider.setValue(slider.getValue() + 1);
+                        } else {
+                            slider.setValue(0);
+
+                            // move to next song
+                            currentSong = currentSongList.get(songIndex++);
+                            homeFrame.getSongPlayer().resetCurrentSong(currentSong);
+
+                            slider.setMax(180); // currentSong.getDurationMS();
+                        }
+                    })
+            );
+
+            sliderTimeline.setCycleCount(Timeline.INDEFINITE);
+            sliderTimeline.play();
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
 
         currentSongList = aSongList;
         api.startResumePlayback(currentSong, currentSongList);
@@ -912,35 +929,15 @@ public class Controller {
 
     private void playCurrentSong() {
         api.startResumePlayback();
-
-//        Slider slider = homeFrame.getSlider();
-//        slider.setMin(0);
-//        slider.setMax(currentSong.getDurationMS());
-//        slider.setValue(currentSong.getCurrentPositionMS());
-//
-//        try {
-//            sliderTimer = new Timer(1000, e -> {
-//                if (slider.getValue() <slider.getMax()) {
-//                    slider.setValue(slider.getValue() + 1);
-//                } else {
-//                    currentSong = currentSongList.get(songIndex++);
-//
-//                    slider.setMax(currentSong.getDurationMS());
-//                }
-//            });
-//            sliderTimer.setRepeats(true);
-//            sliderTimer.start();
-//        } catch (Exception e) {
-//            throw new RuntimeException(e);
-//        }
-
-
+        sliderTimeline.play();
         homeFrame.getSongPlayer().setPlayingStatus(true);
         homeFrame.getSongPlayer().resetPlayButton();
     }
 
     private void pauseCurrentSong() {
         api.pausePlayback();
+        currentSong.setCurrentPositionMS((int) slider.getValue());
+        sliderTimeline.pause();
         homeFrame.getSongPlayer().setPlayingStatus(false);
         homeFrame.getSongPlayer().resetPlayButton();
     }
@@ -948,6 +945,30 @@ public class Controller {
     private void playFriendTuneSong(TuneUser aFriend) {
         api.startTrackFromRandomPos(aFriend.getTuneSong());
     }
+
+    private void skipToNextSong() {
+        api.skipPlaybackToNextTrack();
+        currentSong = currentSongList.get(songIndex);
+        songIndex += 1;
+        homeFrame.getSongPlayer().resetCurrentSong(currentSong);
+        slider.setValue(0);
+        sliderTimeline.play();
+        homeFrame.getSongPlayer().setPlayingStatus(true);
+        homeFrame.getSongPlayer().resetPlayButton();
+    }
+
+    private void skipToPreviousSong() {
+        api.skipPlaybackToPreviousTrack();
+        if (currentSong == currentSongList.get(songIndex - 1)) songIndex -= 2;
+        else songIndex--;
+        currentSong = currentSongList.get(songIndex);
+        homeFrame.getSongPlayer().resetCurrentSong(currentSong);
+        slider.setValue(0);
+        sliderTimeline.play();
+        homeFrame.getSongPlayer().setPlayingStatus(true);
+        homeFrame.getSongPlayer().resetPlayButton();
+    }
+
 
 //    private Song searchSong(String songName) {
 //        return new Song();
