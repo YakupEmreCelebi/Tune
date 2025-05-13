@@ -200,6 +200,41 @@ public class HomeFrame extends Scene {
         }
     }
 
+    public void resetUserFriends(TuneUser user) {
+        currentUser = user;
+        for (int i = 0; i < currentUser.getFriends().size(); i++) {
+            TuneUser friend = currentUser.getFriends().get(i);
+            if (i > friendTuneNodes.size() - 1) {
+                FriendNode friendBox = new FriendNode(friend, true, true);
+                friendTuneNodes.add(i, friendBox);
+            }
+        }
+
+        friendTunesNodeScroller.setScrollPane(friendTuneNodes);
+        container.getChildren().set(3, friendTunesNodeScroller);
+    }
+
+    public void removeUserFriends(TuneUser user) {
+        currentUser = user;
+        boolean removed = false;
+        for (int i = 0; i < friendTuneNodes.size() && !removed; i++) {
+            if (i != friendTuneNodes.size() - 1) {
+                FriendNode friendNode = (FriendNode) friendTuneNodes.get(i);
+                if (currentUser.getFriends().size() > i) {
+                    if (!friendNode.getFriend().getUsername().equals(currentUser.getFriends().get(i).getUsername())) {
+                        friendTuneNodes.remove(i);
+                        removed = true;
+                    }
+                } else {
+                    friendTuneNodes.remove(i);
+                    removed = true;
+                }
+            }
+        }
+        friendTunesNodeScroller.setScrollPane(friendTuneNodes);
+        container.getChildren().set(3, friendTunesNodeScroller);
+    }
+
     public ArrayList<Node> getFriendsButtons() {
         return friendTuneNodes;
     }

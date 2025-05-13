@@ -95,6 +95,7 @@ public class ProfileFrame extends Scene {
     }
 
     public void resetUserFriends(TuneUser user) {
+        currentUser = user;
         for (int i = 0; i < currentUser.getFriends().size(); i++) {
             TuneUser friend = currentUser.getFriends().get(i);
             if (i > friendNodes.size() - 2) {
@@ -102,6 +103,28 @@ public class ProfileFrame extends Scene {
                 friendNodes.add(i, friendBox);
             }
         }
+        friendScroller.setScrollPane(friendNodes);
+        nodeScrollersVBox.getChildren().set(0, friendScroller);
+    }
+
+    public void removeUserFriends(TuneUser user) {
+        currentUser = user;
+        boolean removed = false;
+        for (int i = 0; i < friendNodes.size() && !removed; i++) {
+            if (i != friendNodes.size() - 1) {
+                FriendNode friendNode = (FriendNode) friendNodes.get(i);
+                if (currentUser.getFriends().size() > i) {
+                    if (!friendNode.getFriend().getUsername().equals(currentUser.getFriends().get(i).getUsername())) {
+                        friendNodes.remove(i);
+                        removed = true;
+                    }
+                } else {
+                    friendNodes.remove(i);
+                    removed = true;
+                }
+            }
+        }
+
         friendScroller.setScrollPane(friendNodes);
         nodeScrollersVBox.getChildren().set(0, friendScroller);
     }

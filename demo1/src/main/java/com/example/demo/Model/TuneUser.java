@@ -31,7 +31,6 @@ public class TuneUser {
         if (tuneExistence) setTune();
         this.tunedSongs = tunedSongs;
         setImageWithIndex(imageIndex);
-
     }
 
     public void setTune() {
@@ -57,8 +56,14 @@ public class TuneUser {
 
     public void removeFriend(String friendUsername) {
         database.removeFriendFromDatabase(username, friendUsername);
-        for (TuneUser aFriend : friends)
-            if (aFriend.getUsername().equals(friendUsername)) friends.remove(aFriend);
+        boolean removed = false;
+        for (int i = 0; i < friends.size() && !removed; i++){
+            TuneUser aFriend = friends.get(i);
+            if (aFriend.getUsername().equals(friendUsername)) {
+                friends.remove(aFriend);
+                removed = true;
+            }
+        }
     }
 
     public boolean addFriend(String friendUsername) {
