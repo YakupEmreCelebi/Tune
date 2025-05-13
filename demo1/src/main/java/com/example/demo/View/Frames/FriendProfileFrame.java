@@ -42,6 +42,8 @@ public class FriendProfileFrame extends Scene {
     private Image profileImage;
     private TuneUser currentUser;
 
+    private Button removeFriendButton;
+
     public FriendProfileFrame(TuneUser friend, TuneUser currentUser) {
         super(new HBox(40), getScreenWidth() , getScreenHeight());
         currentFriend = friend;
@@ -55,7 +57,7 @@ public class FriendProfileFrame extends Scene {
 
         //VBoxes
         profileVBox = new VBox();
-        profileVBox.setSpacing(3);
+        profileVBox.setSpacing(5);
         profileVBox.setPadding(new Insets(70,0,0,20));
         constructImageContainer();
 
@@ -88,12 +90,15 @@ public class FriendProfileFrame extends Scene {
     public void constructImageContainer() {
         profileVBox.getChildren().clear();
         createImage();
+        Label nameLabel = new Label(currentFriend.getUsername());
+        nameLabel.setFont(Font.font("Arial", FontWeight.BOLD, 39));
+        nameLabel.setMaxWidth(Double.MAX_VALUE);
+        nameLabel.setAlignment(Pos.CENTER);
 
-        Label friendName = new Label(currentFriend.getUsername());
-        friendName.setFont(Font.font("Arial", FontWeight.NORMAL, 16));
-        friendName.setAlignment(Pos.CENTER);
-        friendName.setTextAlignment(TextAlignment.CENTER);
-        profileVBox.getChildren().addAll(profileImageView, friendName);
+        removeFriendButton = new Button("Remove Friend");
+        removeFriendButton.setStyle("-fx-font-size: 18; -fx-background-color: black; -fx-text-fill: white;");
+        addHoverEffect(removeFriendButton);
+        profileVBox.getChildren().addAll(nameLabel, profileImageView, removeFriendButton);
     }
 
     private void createNodeScrollers() {
@@ -167,5 +172,9 @@ public class FriendProfileFrame extends Scene {
 
     public NodeScroller getRecentTunedScroller() {
         return recentTunedScroller;
+    }
+
+    public Button getRemoveFriendButton() {
+        return removeFriendButton;
     }
 }

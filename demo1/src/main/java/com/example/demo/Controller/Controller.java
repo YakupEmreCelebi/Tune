@@ -66,6 +66,7 @@ public class Controller {
     private PopUpInstantTune popUpInstantTune;
     private PopUpAboutTune popUpAboutTune;
     private PopUpAboutUs popUpAboutUs;
+    private PopUpRemoveFriend popUpRemoveFriend;
     private ArrayList<Song> randomSongs;
 
     private String detailedTuneChoices;
@@ -203,6 +204,8 @@ public class Controller {
                         friendProfileFrame.getNavigateBar().getHomeButton().setOnAction(new goToHomeFrame());
                         friendProfileFrame.getNavigateBar().getTuneButton().setOnAction(new goToTuneFrame());
                         friendProfileFrame.getNavigateBar().getSettingsButton().setOnAction(new goToSettingsFrame());
+
+                        friendProfileFrame.getRemoveFriendButton().setOnAction(new removeFriend(friend));
 
                         for (int i = 0; i < friendProfileFrame.getFavSongScroller().getNodes().size(); i++) {
                             Node node = friendProfileFrame.getFavSongScroller().getNodes().get(i);
@@ -784,6 +787,18 @@ public class Controller {
         popUpStage.show();
     }
 
+    public void showPopUpRemoveFriend(TuneUser friend) {
+        popUpRemoveFriend = new PopUpRemoveFriend(friend);
+        popUpStage.setScene(popUpRemoveFriend);
+        popUpStage.show();
+
+        popUpRemoveFriend.getNoButton().setOnAction(actionEvent -> {closePopUpStage();});
+
+        // TODO
+        // Should remove friend
+        popUpRemoveFriend.getYesButton().setOnAction(actionEvent -> {closePopUpStage();showHomeFrame();});
+    }
+
     public void showSearchBarSongs(){
         homeFrame.getSearchSongsVBox().setSongs(database.suggestSearchBarTunesFromDatabase(homeFrame.getSearchBarText()));
         homeFrame.getSearchSongsVBox().setVisible(true);
@@ -912,6 +927,19 @@ public class Controller {
         @Override
         public void handle(ActionEvent actionEvent) {
             showPopUpAddTune();
+        }
+    }
+
+    private class removeFriend implements EventHandler<ActionEvent> {
+
+        TuneUser friend;
+
+        public removeFriend(TuneUser friend) {
+            this.friend = friend;
+        }
+        @Override
+        public void handle(ActionEvent event) {
+            showPopUpRemoveFriend(friend);
         }
     }
 
