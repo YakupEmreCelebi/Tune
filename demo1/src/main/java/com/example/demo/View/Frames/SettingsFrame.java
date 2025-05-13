@@ -149,7 +149,7 @@ public class SettingsFrame extends Scene {
 
         public SettingsButton(String name, ImageView imageView) {
             super(name, imageView);
-            setStyle("-fx-font-weight: bold; -fx-alignment: CENTER_LEFT; -fx-font-size: 17");
+            setStyle("-fx-font-weight: bold; -fx-alignment: CENTER_LEFT; -fx-font-size: 17; -fx-background-color: transparent;");
             setGraphicTextGap(10);
             addHoverEffect(this);
             setPrefWidth(230);
@@ -168,7 +168,7 @@ public class SettingsFrame extends Scene {
                 @Override
                 public void handle(MouseEvent event) {
 
-                    button. setStyle("-fx-font-weight: bold; -fx-alignment: CENTER_LEFT; -fx-font-size: 17");
+                    button. setStyle("-fx-font-weight: bold; -fx-alignment: CENTER_LEFT; -fx-font-size: 17; -fx-background-color: transparent;");
                 }
             });
         }

@@ -34,7 +34,7 @@ public class PopUpShowFriendTune extends PopUp{
     ImageView imageView;
 
     public PopUpShowFriendTune(TuneUser user) {
-        super(470, 200);
+        super(490, 205);
 
         // Boxes
         buttonHBox = new HBox(20);
@@ -83,7 +83,7 @@ public class PopUpShowFriendTune extends PopUp{
         // Layout
         VBox layout = (VBox) getRoot();
         layout.setSpacing(10);
-        layout.setPadding(new Insets(0,0,0,20));
+        layout.setPadding(new Insets(5,0,0,20));
         layout.getChildren().addAll(songAndLabelHBox, buttonHBox);
     }
 

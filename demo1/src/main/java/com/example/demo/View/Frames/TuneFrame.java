@@ -75,7 +75,8 @@ public class TuneFrame extends Scene {
         tuneWithFriendButton = new TuneButton("Tune with a\n    Friend", (int) (getScreenWidth() / 1.396) ,  (int) (getScreenHeight() / 4.533), tuneWithFriendImageView);
         detailedTuneButton = new TuneButton("Detailed Tune", (int) (getScreenWidth() / 1.873),(int) (getScreenHeight() / 1.897), detailedTuneImageView);
         seeRecentTunedSongsButton = new Button("See recent tuned songs");
-        seeRecentTunedSongsButton.setStyle("-fx-border-radius: 5; -fx-background-radius: 5; -fx-border-color: #2c2c2c; -fx-font-size: 13");
+        seeRecentTunedSongsButton.setStyle("-fx-border-radius: 5; -fx-background-radius: 5; -fx-text-fill: white; -fx-font-size: 13; -fx-background-color: black");
+        addHoverEffect(seeRecentTunedSongsButton);
 
         //Labels
         lastTunedSongLabel = new Label("Last Tuned Song");
@@ -289,6 +290,32 @@ public class TuneFrame extends Scene {
         lastTunedSongLabel.setStyle("-fx-font-weight: bold; -fx-font-size: 21; -fx-font-family: Arial;");
 
         lastTunedSongVBox.getChildren().setAll(lastTunedSongLabel, songNode);
+    }
+
+    private void addHoverEffect(Button button){
+        ScaleTransition scaleUp = new ScaleTransition(Duration.seconds(0.1), button);
+        scaleUp.setToX(1.03);
+        scaleUp.setToY(1.03);
+
+        ScaleTransition scaleDown = new ScaleTransition(Duration.seconds(0.1), button);
+        scaleDown.setToX(1.0);
+        scaleDown.setToY(1.0);
+
+        button.setOnMouseEntered(new EventHandler<MouseEvent>() {
+
+            @Override
+            public void handle(MouseEvent mouseEvent) {
+                scaleUp.play();
+            }
+        });
+
+        button.setOnMouseExited(new EventHandler<MouseEvent>() {
+
+            @Override
+            public void handle(MouseEvent mouseEvent) {
+                scaleDown.play();
+            }
+        });
     }
 
 
