@@ -225,7 +225,8 @@ public class TuneFrame extends Scene {
             lastTunedSongVBox.getChildren().addAll(lastTunedSongLabel, songNode);
         } else {
             lastTunedSongLabel.setText("You haven't tuned any song so far!");
-            lastTunedSongVBox.getChildren().addAll(lastTunedSongLabel);
+            Label testLabel = new Label("");
+            lastTunedSongVBox.getChildren().addAll(lastTunedSongLabel, testLabel);
         }
     }
 
