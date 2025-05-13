@@ -124,6 +124,8 @@ public class Controller {
 
 
         popUpStage = new PopUpStage();
+        popUpStage.setResizable(false);
+        popUpStage.setTitle("TUNE");
 
         // Adding actions to the Buttons
         welcomeFrame.getLoginButton().setOnAction(new goToLoginFrame());

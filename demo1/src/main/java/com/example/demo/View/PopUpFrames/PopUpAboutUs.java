@@ -10,7 +10,7 @@ public class PopUpAboutUs extends PopUp{
     Label title;
 
     public PopUpAboutUs(){
-        super(1140,300);
+        super(1140,350);
 
         title = new Label("About Us – Pirates of Caribbean");
         title.setStyle("-fx-font-size: 20; -fx-font-weight: bold");
