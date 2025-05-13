@@ -286,7 +286,10 @@ public class TuneFrame extends Scene {
 
     public void setImageVBox(Song song) {
         SongNode songNode = new SongNode(song, 150, 150, true, false);
-        lastTunedSongVBox.getChildren().set(1, songNode);
+        lastTunedSongLabel = new Label("Last Tuned Song");
+        lastTunedSongLabel.setStyle("-fx-font-weight: bold; -fx-font-size: 21; -fx-font-family: Arial;");
+
+        lastTunedSongVBox.getChildren().setAll(lastTunedSongLabel, songNode);
     }
 
 
