@@ -475,6 +475,7 @@ public class Controller {
             currentSong = database.searchSongInDatabase("Until I Found You");
 
 
+
             homeFrame = new HomeFrame(currentUser, currentSong, randomSongs, database);
             profileFrame = new ProfileFrame(currentUser);
             tuneFrame = new TuneFrame(currentUser);
@@ -796,7 +797,7 @@ public class Controller {
             popUpInstantTune.changeSong(suggestedSong);
             currentUser.addSongToLastTunedSongs(suggestedSong.getName());
             profileFrame.resetUserTunedSongs(currentUser);
-            tuneFrame.changeRecentTuneVBox(currentUser.getTunedSongs().size() + 1);
+            tuneFrame.changeRecentTuneVBox(currentUser.getTunedSongs().size());
         });
 
         popUpInstantTune.getAddToFavoritesButton().setOnAction(actionEvent -> {

@@ -108,7 +108,7 @@ public class Database {
                     favSongs.add(searchSongInDatabase(songName));
                 }
 
-                ArrayList<String> tunedSongNames = (ArrayList<String>) foundUser.getList("tunedSongs", String.class);
+                ArrayList<String> tunedSongNames = (ArrayList<String>) foundUser.getList("tuneSongs", String.class);
                 for (String songName : tunedSongNames) {
                     tunedSongs.add(searchSongInDatabase(songName));
                 }

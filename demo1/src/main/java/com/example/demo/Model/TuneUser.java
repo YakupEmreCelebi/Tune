@@ -115,11 +115,9 @@ public class TuneUser {
         tunedSongs.add(database.searchSongInDatabase(songName));
     }
 
-
-
-    public void updateNumbOfTunedSongsWithFriends(int numbOfTunedSongsWithFriends) {
-        this.numbOfTunedSongsWithFriends = numbOfTunedSongsWithFriends;
-        //TODO: add numberofTunedSongsWithFriend to database
+    public void increaseNumbOfTunedSongsWithFriends() {
+        this.numbOfTunedSongsWithFriends++;
+        database.increaseNumbOfTunedSongsWithFriendsInDatabase(username);
     }
 
 
