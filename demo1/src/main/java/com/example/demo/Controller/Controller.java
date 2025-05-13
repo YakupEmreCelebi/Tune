@@ -64,6 +64,8 @@ public class Controller {
     private PopUpQuestion popUpQuestion3;
     private PopUpQuestion popUpQuestion4;
     private PopUpInstantTune popUpInstantTune;
+    private PopUpAboutTune popUpAboutTune;
+    private PopUpAboutUs popUpAboutUs;
     private ArrayList<Song> randomSongs;
 
     private String detailedTuneChoices;
@@ -455,6 +457,9 @@ public class Controller {
             settingsFrame.getPasswordButton().setOnAction(new goToPopUpUpdate("New Password" , "Password", "Update Password"));
             settingsFrame.getRemoveButton().setOnAction(new goToPopUpRemoveAccount());
 
+            settingsFrame.getAboutTuneButton().setOnAction(event -> {showPopUpAboutTune();});
+            settingsFrame.getAboutUsButton().setOnAction(event -> {showPopUpAboutUs();});
+
             setOtherActions();
 
             showHomeFrame();
@@ -765,6 +770,18 @@ public class Controller {
                 }
             });
         }
+    }
+
+    public void showPopUpAboutTune() {
+        popUpAboutTune = new PopUpAboutTune();
+        popUpStage.setScene(popUpAboutTune);
+        popUpStage.show();
+    }
+
+    public void showPopUpAboutUs() {
+        popUpAboutUs = new PopUpAboutUs();
+        popUpStage.setScene(popUpAboutUs);
+        popUpStage.show();
     }
 
     public void showSearchBarSongs(){

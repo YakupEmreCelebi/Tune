@@ -216,4 +216,12 @@ public class SettingsFrame extends Scene {
     public SettingsButton getPasswordButton() {
         return passwordButton;
     }
+
+    public SettingsButton getAboutTuneButton() {
+        return aboutTuneButton;
+    }
+
+    public SettingsButton getAboutUsButton() {
+        return aboutUsButton;
+    }
 }
