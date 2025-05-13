@@ -1,5 +1,6 @@
 package com.example.demo.View.PopUpFrames;
 
+import javafx.animation.ScaleTransition;
 import javafx.animation.Transition;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
@@ -51,18 +52,21 @@ public class PopUpQuestion extends PopUp{
 
     Rectangle overlay;
     String choice = "None";
-    HBox currentHBox;
+    HBox currentHBox = null;
 
 
-    public PopUpQuestion(String question, String option1, String option2, String option3, String option4) {
+    public PopUpQuestion(String question, String option1, String option2, String option3, String option4, String buttonText) {
         super(1000,600);
 
         // Button
-        nextButton = new Button("Next");
-        nextButton.setStyle("-fx-background-color: #c5a0e7; -fx-text-fill: black; -fx-font-size: 15; -fx-font-family: Arial; -fx-font-weight: bold");
+        nextButton = new Button(buttonText);
+        nextButton.setStyle("-fx-background-color: #B694EA; -fx-text-fill: white; -fx-font-size: 15; -fx-font-family: Arial; -fx-font-weight: bold; -fx-border-radius: 15; -fx-background-radius: 15");
         nextButton.setPrefWidth(500);
-        nextButton.setPrefHeight(50);
+        nextButton.setPrefHeight(44);
+        nextButton.setTranslateY(10);
         addHoverEffect(nextButton);
+
+
 
         // Image HBoxes
         imageHBox1 = new HBox();
@@ -70,39 +74,40 @@ public class PopUpQuestion extends PopUp{
 
         // Question elements
         questionLabel = new Label(question);
-        questionLabel.setStyle("-fx-text-fill: #290029; -fx-font-size: 21; -fx-font-weight: bold; ");
+        questionLabel.setStyle("-fx-text-fill: black; -fx-font-size: 22; -fx-font-weight: bold; ");
 
         questionHBox = new HBox();
         questionHBox.getChildren().add(questionLabel);
-        questionHBox.setStyle("-fx-border-color: black; -fx-border-width: 3; -fx-background-color: transparent;  -fx-background-radius: 5; -fx-border-radius: 5");
+        questionHBox.setStyle("-fx-background-color: transparent");
         questionHBox.setPrefHeight(60);
         questionHBox.setAlignment(Pos.CENTER);
         questionHBox.setPadding(new Insets(0,0,0,10));
 
         // Option 1 elements
         option1Label = new Label(option1);
-        option1Label.setStyle("-fx-text-fill: #290029; -fx-font-size: 18");
+        option1Label.setStyle("-fx-text-fill: #887EB9; -fx-font-size: 18");
 
         option1HBox = new HBox();
         setHBox(option1HBox, option1Label);
 
+
         // Option 2 elements
         option2Label = new Label(option2);
-        option2Label.setStyle("-fx-text-fill: #290029; -fx-font-size: 18");
+        option2Label.setStyle("-fx-text-fill: #887EB9; -fx-font-size: 18");
 
         option2HBox = new HBox();
         setHBox(option2HBox, option2Label);
 
         // Option 3 elements
         option3Label = new Label(option3);
-        option3Label.setStyle("-fx-text-fill:  #290029; -fx-font-size: 18");
+        option3Label.setStyle("-fx-text-fill:  #887EB9; -fx-font-size: 18");
 
         option3HBox = new HBox();
         setHBox(option3HBox, option3Label);
 
         // Option 4 elements
         option4Label = new Label(option4);
-        option4Label.setStyle("-fx-text-fill: #290029; -fx-font-size: 18");
+        option4Label.setStyle("-fx-text-fill: #887EB9; -fx-font-size: 18");
 
         option4HBox = new HBox();
         if(!option4.equals(""))
@@ -121,6 +126,8 @@ public class PopUpQuestion extends PopUp{
         mainVBox.setMaxWidth(500);
         mainVBox.setMaxHeight(500);
         mainVBox.setAlignment(Pos.CENTER);
+        mainVBox.setStyle("-fx-background-color: white; -fx-background-radius: 10; -fx-border-radius: 10");
+        mainVBox.setPadding(new Insets(0,30,0,30));
 
         createImages();
 
@@ -170,7 +177,7 @@ public class PopUpQuestion extends PopUp{
         backgroundImageView4.setFitHeight(300);
         backgroundImageView4.setPreserveRatio(true);
 
-        Image backgroundImage5 = new Image(getClass().getResourceAsStream("/com/example/demo/TuneBackground.png"));
+        Image backgroundImage5 = new Image(getClass().getResourceAsStream("/com/example/demo/questionpopup_background.jpg"));
         backgroundImageView5 = new ImageView(backgroundImage5);
         backgroundImageView5.setFitHeight(600);
         backgroundImageView5.setFitWidth(1000);
@@ -186,7 +193,7 @@ public class PopUpQuestion extends PopUp{
             clearHBoxChoice(option4HBox);
 
             if(currentHBox == hBox){
-                hBox.setStyle("-fx-border-color: #95dc95; -fx-border-width: 3; -fx-background-color: green; -fx-background-radius: 5; -fx-border-radius: 5");
+                hBox.setStyle("-fx-border-color: #887EB9; -fx-border-width: 2; -fx-background-color: #F2F0FE; -fx-background-radius: 3; -fx-border-radius: 3");
             }
 
             if(currentHBox == option1HBox){
@@ -207,7 +214,7 @@ public class PopUpQuestion extends PopUp{
             });
 
         hBox.getChildren().add(label);
-        hBox.setStyle("-fx-border-color: black; -fx-border-width: 3; -fx-background-color: red; -fx-background-radius: 5; -fx-border-radius: 5");
+        hBox.setStyle("-fx-border-color: #d1d1d1; -fx-border-width: 1; -fx-background-color: transparent; -fx-background-radius: 3; -fx-border-radius: 3");
         hBox.setPrefHeight(50);
         hBox.setAlignment(Pos.CENTER);
         hBox.setPadding(new Insets(0,0,0,10));
@@ -218,7 +225,7 @@ public class PopUpQuestion extends PopUp{
 
     private void clearHBoxChoice(HBox hBox){
 
-        hBox.setStyle("-fx-border-color: black; -fx-border-width: 3; -fx-background-color: red; -fx-background-radius: 5; -fx-border-radius: 5");
+        hBox.setStyle("-fx-border-color: #d1d1d1; -fx-border-width: 1; -fx-background-color: transparent; -fx-background-radius: 3; -fx-border-radius: 3");
     }
 
     private void addHoverEffect(HBox hBox) {
@@ -226,7 +233,7 @@ public class PopUpQuestion extends PopUp{
             @Override
             public void handle(MouseEvent event) {
 
-                hBox.setStyle("-fx-border-color: #95dc95; -fx-border-width: 3; -fx-background-color: green; -fx-background-radius: 5; -fx-border-radius: 5");
+                hBox.setStyle("-fx-border-color: #887EB9; -fx-border-width: 2; -fx-background-color: #F2F0FE; -fx-background-radius: 3; -fx-border-radius: 3");
             }
         });
 
@@ -235,27 +242,35 @@ public class PopUpQuestion extends PopUp{
             public void handle(MouseEvent event) {
 
                 if(currentHBox != hBox){
-                    hBox.setStyle("-fx-border-color: black; -fx-border-width: 3; -fx-background-color: red; -fx-background-radius: 5; -fx-border-radius: 5");
+                    hBox.setStyle("-fx-border-color: #d1d1d1; -fx-border-width: 1; -fx-background-color: transparent; -fx-background-radius: 3; -fx-border-radius: 3");
                 }
 
             }
         });
     }
 
-    private void addHoverEffect(Button button) {
-        button.setOnMouseEntered(new EventHandler<MouseEvent>() {
-            @Override
-            public void handle(MouseEvent event) {
+    private void addHoverEffect(Button button){
+        ScaleTransition scaleUp = new ScaleTransition(Duration.seconds(0.1), button);
+        scaleUp.setToX(1.03);
+        scaleUp.setToY(1.03);
 
-                button.setStyle("-fx-background-color: #95dc95; -fx-text-fill: black; -fx-font-size: 15; -fx-font-family: Arial; -fx-font-weight: bold");
+        ScaleTransition scaleDown = new ScaleTransition(Duration.seconds(0.1), button);
+        scaleDown.setToX(1.0);
+        scaleDown.setToY(1.0);
+
+        button.setOnMouseEntered(new EventHandler<MouseEvent>() {
+
+            @Override
+            public void handle(MouseEvent mouseEvent) {
+                scaleUp.play();
             }
         });
 
         button.setOnMouseExited(new EventHandler<MouseEvent>() {
-            @Override
-            public void handle(MouseEvent event) {
 
-                button.setStyle("-fx-background-color: #c5a0e7; -fx-text-fill: black; -fx-font-size: 15; -fx-font-family: Arial; -fx-font-weight: bold");
+            @Override
+            public void handle(MouseEvent mouseEvent) {
+                scaleDown.play();
             }
         });
     }

@@ -114,10 +114,10 @@ public class Controller {
         loginFrame = new LoginFrame();
         signUpFrame = new SignUpFrame();
 
-        popUpQuestion1 = new PopUpQuestion("1. Mood", "Happy", "Sad", "Romantic", "Dance");
-        popUpQuestion2 = new PopUpQuestion("2. Genre", "Rock", "Pop", "Rap", "Indie");
-        popUpQuestion3 = new PopUpQuestion("3. Language", "TR", "EN", "ESP", "");
-        popUpQuestion4 = new PopUpQuestion("4. Year" , "1960-1980", "1980-2000", "2000-2025", "");
+        popUpQuestion1 = new PopUpQuestion("1. What is your mood?", "Happy", "Sad", "Romantic", "Dance", "Next");
+        popUpQuestion2 = new PopUpQuestion("2. What is the genre?", "Rock", "Pop", "Rap", "Indie", "Next");
+        popUpQuestion3 = new PopUpQuestion("3. Which language?", "TR", "EN", "ESP", "", "Next");
+        popUpQuestion4 = new PopUpQuestion("4. Which year?" , "1960-1980", "1980-2000", "2000-2025", "", "Finish");
 
 
         popUpStage = new PopUpStage();
@@ -560,22 +560,50 @@ public class Controller {
         detailedTuneChoices = "";
         popUpStage.setScene(popUpQuestion1);
         popUpStage.show();
-        popUpQuestion1.getNextButton().setOnAction(actionEvent -> {showPopUpQuestion2();
-        detailedTuneChoices += popUpQuestion1.getChoice() + " ";});
+        popUpQuestion1.getNextButton().setOnAction(actionEvent -> {
+            if(!popUpQuestion1.getChoice().equals("None"))
+            {
+                showPopUpQuestion2();
+                detailedTuneChoices += popUpQuestion1.getChoice() + " ";
+            }
+            else
+            {
+
+            }
+       });
 
     }
     public void showPopUpQuestion2(){
         popUpStage.setScene(popUpQuestion2);
         popUpStage.show();
-        popUpQuestion2.getNextButton().setOnAction(actionEvent -> {showPopUpQuestion3();
-        detailedTuneChoices += popUpQuestion2.getChoice() + " ";});
+        popUpQuestion2.getNextButton().setOnAction(actionEvent -> {
+            if(!popUpQuestion2.getChoice().equals("None"))
+            {
+                showPopUpQuestion3();
+                detailedTuneChoices += popUpQuestion2.getChoice() + " ";
+            }
+            else
+            {
+
+            }
+        });
 
     }
     public void showPopUpQuestion3(){
         popUpStage.setScene(popUpQuestion3);
         popUpStage.show();
-        popUpQuestion3.getNextButton().setOnAction(actionEvent -> {showPopUpQuestion4();
-        detailedTuneChoices += popUpQuestion3.getChoice() + " ";});
+        popUpQuestion3.getNextButton().setOnAction(actionEvent -> {
+            if(!popUpQuestion3.getChoice().equals("None"))
+            {
+                showPopUpQuestion4();
+                detailedTuneChoices += popUpQuestion3.getChoice() + " ";
+            }
+            else
+            {
+
+            }
+
+        });
 
     }
 
