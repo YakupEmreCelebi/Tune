@@ -59,6 +59,7 @@ public class Database {
                     .append("userTune","") // empty string
                     .append("profileImageNo","0")
                     .append("numbOfTunedSongsWithFriends",0)
+                    .append("tuneSongs", List.of())
                     .append("tunedSongs", List.of())
                     .append("tuneNote",""); // empty string
                     // empty string
@@ -112,6 +113,7 @@ public class Database {
                 for (String songName : tunedSongNames) {
                     tunedSongs.add(searchSongInDatabase(songName));
                 }
+
 
                 ArrayList<String> friendNames = (ArrayList<String>) foundUser.getList("friends", String.class);
 

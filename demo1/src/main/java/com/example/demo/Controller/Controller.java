@@ -23,7 +23,6 @@ import javafx.util.Duration;
 
 import javax.swing.*;
 import java.util.ArrayList;
-import java.util.TimerTask;
 
 public class Controller {
 
@@ -409,12 +408,6 @@ public class Controller {
 
         tuneFrame.getTuneWithFriendButton().setOnAction(actionEvent -> {
             showPopUpTuneWithFriend();
-
-            database.increaseNumbOfTunedSongsWithFriendsInDatabase(currentUser.getUsername());
-            currentUser.increaseNumbOfTunedSongsWithFriends();
-            tuneFrame.changeTuneWithFriendsVBox(currentUser.getNumbOfTunedSongsWithFriends());
-
-            tuneFrame.changeRecentTuneVBox(currentUser.getTunedSongs().size() + 1);
         });
         tuneFrame.getDetailedTuneButton().setOnAction(actionEvent -> showPopUpQuestion1());
         tuneFrame.getInstantTuneButton().setOnAction(actionEvent -> {
@@ -430,9 +423,8 @@ public class Controller {
                     playNewSong(songNode.getTheSong(), currentUser.getTunedSongs());
                 }
             });
-
-
         });
+
 
 
     }
@@ -805,6 +797,12 @@ public class Controller {
             popUpInstantTune.changeSong(suggestedSong);
             currentUser.addSongToLastTunedSongs(suggestedSong.getName());
             profileFrame.resetUserTunedSongs(currentUser);
+            SongNode songNode = (SongNode) profileFrame.getRecentTunedScroller().getNodes().get(profileFrame.getRecentTunedScroller().getNodes().size() - 2);
+            songNode.setOnMouseClicked(new EventHandler<MouseEvent>() {
+                public void handle(MouseEvent event) {
+                    playNewSong(songNode.getTheSong(), currentUser.getTunedSongs());
+                }
+            });
             tuneFrame.setImageVBox(suggestedSong);
             tuneFrame.changeRecentTuneVBox(currentUser.getTunedSongs().size());
         });
@@ -813,6 +811,70 @@ public class Controller {
             addFavorites(popUpInstantTune.getSong());
             closePopUpStage();
         });
+    }
+
+    public void showPopUpTuneWFriend(String friendName){
+        Song suggestedSong = database.tuneWithFriend(currentUser.getUsername(), friendName);
+        currentUser.addSongToLastTunedSongs(suggestedSong.getName());
+        currentUser.increaseNumbOfTunedSongsWithFriends();
+        profileFrame.resetUserTunedSongs(currentUser);
+
+        SongNode songNode = (SongNode) profileFrame.getRecentTunedScroller().getNodes().get(profileFrame.getRecentTunedScroller().getNodes().size() - 2);
+        songNode.setOnMouseClicked(new EventHandler<MouseEvent>() {
+            public void handle(MouseEvent event) {
+                playNewSong(songNode.getTheSong(), currentUser.getTunedSongs());
+            }
+        });
+
+        tuneFrame.changeRecentTuneVBox(currentUser.getTunedSongs().size());
+        tuneFrame.changeTuneWithFriendsVBox(currentUser.getNumbOfTunedSongsWithFriends());
+        tuneFrame.setImageVBox(suggestedSong);
+
+
+        popUpInstantTune = new PopUpInstantTune(suggestedSong);
+        popUpStage.setScene(popUpInstantTune);
+        popUpStage.show();
+
+        popUpInstantTune.getAnotherButton().setOnAction(actionEvent -> {
+            Song suggestedSongOne = database.tuneWithFriend(currentUser.getUsername(), friendName);
+            popUpInstantTune.changeSong(suggestedSongOne);
+            currentUser.addSongToLastTunedSongs(suggestedSongOne.getName());
+            currentUser.increaseNumbOfTunedSongsWithFriends();
+            profileFrame.resetUserTunedSongs(currentUser);
+
+            SongNode songNodeOne = (SongNode) profileFrame.getRecentTunedScroller().getNodes().get(profileFrame.getRecentTunedScroller().getNodes().size() - 2);
+            songNodeOne.setOnMouseClicked(new EventHandler<MouseEvent>() {
+                public void handle(MouseEvent event) {
+                    playNewSong(songNodeOne.getTheSong(), currentUser.getTunedSongs());
+                }
+            });
+
+            tuneFrame.changeRecentTuneVBox(currentUser.getTunedSongs().size());
+            tuneFrame.changeTuneWithFriendsVBox(currentUser.getNumbOfTunedSongsWithFriends());
+            tuneFrame.setImageVBox(suggestedSongOne);
+        });
+
+        popUpInstantTune.getAddToFavoritesButton().setOnAction(actionEvent -> {
+            addFavorites(popUpInstantTune.getSong());
+            closePopUpStage();
+        });
+    }
+
+    public void showPopUpTuneWithFriend(){
+        popUpTuneWithFriend = new PopUpTuneWithFriend(currentUser);
+        popUpStage.setScene(popUpTuneWithFriend);
+        popUpStage.show();
+
+        ArrayList<Node> nodes =  popUpTuneWithFriend.getFriendTuneNodes();
+        for (Node aNode : nodes) {
+            FriendNode friendNode = (FriendNode) aNode;
+            friendNode.setOnMouseClicked(new EventHandler<MouseEvent>() {
+                @Override
+                public void handle(MouseEvent mouseEvent) {
+                    showPopUpTuneWFriend(friendNode.getFriend().getUsername());
+                }
+            });
+        }
     }
 
 
@@ -858,7 +920,7 @@ public class Controller {
     }
 
 
-    public void showPopUpAddTune(){
+    public void showPopUpAddTune() {
         popUpAddTune = new PopUpAddTune(currentSong);
         popUpAddTune.getAddYourTuneButton().setOnAction(new EventHandler<ActionEvent>() {
             @Override
@@ -883,11 +945,7 @@ public class Controller {
         });
     }
 
-    public void showPopUpTuneWithFriend(){
-        popUpTuneWithFriend = new PopUpTuneWithFriend(currentUser);
-        popUpStage.setScene(popUpTuneWithFriend);
-        popUpStage.show();
-    }
+
 
     public void removeAccount(){
         database.removeUserFromDatabase(currentUser.getUsername());

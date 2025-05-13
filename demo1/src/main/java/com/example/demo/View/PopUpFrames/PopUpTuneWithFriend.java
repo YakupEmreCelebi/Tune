@@ -46,10 +46,6 @@ public class PopUpTuneWithFriend extends PopUp{
         scrollPane.setMaxHeight(260);
 
 
-
-
-
-
         ((VBox) getRoot()).getChildren().add(scrollPane);
     }
 
@@ -61,5 +57,9 @@ public class PopUpTuneWithFriend extends PopUp{
         }
 
         friendTunesNodeScroller = new NodeScroller("Choose friend to Tune", friendTuneNodes, 600);
+    }
+
+    public ArrayList<Node> getFriendTuneNodes() {
+        return friendTuneNodes;
     }
 }
