@@ -451,8 +451,8 @@ public class Controller {
             settingsFrame.getNavigateBar().getSettingsButton().setOnAction(new goToSettingsFrame());
             settingsFrame.getNavigateBar().getAddTuneButton().setOnAction(new goToPopUpAddTune());
 
-            settingsFrame.getEmailButton().setOnAction(new goToPopUpUpdate("Email" , "Email", "Email"));
-            settingsFrame.getPasswordButton().setOnAction(new goToPopUpUpdate("Password" , "Password", "Password"));
+            settingsFrame.getEmailButton().setOnAction(new goToPopUpUpdate("New Email" , "Email", "Update Email"));
+            settingsFrame.getPasswordButton().setOnAction(new goToPopUpUpdate("New Password" , "Password", "Update Password"));
             settingsFrame.getRemoveButton().setOnAction(new goToPopUpRemoveAccount());
 
             setOtherActions();
