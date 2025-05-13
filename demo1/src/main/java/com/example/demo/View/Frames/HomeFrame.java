@@ -223,7 +223,7 @@ public class HomeFrame extends Scene {
         currentUser = user;
         boolean removed = false;
         for (int i = 0; i < friendTuneNodes.size() && !removed; i++) {
-            if (i != friendTuneNodes.size() - 1) {
+            if (i <= friendTuneNodes.size() - 1) {
                 FriendNode friendNode = (FriendNode) friendTuneNodes.get(i);
                 if (currentUser.getFriends().size() > i) {
                     if (!friendNode.getFriend().getUsername().equals(currentUser.getFriends().get(i).getUsername())) {

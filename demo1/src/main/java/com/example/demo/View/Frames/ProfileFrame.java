@@ -129,6 +129,28 @@ public class ProfileFrame extends Scene {
         nodeScrollersVBox.getChildren().set(0, friendScroller);
     }
 
+    public void removeFavSongs(TuneUser user) {
+        currentUser = user;
+        boolean removed = false;
+        for (int i = 0; i < favSongNodes.size() && !removed; i++) {
+            if (i != favSongNodes.size() - 1) {
+                SongNode songNode = (SongNode) favSongNodes.get(i);
+                if (currentUser.getFavouriteSongs().size() > i) {
+                    if (!songNode.getTheSong().getName().equals(currentUser.getFavouriteSongs().get(i).getName())) {
+                        favSongNodes.remove(i);
+                        removed = true;
+                    }
+                } else {
+                    favSongNodes.remove(i);
+                    removed = true;
+                }
+            }
+        }
+
+        favSongScroller.setScrollPane(favSongNodes);
+        nodeScrollersVBox.getChildren().set(0, favSongScroller);
+    }
+
     public void resetUserFavSongs(TuneUser user) {
         for (int i = 0; i < currentUser.getFavouriteSongs().size(); i++) {
             Song song = currentUser.getFavouriteSongs().get(i);

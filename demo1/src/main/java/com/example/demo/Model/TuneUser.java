@@ -50,8 +50,14 @@ public class TuneUser {
 
     public void removeSongFromFavorites(String songName) {
         database.removeSongFromFavoritesFromDatabase(username, songName);
-        for (Song aSong : favouriteSongs)
-            if (aSong.getName().equals(songName)) favouriteSongs.remove(aSong);
+        boolean removed = false;
+        for (int i = 0; i < favouriteSongs.size() && !removed; i++) {
+            Song aSong = favouriteSongs.get(i);
+            if (aSong.getName().equals(songName)) {
+                favouriteSongs.remove(aSong);
+                removed = true;
+            }
+        }
     }
 
     public void removeFriend(String friendUsername) {
