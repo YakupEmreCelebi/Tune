@@ -381,9 +381,13 @@ public class Controller {
         });
 
 
-        tuneFrame.getTuneWithFriendButton().setOnAction(actionEvent -> {showPopUpTuneWithFriend();});
+        tuneFrame.getTuneWithFriendButton().setOnAction(actionEvent -> {
+            showPopUpTuneWithFriend();
+            tuneFrame.changeTuneWithFriendsVBox(currentUser.getTunedSongs().size() + 1);
+        });
         tuneFrame.getDetailedTuneButton().setOnAction(actionEvent -> showPopUpQuestion1());
         tuneFrame.getInstantTuneButton().setOnAction(actionEvent -> {
+            tuneFrame.changeRecentTuneVBox(currentUser.getTunedSongs().size() + 1);
             Song suggestedSong = database.suggestInstantTuneFromDatabase(currentUser.getUsername());
             showPopUpInstantTune(suggestedSong);
             currentUser.addSongToLastTunedSongs(suggestedSong.getName());
@@ -546,7 +550,20 @@ public class Controller {
             }
         });
 
-        popUpUpdate.getUpdateButton().setOnAction(new closePopUp());
+        popUpUpdate.getUpdateButton().setOnAction(actionEvent -> {
+        if(textAreaPrompt.equals("Email"))
+        {
+            currentUser.updateMail(popUpUpdate.getStringToUpdate());
+            System.out.println("New email: " + popUpUpdate.getStringToUpdate() );
+        }
+        else if(textAreaPrompt.equals("Password"))
+        {
+            currentUser.updatePassword(popUpUpdate.getStringToUpdate());
+            System.out.println("New password: " + popUpUpdate.getStringToUpdate() );
+        }
+        popUpUpdate.getTextField().clear();
+            closePopUpStage();
+        });
     }
 
     public void showPopUpUp(PopUpUpdate popUp, String title){
@@ -658,6 +675,7 @@ public class Controller {
             @Override
             public void handle(ActionEvent actionEvent) {
                 closePopUpStage();
+                tuneFrame.changeRecentTuneVBox(currentUser.getTunedSongs().size() + 1);
                 int year = Integer.parseInt(popUpQuestion4.getChoice().split("-")[1]);
                 detailedTuneChoices += year;
                 showPopUpDetailedTune();
@@ -718,6 +736,7 @@ public class Controller {
 
         popUpInstantTune.getAnotherButton().setOnAction(actionEvent -> {
             popUpInstantTune.changeSong(database.suggestInstantTuneFromDatabase(currentUser.getUsername()));
+            tuneFrame.changeRecentTuneVBox(currentUser.getTunedSongs().size() + 1);
         });
 
         popUpInstantTune.getAddToFavoritesButton().setOnAction(actionEvent -> {

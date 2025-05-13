@@ -208,6 +208,8 @@ public class TuneFrame extends Scene {
         }
     }
 
+
+
     public void constructRecentTunedSongs() {
         recentTunedSongsVBox.getChildren().clear();
         noOfTunedSongs = String.valueOf(currentUser.getTunedSongs().size());
@@ -239,7 +241,6 @@ public class TuneFrame extends Scene {
         currentUser = user;
         navigateBar.resetUsersTune(currentUser);
     }
-
     private void createImages(){
 
         Image backgroundImage = new Image(getClass().getResourceAsStream("/com/example/demo/Tune_Background.png"));
@@ -267,6 +268,19 @@ public class TuneFrame extends Scene {
         tuneWithFriendImageView2 = new ImageView(tuneWithFriendImage2);
         tuneWithFriendImageView2.setPreserveRatio(true);
         tuneWithFriendImageView2.setFitWidth(50);
+    }
+
+    public void changeRecentTuneVBox(int number){
+        noOfTunedSongs = String.valueOf(number);
+        noOfTunedSongsLabel.setText(noOfTunedSongs);
+        recentTunedSongsVBox.getChildren().set(0, noOfTunedSongsLabel);
+    }
+
+    public void changeTuneWithFriendsVBox(int number){
+        noOfTuneWithFriends = String.valueOf(number);
+        noOfTuneWithFriendsLabel.setText(noOfTuneWithFriends);
+        noOfTuneWithFriendsLabel.setStyle("-fx-font-weight: bold; -fx-font-size: 16");
+        tuneWithFriendsVBox.getChildren().set(0, noOfTuneWithFriendsLabel);
     }
 
 

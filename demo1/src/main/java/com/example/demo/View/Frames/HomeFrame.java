@@ -194,9 +194,14 @@ public class HomeFrame extends Scene {
         public void handle(MouseEvent mouseEvent) {
             if(searchBar.isFocused())
             {
-                getRoot().requestFocus();
+                searchSongsVBox.setVisible(false);
                 searchBar.clear();
             }
+            if (searchSongsVBox.isVisible()) {
+                searchSongsVBox.setVisible(false);
+                searchBar.clear();
+            }
+            getRoot().requestFocus();
         }
     }
 

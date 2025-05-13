@@ -61,4 +61,8 @@ public class PopUpUpdate extends PopUp{
     public String getStringToUpdate() {
         return textField.getText();
     }
+
+    public TextField getTextField() {
+        return textField;
+    }
 }
