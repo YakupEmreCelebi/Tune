@@ -25,7 +25,18 @@ public class Song {
         this.year = year;
         this.genre = genre;
         this.mood = mood;
-        this.image = new Image(imageUrl);
+        if (imageUrl == null || imageUrl.isBlank() || !imageUrl.startsWith("http")) {
+            imageUrl = "https://imgur.com/czfSZQH.jpeg";
+        }
+
+        try {
+            this.image = new Image(imageUrl, true); // true: background loading
+        } catch (IllegalArgumentException e) {
+            System.out.println("Invalid image URL: " + imageUrl);
+            this.image = new Image("https://imgur.com/czfSZQH.jpeg");
+        }
+
+
         this.durationMS = durationMS;
         this.currentPositionMS = 0;
     }

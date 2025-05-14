@@ -9,6 +9,8 @@ import com.mongodb.client.result.UpdateResult;
 import org.bson.Document;
 import org.bson.conversions.Bson;
 
+import java.net.HttpURLConnection;
+import java.net.URL;
 import java.util.*;
 import java.util.regex.Pattern;
 
@@ -993,7 +995,48 @@ public class Database {
         return songs;
     }
 
+    public void checkAllSpotifyTracks() {
+        ArrayList<Song> songs = getAllSongsInDatabase();
 
+        for (Song song : songs) {
+            // Şarkının trackId'sini al
+            String trackID = song.getTrackID();
+            if (trackID != null && !trackID.isEmpty()) {
+                // Spotify linkini kontrol et
+                checkSpotifyTrackValid(trackID);
+            } else {
+                System.out.println("Track ID is missing for song: " + song.getName());
+            }
+        }
+    }
+
+    private void checkSpotifyTrackValid(String trackID) {
+        // Spotify linkini oluştur
+        String urlString = "https://open.spotify.com/intl-tr/track/" + trackID;
+        try {
+            // URL'yi oluştur
+            URL url = new URL(urlString);
+
+            // HTTP bağlantısı kur
+            HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+            connection.setRequestMethod("GET");
+            connection.setConnectTimeout(5000);  // 5 saniye zaman aşımı
+            connection.setReadTimeout(5000);
+
+            // HTTP yanıt kodunu al
+            int responseCode = connection.getResponseCode();
+
+            // Eğer yanıt kodu 200 ise, link geçerli
+            if (responseCode == HttpURLConnection.HTTP_OK) {
+                System.out.println("Valid track: " + urlString);
+            } else {
+                System.out.println("Track not found (Response code: " + responseCode + "): " + urlString);
+            }
+
+        } catch (Exception e) {
+            System.out.println("Error checking track: " + e.getMessage());
+        }
+    }
 
 
 
