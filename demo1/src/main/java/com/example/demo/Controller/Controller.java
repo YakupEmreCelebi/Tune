@@ -77,7 +77,6 @@ public class Controller {
         this.mainStage = stage;
 
 
-
         // For testing
         randomSongs = new ArrayList<Song>();
 
@@ -426,6 +425,8 @@ public class Controller {
                 }
             });
         });
+
+        settingsFrame.getLogoutButton().setOnAction(actionEvent -> {showWelcomeFrame();});
 
 
 
@@ -779,6 +780,12 @@ public class Controller {
                 tuneFrame.changeRecentTuneVBox(currentUser.getTunedSongs().size() + 1);
                 currentUser.addSongToLastTunedSongs(suggestedSongs.get(count++).getName());
                 profileFrame.resetUserTunedSongs(currentUser);
+                SongNode songNodeOne = (SongNode) profileFrame.getRecentTunedScroller().getNodes().get(profileFrame.getRecentTunedScroller().getNodes().size() - 2);
+                songNodeOne.setOnMouseClicked(new EventHandler<MouseEvent>() {
+                    public void handle(MouseEvent event) {
+                        playNewSong(songNodeOne.getTheSong(), currentUser.getTunedSongs());
+                    }
+                });
             }
             else System.out.println("no other suggestion");
         });

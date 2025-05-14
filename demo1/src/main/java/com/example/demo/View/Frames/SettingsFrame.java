@@ -39,12 +39,22 @@ public class SettingsFrame extends Scene {
     Label aboutLabel;
     Label settingsLabel;
     private TuneUser currentUser;
+    Button logoutButton;
+    HBox buttonHbox;
+    ImageView logoutImageView;
 
     public SettingsFrame(TuneUser currentUser) {
         super(new HBox(60), getScreenWidth(), getScreenHeight());
 
+        Image logoutImage = new Image(getClass().getResourceAsStream("/com/example/demo/logout.png"));
+        logoutImageView = new ImageView(logoutImage);
+        logoutImageView.setFitWidth(35);
+        logoutImageView.setPreserveRatio(true);
+
         this.getStylesheets().add(getClass().getResource("navBar.css").toExternalForm());
         this.currentUser = currentUser;
+
+        buttonHbox = new HBox(10);
 
         createImages();
 
@@ -56,6 +66,12 @@ public class SettingsFrame extends Scene {
         removeButton = new Button("Remove Account", deleteImageView);
         removeButton.setStyle("-fx-border-radius: 10;-fx-border-width: 2.5; -fx-background-radius: 10 ;-fx-font-size: 18; -fx-background-color: #e8e8e8; -fx-border-color: black");
         addHoverEffect(removeButton);
+
+        logoutButton = new Button("Log Out", logoutImageView) ;
+        logoutButton.setStyle("-fx-border-radius: 10;-fx-border-width: 2.5; -fx-background-radius: 10 ;-fx-font-size: 18; -fx-background-color: #e8e8e8; -fx-border-color: black");
+        addHoverEffect(logoutButton);
+
+        buttonHbox.getChildren().addAll(removeButton, logoutButton);
 
         // Labels
         aboutLabel = new Label("About");
@@ -84,14 +100,15 @@ public class SettingsFrame extends Scene {
         aboutVBox.setPadding(new Insets(20,0, 25, 35));
 
         //HBox for RemoveButton
-        removeButtonHBox = new HBox();
+        removeButtonHBox = new HBox(10);
         removeButtonHBox.setAlignment(Pos.CENTER);
 
         //Navigate Bar
         navigateBar = new NavigateBar(currentUser);
 
         // Add elements to VBoxes & HBox
-        removeButtonHBox.getChildren().addAll(removeButton);
+        removeButtonHBox.getChildren().addAll(removeButton, logoutButton);
+        removeButtonHBox.setAlignment(Pos.CENTER);
         accountVBox.getChildren().addAll(accountLabel, emailButton, passwordButton);
         aboutVBox.getChildren().addAll(aboutLabel, aboutUsButton, aboutTuneButton);
         container.getChildren().addAll(settingsLabel, accountVBox, aboutVBox, removeButtonHBox);
@@ -223,5 +240,9 @@ public class SettingsFrame extends Scene {
 
     public SettingsButton getAboutUsButton() {
         return aboutUsButton;
+    }
+
+    public Button getLogoutButton() {
+        return logoutButton;
     }
 }

@@ -35,6 +35,8 @@ public class LoginFrame extends Scene {
     private ImageView backImageView;
     private Button backButton;
 
+    private Button forgotButton;
+
     public LoginFrame() {
         super(new StackPane(), getScreenWidth(), getScreenHeight());
         this.getStylesheets().add(getClass().getResource("welcomeFrameStyle.css").toExternalForm());
@@ -53,6 +55,10 @@ public class LoginFrame extends Scene {
 
         // Buttons
         loginButton = new GeneralButton("Login");
+
+        forgotButton = new Button("Forgot Password");
+        forgotButton.setStyle("-fx-background-color: transparent;");
+        forgotButton.setFont(Font.font("Italic"));
 
         // Text fields for username and password
         usernameTextField = new TextField();
@@ -100,7 +106,7 @@ public class LoginFrame extends Scene {
 
         usernameVBox.getChildren().addAll(usernameLabel, usernameTextField);
         passwordVBox.getChildren().addAll(passwordLabel, passwordField);
-        allElementsVBox.getChildren().addAll(usernameVBox, passwordVBox, warningLabel, loginButton);
+        allElementsVBox.getChildren().addAll(usernameVBox, passwordVBox,  warningLabel, loginButton);
 
         usernameVBox.setAlignment(Pos.CENTER_LEFT);
         passwordVBox.setAlignment(Pos.CENTER_LEFT);
