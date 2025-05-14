@@ -776,6 +776,7 @@ public class Controller {
             if (count < suggestedSongs.size()) {
                 popUpInstantTune.changeSong(suggestedSongs.get(count));
                 tuneFrame.setImageVBox(suggestedSongs.get(count));
+                tuneFrame.changeRecentTuneVBox(currentUser.getTunedSongs().size() + 1);
                 currentUser.addSongToLastTunedSongs(suggestedSongs.get(count++).getName());
                 profileFrame.resetUserTunedSongs(currentUser);
             }
