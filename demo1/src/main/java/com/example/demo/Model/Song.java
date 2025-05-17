@@ -25,7 +25,7 @@ public class Song {
         this.year = year;
         this.genre = genre;
         this.mood = mood;
-        if (imageUrl == null || imageUrl.isBlank() || !imageUrl.startsWith("http")) {
+        if (imageUrl == null || imageUrl.isBlank() || !imageUrl.startsWith("http") || imageUrl.substring(0,13).equals("https://media") ) {
             imageUrl = "https://imgur.com/czfSZQH.jpeg";
         }
 
