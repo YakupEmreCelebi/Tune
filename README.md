@@ -17,7 +17,6 @@ Tune is a music application developed by a team of first-year Computer Engineeri
 - Java – Core application development
 - JavaFX – Graphical User Interface
 - MongoDB – Music data storage (remote)
-- Custom REST APIs – Data communication
 - Spotify Web API – Streaming music playback
 
 ## 👥 About Us
@@ -67,7 +66,7 @@ To run the Tune music application on your local machine, follow these steps:
      `MongoClient mongoClient = new MongoClient(new MongoClientURI("your-remote-mongodb-connection-string"));`
 
 5. Run the Application  
-   - just run Start.java
+   - Just run Start.java
 
 The application should launch with its full graphical interface and functionality, connected to the remote database.
 
