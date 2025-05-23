@@ -112,7 +112,7 @@ Tune Recommendation Screen
 
 
 Detailed Tune Recommendation Screen
-![Detailed Tune Recommendation Screen](screenshots/deatiledtunerecommendation.png)
+![Detailed Tune Recommendation Screen](screenshots/detailedtunerecommendation.png)
 
 
 ## 📄 License
