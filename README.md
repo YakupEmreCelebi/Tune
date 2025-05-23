@@ -16,7 +16,7 @@ Tune is a music application developed by a team of first-year Computer Engineeri
 - 🧠 Discover songs with detailed parameters (genre, mood, etc.)
 - 💬 Interact with Tune shares from your friends (songs and ratings)
 - 🎧 Automatically create your personalized Last Tuned playlist
-- 🎨 Customize your profile (avatar, bio, etc.)
+- 🎨 Customize your profile and personal informations (avatar, email, password, etc.)
 - 🌐 Access your music and profile online from anywhere in the world
 
 ## 🚀 Technologies Used
