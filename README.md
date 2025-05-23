@@ -1,5 +1,5 @@
 
-# 🎵 Tune - Music Application
+# 🎵 Tune - A Music Application
 
 Tune is a music application developed by a team of first-year Computer Engineering students at Bilkent University as part of our CS-102 course project. It was built with the aim of providing a simple and enjoyable way to explore and listen to music.
 
