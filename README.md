@@ -77,15 +77,43 @@ The application should launch with its full graphical interface and functionalit
 Here are some screenshots of the Tune application in action:
 
 🎵 Welcome Screen  
-![Home Screen](screenshots/welcome.png)
+![Welcome Screen](screenshots/welcome.png)
+
+
 
 Sign Up Screen  
-![Search Screen](screenshots/signup.png)
+![Sign Up Screen](screenshots/signup.png)
 
-Log In Screen 
-![Favorites Screen](screenshots/login.png)
 
-Make sure to upload your screenshots to the screenshots/ folder or update the paths if they are stored elsewhere.
+
+Login Screen 
+![Login Screen](screenshots/login.png)
+
+
+
+Home Screen
+![Home Screen](screenshots/home.png)
+
+
+
+Profile Screen
+![Profile Screen](screenshots/profile.png)
+
+
+
+Settings Screen
+![Settings Screen](screenshots/settings.png)
+
+
+
+Tune Recommendation Screen
+![Recommendation Screen](screenshots/tunerecommendation.png)
+
+
+
+Detailed Tune Recommendation Screen
+![Detailed Tune Recommendation Screen](screenshots/deatiledtunerecommendation.png)
+
 
 ## 📄 License
 
