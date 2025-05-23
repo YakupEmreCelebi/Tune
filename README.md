@@ -8,7 +8,6 @@ Tune is a music application developed by a team of first-year Computer Engineeri
 - 🎶 Browse a collection of songs
 - 🔍 Search songs by name
 - ❤️ Add songs to favorites
-- 🌐 Custom APIs for handling song data
 - ▶️ Play music directly via Spotify API integration
 - 🖥️ Intuitive and user-friendly UI
 - 🗄️ MongoDB-based database system (remote)
