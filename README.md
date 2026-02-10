@@ -43,7 +43,7 @@ Our app integrates the Spotify API to provide seamless music playback directly w
 - Yakup Emre Çelebi – UI Lead  
   In charge of crafting an intuitive and user-friendly interface for the application.
 
-- Enes Akbulut – Data Control  
+- Enes Akbulut – Data Control, API and Database Contributor
   In charge of sourcing songs and adding them to the database.
 
 - Yusuf Mert Balcı – Data Control  
